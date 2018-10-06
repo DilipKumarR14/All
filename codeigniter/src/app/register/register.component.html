@@ -1,11 +1,10 @@
-<!-- <br><br> -->
 <title>Welcome To Registeration</title>
 <mat-card class="heading">{{title}}</mat-card>
 <br>
 
 <div align="center" class="example-container">
-    <form>
-        <mat-card class="matstyle">
+    <form method="POST"> 
+        <mat-card>
                 <mat-card-title>Registeration Form</mat-card-title>
             <mat-form-field>
                 <input matInput maxlength="10" placeholder="Name" [formControl]="user" required autofocus name="name" [(ngModel)]="model.name">
@@ -17,7 +16,7 @@
             </mat-form-field>
 
             <mat-form-field>
-                <input matInput maxlength="10" placeholder="Mobile Number" [formControl]="mobile" required  [(ngModel)]="model.mobile">
+                <input matInput maxlength="10" placeholder="Mobile Number" [formControl]="mobile" name="mobile" required  [(ngModel)]="model.mobile">
                 <mat-error *ngIf="mobile.invalid">{{getMobileErrorMessage()}}</mat-error>
             </mat-form-field>
 
@@ -29,7 +28,7 @@
             </mat-form-field>
             <br><br>
             <div class="button-row">
-                <button mat-flat-button (click)="save()">Register</button>&nbsp;&nbsp;&nbsp;  
+                <button mat-flat-button (click)="save()">Registers</button>&nbsp;&nbsp;&nbsp;  
                 <a routerLink="/logins"><button mat-flat-button>Login</button></a>
             </div>
         </mat-card>

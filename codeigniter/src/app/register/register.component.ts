@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { DatabaseService } from '../service/database.service';
 import {Router} from '@angular/router';
+
+// import {Observable} from 'rxjs/Observable';
+import { Subject } from 'rxjs';
+
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -14,13 +19,19 @@ export class RegisterComponent{
 
   }
 public title="Welcome";
+/**
+ * @var email holds the email present in form data 
+ * @var user holds the name present in form data 
+ * @var mobile holds the mobile present in form data 
+ * @var passwd holds the password present in form data 
+ */
 email = new FormControl('', [Validators.required,Validators.email]);
 user = new FormControl('',[Validators.required,Validators.pattern("[A-Za-z]*")]);
-//a=this.user.value;
 user1 = this.user.value;
 mobile = new FormControl('',[Validators.required,Validators.pattern("[0-9]{10}")]);
 passwd= new FormControl('',[Validators.required]);
-model : any={};// fetching the value from form
+
+model : any = {};// fetching the value from form
 
 getErrorMessage() {
   return this.email.hasError('required') ? 'Email is required' :
@@ -46,19 +57,12 @@ getPasswordErrorMessage(){
 save()
 {
   var fetch=this.model;
-  
-  var name=fetch.name;
-  var email=fetch.email;
-  var mobile=fetch.mobile;
-  var password=fetch.passwd;
-
-  // this.service.Register()
-  // this.greeting="Clicked "; 
   debugger;
-  this.service.Register(fetch).subscriber((Statusdata:any)=>{
-    if(Statusdata.status == 1){
-      alert("success");
-    }
+  this.service.Register(fetch).subscribe((fetch:any)=>{
+    
   })
+    
+  
+
 }
 }

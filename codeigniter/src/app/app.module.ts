@@ -11,7 +11,9 @@ import { RegisterComponent } from './register/register.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { LoginsComponent } from './logins/logins.component';
-
+import {DatabaseService} from './service/database.service';
+import {RouterModule} from '@angular/router';
+import { HttpClientModule } from "@angular/common/http";
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +23,8 @@ import { LoginsComponent } from './logins/logins.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    RouterModule,
     AppRoutingModule,
     FormsModule,
     MatCardModule,
@@ -34,7 +38,7 @@ import { LoginsComponent } from './logins/logins.component';
     MatIconModule
 
   ],
-  providers: [],
+  providers: [DatabaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
