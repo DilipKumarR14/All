@@ -1,0 +1,9 @@
+private urlreg='http://localhost/codeigniter/reg';
+  constructor(private http:HttpClient) { }
+  Register(value: any):Observable<{}>{
+    let reg=new FormData();
+    reg.append('name',value[0].name);
+    reg.append('email',value[0].email);
+    reg.append('mobile',value[0].mobile);
+    reg.append('password',value[0].password);
+  }

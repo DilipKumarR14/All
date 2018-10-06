@@ -1,0 +1,27 @@
+<!-- <br><br> -->
+<title>Login Page</title>
+<mat-card class="heading">{{title}}</mat-card>
+<br>
+
+<div align="center" class="example-container">
+    <form>
+        <mat-card class="matstyle">
+            <mat-form-field>
+                <input matInput maxlength="10" placeholder="Name" [formControl]="user" required autofocus name="username" ngModel>
+                <mat-error *ngIf="user.invalid">{{getNameErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Password" required type="password" [formControl]="passwd" name="password" ngModel>
+                <mat-error *ngIf="passwd.invalid">{{getPasswordErrorMessage()}}</mat-error>
+
+                <!-- <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon> -->
+            </mat-form-field>
+            <br><br>
+            <div class="button-row">
+                <button mat-flat-button (click)="save()">Login</button>&nbsp;&nbsp;&nbsp;
+                <a routerLink="/register"><button mat-flat-button>Register</button></a>
+            </div>
+        </mat-card>
+    </form>
+</div>

@@ -1,0 +1,38 @@
+<!-- <br><br> -->
+<title>Welcome To Registeration</title>
+<mat-card class="heading">{{title}}</mat-card>
+<br>
+
+<div align="center" class="example-container">
+    <form>
+        <mat-card class="matstyle">
+                <mat-card-title>Registeration Form</mat-card-title>
+            <mat-form-field>
+                <input matInput maxlength="10" placeholder="Name" [formControl]="user" required autofocus name="name" [(ngModel)]="model.name">
+                <mat-error *ngIf="user.invalid">{{getNameErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Email" [formControl]="email" required name="email" [(ngModel)]="model.email">
+                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput maxlength="10" placeholder="Mobile Number" [formControl]="mobile" required  [(ngModel)]="model.mobile">
+                <mat-error *ngIf="mobile.invalid">{{getMobileErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Password" required type="password" [formControl]="passwd"  name="passwd" [(ngModel)]="model.passwd">
+                <mat-error *ngIf="passwd.invalid">{{getPasswordErrorMessage()}}</mat-error>
+
+                <!-- <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon> -->
+            </mat-form-field>
+            <br><br>
+            <div class="button-row">
+                <button mat-flat-button (click)="save()">Register</button>&nbsp;&nbsp;&nbsp;  
+                <a routerLink="/logins"><button mat-flat-button>Login</button></a>
+            </div>
+        </mat-card>
+        <!-- {{greeting}} -->
+    </form>
+</div>
