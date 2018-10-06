@@ -1,0 +1,6 @@
+[24-Sep-2018 14:24:48 Asia/Calcutta] PHP Warning:  require_once(file.txt): failed to open stream: No such file or directory in /var/www/html/errorlogger/logger.php on line 6
+[24-Sep-2018 14:24:48 Asia/Calcutta] PHP Stack trace:
+[24-Sep-2018 14:24:48 Asia/Calcutta] PHP   1. {main}() /var/www/html/errorlogger/logger.php:0
+[24-Sep-2018 14:24:48 Asia/Calcutta] PHP Fatal error:  require_once(): Failed opening required 'file.txt' (include_path='.:/usr/share/php') in /var/www/html/errorlogger/logger.php on line 6
+[24-Sep-2018 14:24:48 Asia/Calcutta] PHP Stack trace:
+[24-Sep-2018 14:24:48 Asia/Calcutta] PHP   1. {main}() /var/www/html/errorlogger/logger.php:0
