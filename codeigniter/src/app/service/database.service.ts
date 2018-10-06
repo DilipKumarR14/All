@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,HttpErrorResponse} from '@angular/common/http';
+// import { NgForm } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
@@ -7,13 +8,17 @@ export class DatabaseService {
 constructor(private http:HttpClient){}
 mode:any={};
 public urls="http://localhost/codeigniter/regform";
-// var values={
-//   name:mode.name,
 
-// }
   Register(mode){
-    alert("data transfered")
-    this.http.get(this.urls,mode).
+    const params=new FormData();
+    params.append("name",mode.name);
+    params.append("email",mode.email);
+    params.append("mobile",mode.mobile);
+    params.append("password",mode.password);
+
+    debugger;
+    alert("Data transfered")
+    this.http.post(this.urls,params).
     subscribe(response=>{
       console.log(response);
     },(err:HttpErrorResponse)=>{

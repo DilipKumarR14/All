@@ -57,12 +57,8 @@ getPasswordErrorMessage(){
 save()
 {
   var fetch=this.model;
-  debugger;
-  this.service.Register(fetch).subscribe((fetch:any)=>{
+  this.service.Register(fetch)//.subscribe((fetch:any)=>{
     
-  })
-    
-  
-
+  // })
 }
 }
