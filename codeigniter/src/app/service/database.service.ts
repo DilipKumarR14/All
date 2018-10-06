@@ -14,7 +14,7 @@ public urls="http://localhost/codeigniter/regform";
     params.append("name",mode.name);
     params.append("email",mode.email);
     params.append("mobile",mode.mobile);
-    params.append("password",mode.password);
+    params.append("password",mode.passwd);
 
     debugger;
     alert("Data transfered")
