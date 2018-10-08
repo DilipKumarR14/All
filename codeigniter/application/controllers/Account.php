@@ -1,5 +1,7 @@
 <?php
-
+// if not set we will not get back the response back to front-end(rest calls)
+header('Access-Control-Allow-Origin: *');
+include_once("Config.php");
 class Account
 {
     public function register()
@@ -13,30 +15,30 @@ class Account
         $name = $_POST['name'];
         $email = $_POST['email'];
         $mobile = $_POST['mobile'];
-        $passwd = $_POST['passwd'];
+        $password = $_POST['password'];
 
-             // Create connection
-        $conn = mysqli_connect("localhost", "root","admin", "account");
-        $duplicate = mysqli_query($conn, "select * from users where name='$name' and email='$email' and mobile='$mobile");
-        echo "hello";
-            // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        } else {
-            if(mysqli_num_rows($duplicate) > 0){
-                echo "User Exist<br>";
-            }
-            else{
-            echo "Connected successfully<br>";
+        // Create connection
+        $flag=1;
+        $conf= new Config();
+        $conn=$conf->configs();
+        $dupli=mysqli_query($conn,"select mobile,email from users where email='$email' or mobile='$mobile'  ");
+        if(mysqli_num_rows($dupli) > 0){
+            // $data = array("duplicate\n");
+            // print (json_encode("Duplicate Entry "));
+            print ("Duplicate Record");
+            
+          }else {
+           
             $sql = "INSERT INTO users (name, email, mobile, password)
-            VALUES ('$name','$email','$mobile','$passwd')";
+            VALUES ('$name','$email','$mobile','$password')";
             if ($conn->query($sql) === true) {
-                echo "New record created successfully";
+                //echo "New record created successfully";
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
-        }
-
+            $dupli=mysqli_query($conn,"select mobile,email from users where email='$email' or mobile='$mobile'  ");
+            $myjson='{"name":'.'"'.$name.'",".email":'.'"'.$email.'","mobile":'.$mobile."}"; 
+            print $myjson;
         }
     }
 }
