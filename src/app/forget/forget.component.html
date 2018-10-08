@@ -1,0 +1,32 @@
+<!-- <br><br> -->
+
+<mat-card class="heading">{{title}}</mat-card>
+<br>
+<div align="center" class="example-container">
+    <form>
+        <mat-card class="matstyle">
+            <mat-card-title>Password Form</mat-card-title>
+            <mat-form-field>
+                <input matInput placeholder="Email" [formControl]="email" required autofocus name="email" ngModel>
+                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Enter New Password" required type="password" [formControl]="passwd" name="password"
+                    ngModel>
+                <mat-error *ngIf="passwd.invalid">{{getPasswordErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Confirm Password" required type="password" [formControl]="passwd1" name="password1"
+                    ngModel>
+                <mat-error *ngIf="passwd1.invalid">{{getPassword1ErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <br><br>
+            <div class="button-row">
+                <a routerLink="/register"><button mat-flat-button>Register</button></a>
+            </div>&nbsp;&nbsp;&nbsp;
+        </mat-card>
+    </form>
+</div>
