@@ -1,27 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormControl,Validators } from '@angular/forms';
 import { DatabaseService } from '../service/database.service';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-logins',
-  templateUrl: './logins.component.html',
-  styleUrls: ['./logins.component.css']
+  selector: 'app-forget',
+  templateUrl: './forget.component.html',
+  styleUrls: ['./forget.component.css']
 })
-export class LoginsComponent {
-public title="Login In";
-user = new FormControl('',[Validators.required,Validators.pattern("[A-Za-z]*")]);
-passwd= new FormControl('',[Validators.required]);
-model : any = {};// fetching the value from form
+export class ForgetComponent implements OnInit {
 
+  public title="Forget Password Form";
+email = new FormControl('',[Validators.required,Validators.email]);
+passwd= new FormControl('',[Validators.required]);
+passwd1= new FormControl('',[Validators.required]);
+model : any = {};// fetching the value from form
+responseMessage="";
   constructor(private service:DatabaseService,private routes:Router) { }
-  getNameErrorMessage(){
-  
-    return this.user.hasError('required') ? 'Name is required':
-    this.user.hasError('pattern') ? 'Name Must Be Characters ':
+  getErrorMessage(){  
+    return this.email.hasError('required') ? 'Email is required':
     '';
   }
   getPasswordErrorMessage(){
     return this.passwd.hasError('required') ? 'password is required':
+    '';
+  }
+  getPassword1ErrorMessage(){
+    return this.passwd1.hasError('required') ? 'password is required':
     '';
   }
   save(){
@@ -40,4 +44,7 @@ model : any = {};// fetching the value from form
       alert("Error MailId/Mobile Is Already Present")
     })
   }
+  ngOnInit() {
+  }
+
 }

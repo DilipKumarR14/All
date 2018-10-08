@@ -3,9 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { DatabaseService } from '../service/database.service';
 import {Router} from '@angular/router';
 
-// import {Observable} from 'rxjs/Observable';
-import { Subject } from 'rxjs';
-
 
 @Component({
   selector: 'app-register',
@@ -15,7 +12,7 @@ import { Subject } from 'rxjs';
 })
 export class RegisterComponent{
   // public greeting="";
-  constructor(private service:DatabaseService){
+  constructor(private service:DatabaseService,private routes:Router){
 
   }
 public title="Welcome";
@@ -60,13 +57,14 @@ save()
   var fetch=this.model;
   this.service.Register(fetch).subscribe((status:any)=>{
     console.log("got respo",status);
-    this.responseMessage="successfully";
-    alert(this.responseMessage)
-
+    // this.responseMessage="Successfully Saved";
+    alert("SuccessFully Saved")
+    // move to the other page after success
+    this.routes.navigate(['/logins'])
   },(error)=>{
     console.log(error)
-    this.responseMessage="Error MailId/Mobile Is Already Present";
-    alert(this.responseMessage)
+    // this.responseMessage="Error MailId/Mobile Is Already Present";
+    alert("Error MailId/Mobile Is Already Present")
   })
 }
 }

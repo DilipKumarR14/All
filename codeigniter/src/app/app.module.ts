@@ -14,12 +14,14 @@ import { LoginsComponent } from './logins/logins.component';
 import {DatabaseService} from './service/database.service';
 import {RouterModule} from '@angular/router';
 import { HttpClientModule } from "@angular/common/http";
+import { ForgetComponent } from './forget/forget.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
     LoginsComponent,
+    ForgetComponent,
   ],
   imports: [
     BrowserModule,
