@@ -32,7 +32,7 @@ mobile = new FormControl('',[Validators.required,Validators.pattern("[0-9]{10}")
 passwd= new FormControl('',[Validators.required]);
 
 model : any = {};// fetching the value from form
-
+responseMessage="";
 getErrorMessage() {
   return this.email.hasError('required') ? 'Email is required' :
       this.email.hasError('email') ? 'Not a valid email' :
@@ -56,9 +56,17 @@ getPasswordErrorMessage(){
 
 save()
 {
+  debugger;
   var fetch=this.model;
-  this.service.Register(fetch)//.subscribe((fetch:any)=>{
-    
-  // })
+  this.service.Register(fetch).subscribe((status:any)=>{
+    console.log("got respo",status);
+    this.responseMessage="successfully";
+    alert(this.responseMessage)
+
+  },(error)=>{
+    console.log(error)
+    this.responseMessage="Error MailId/Mobile Is Already Present";
+    alert(this.responseMessage)
+  })
 }
 }
