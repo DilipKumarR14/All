@@ -9,15 +9,15 @@ import { Router } from '@angular/router';
 })
 export class LoginsComponent {
 public title="Login In";
-user = new FormControl('',[Validators.required,Validators.pattern("[A-Za-z]*")]);
+email = new FormControl('',[Validators.required,Validators.email]);
 passwd= new FormControl('',[Validators.required]);
 model : any = {};// fetching the value from form
+responseMessage="";
 
   constructor(private service:DatabaseService,private routes:Router) { }
-  getNameErrorMessage(){
+  getEmailErrorMessage(){
   
-    return this.user.hasError('required') ? 'Name is required':
-    this.user.hasError('pattern') ? 'Name Must Be Characters ':
+    return this.email.hasError('required') ? 'Email is required':
     '';
   }
   getPasswordErrorMessage(){
@@ -31,13 +31,13 @@ model : any = {};// fetching the value from form
     this.service.Register(fetch).subscribe((status:any)=>{
       console.log("got respo",status);
       // this.responseMessage="Successfully Saved";
-      alert("SuccessFully Saved")
+      alert("Registered User")
       // move to the other page after success
-      this.routes.navigate(['/logins'])
+      // this.routes.navigate(['/logins'])
     },(error)=>{
       console.log(error)
       // this.responseMessage="Error MailId/Mobile Is Already Present";
-      alert("Error MailId/Mobile Is Already Present")
+      alert("User Is Not Registered")
     })
   }
 }

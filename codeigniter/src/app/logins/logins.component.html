@@ -6,11 +6,13 @@
 <div align="center" class="example-container">
     <form>
         <mat-card class="matstyle">
+            <br>
             <mat-form-field>
-                <input matInput maxlength="10" placeholder="Name" [formControl]="user" required autofocus name="username" ngModel>
-                <mat-error *ngIf="user.invalid">{{getNameErrorMessage()}}</mat-error>
+                <input matInput placeholder="Email" [formControl]="email" required autofocus name="email" ngModel>
+                <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
             </mat-form-field>
 
+            
             <mat-form-field>
                 <input matInput placeholder="Password" required type="password" [formControl]="passwd" name="password" ngModel>
                 <mat-error *ngIf="passwd.invalid">{{getPasswordErrorMessage()}}</mat-error>
