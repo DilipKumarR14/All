@@ -53,18 +53,21 @@ getPasswordErrorMessage(){
 
 save()
 {
-  debugger;
   var fetch=this.model;
-  this.service.Register(fetch).subscribe((status:any)=>{
-    console.log("got respo",status);
+  this.service.Register(fetch).subscribe(
+    // data returned will be stored in status variable
+    success => {
+      debugger;
+    console.log("got respo",success);
     // this.responseMessage="Successfully Saved";
     alert("SuccessFully Saved")
     // move to the other page after success
     this.routes.navigate(['/logins'])
-  },(error)=>{
+  },error => {
     console.log(error)
     // this.responseMessage="Error MailId/Mobile Is Already Present";
     alert("Error MailId/Mobile Is Already Present")
-  })
+  }
+  );
 }
 }

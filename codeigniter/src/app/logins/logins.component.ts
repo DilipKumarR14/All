@@ -8,15 +8,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./logins.component.css']
 })
 export class LoginsComponent {
+  constructor(private service:DatabaseService,private routes:Router) { }
+
 public title="Login In";
 email = new FormControl('',[Validators.required,Validators.email]);
 passwd= new FormControl('',[Validators.required]);
 model : any = {};// fetching the value from form
 responseMessage="";
 
-  constructor(private service:DatabaseService,private routes:Router) { }
   getEmailErrorMessage(){
-  
+
     return this.email.hasError('required') ? 'Email is required':
     '';
   }
@@ -24,17 +25,16 @@ responseMessage="";
     return this.passwd.hasError('required') ? 'password is required':
     '';
   }
-  save(){
-    debugger;
-    debugger;
-    var fetch=this.model;
-    this.service.Register(fetch).subscribe((status:any)=>{
+  saves(){
+    
+    var fetch=this.model;               // define the function and parameter (ts)
+    this.service.Login(fetch).subscribe((status:any)=>{
       console.log("got respo",status);
+      debugger;
       // this.responseMessage="Successfully Saved";
       alert("Registered User")
-      // move to the other page after success
-      // this.routes.navigate(['/logins'])
     },(error)=>{
+      debugger;
       console.log(error)
       // this.responseMessage="Error MailId/Mobile Is Already Present";
       alert("User Is Not Registered")

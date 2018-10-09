@@ -8,20 +8,20 @@
         <mat-card class="matstyle">
             <br>
             <mat-form-field>
-                <input matInput placeholder="Email" [formControl]="email" required autofocus name="email" ngModel>
+                <input matInput placeholder="Email" [formControl]="email" required autofocus name="email" [(ngModel)]="model.email">
                 <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
             </mat-form-field>
 
             
             <mat-form-field>
-                <input matInput placeholder="Password" required type="password" [formControl]="passwd" name="password" ngModel>
+                <input matInput placeholder="Password" required type="password" [formControl]="passwd" name="password" [(ngModel)]="model.passwd">
                 <mat-error *ngIf="passwd.invalid">{{getPasswordErrorMessage()}}</mat-error>
 
                 <!-- <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon> -->
             </mat-form-field>
             <br><br>
             <div class="button-row">
-                <button mat-flat-button (click)="save()">Login</button>&nbsp;&nbsp;&nbsp;
+                <button mat-flat-button (click)="saves()">Login</button>&nbsp;&nbsp;&nbsp;
                 <a routerLink="/register"><button mat-flat-button>Register</button></a>
             </div>&nbsp;&nbsp;&nbsp;
             <br>
