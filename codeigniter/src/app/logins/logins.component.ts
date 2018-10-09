@@ -28,12 +28,13 @@ responseMessage="";
   saves(){
     
     var fetch=this.model;               // define the function and parameter (ts)
-    this.service.Login(fetch).subscribe((status:any)=>{
+    this.service.Login(fetch).subscribe(
+      status => {
       console.log("got respo",status);
       debugger;
       // this.responseMessage="Successfully Saved";
       alert("Registered User")
-    },(error)=>{
+    }, error => {
       debugger;
       console.log(error)
       // this.responseMessage="Error MailId/Mobile Is Already Present";
