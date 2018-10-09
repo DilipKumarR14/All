@@ -20,78 +20,72 @@ class Account
         $conf = new Config();
         $conn = $conf->configs();
         // $res=$conn->prepare("SELECT email where email='$email'");
-        $sqlmail="select email from users where email='$email'";
-        $sqlmobile="select mobile from users where mobile='$mobile'";
+        $sqlmail = "select email from users where email='$email'";
+        $sqlmobile = "select mobile from users where mobile='$mobile'";
         // return true is value is present else false(query/fetch)
-        $qm=$conn->query($sqlmobile)->fetch();
-        $qe=$conn->query($sqlmail)->fetch();
+        $qm = $conn->query($sqlmobile)->fetch();
+        $qe = $conn->query($sqlmail)->fetch();
 
         // Create connection
-        if($qm == true && $qe == true){
+        if ($qm == true || $qe == true) {
             echo "Already EXist\n";
+        } else {
+            try {
+                //echo "Success";
+                $conf = new Config();
+                $conn = $conf->configs();
 
-        }
-        else{
-        try {
-            //echo "Success";
-            $conf = new Config();
-            $conn = $conf->configs();
-            
-            $stm = $conn->prepare("INSERT INTO users(name,email,mobile,password) VALUES('$name','$email','$mobile','$password')");
+                $stm = $conn->prepare("INSERT INTO users(name,email,mobile,password) VALUES('$name','$email','$mobile','$password')");
 
-            $stm->execute(
-                array(
-                    ':name' => '$name',
-                    ':email' => '$email',
-                    ':mobile' => '$mobile',
-                    ':password' => '$password')
+                $stm->execute(
+                    array(
+                        ':name' => '$name',
+                        ':email' => '$email',
+                        ':mobile' => '$mobile',
+                        ':password' => '$password')
                 );
-            $myjson = '{"name":' . '"' . $name . '","email":' . '"' . $email . '","mobile":' . $mobile . "}";
-           print $myjson;
-        } catch (PDOException $e) {
-            echo "NOt SAved" . $e->getMessage();
+                $myjson = '{"name":' . '"' . $name . '","email":' . '"' . $email . '","mobile":' . $mobile . "}";
+                print $myjson;
+            } catch (PDOException $e) {
+                echo "NOt SAved" . $e->getMessage();
+            }
         }
-    }
-        // if (mysqli_num_rows($dupli) > 0) {
-        //     // $data = array("duplicate\n");
-        //     // print (json_encode("Duplicate Entry "));
-        //     print("Duplicate Record");
-
-        // } else {
-        //     echo "hello world";
-        //     $sql = "INSERT INTO users (name, email, mobile, password)
-        //     VALUES ('$name','$email','$mobile','$password')";
-        //     if ($conn->exec($sql) === true) {
-        //         echo "New record created successfully";
-        //     } else {
-        //         echo "Error: " . $sql . "<br>" . $conn->error;
-        //     }
-        //     $dupli = mysqli_query($conn, "select mobile,email from users where email='$email' or mobile='$mobile'  ");
-        //     $myjson = '{"name":' . '"' . $name . '",".email":' . '"' . $email . '","mobile":' . $mobile . "}";
-        //     print $myjson;
-        // }
     }
     public function logins()
     {
         /**
          * @var email holds the email from form
-         * @var passwd holds the password from form
+         * @var password holds the password from form
          */
+
         $email = $_POST['email'];
         $password = $_POST['password'];
         $conf = new Config();
         $conn = $conf->configs();
-        echo "Hello world\n";
-        $dupli = mysqli_query($conn, "select password,email from users where email='$email' or mobile='$password'  ");
-        if (mysqli_num_rows($dupli) > 0) {
+        // $sqlmail = "select email from users where email='$email'";
+        // $sqlmobile = "select password from users where password='$password'";
+        // return true is value is present else false(query/fetch)
+        // $qm = $conn->query($sqlmobile)->fetch();
+        // $qe = $conn->query($sqlmail)->fetch();
 
-            print("Registered User\n");
-            $dupli = mysqli_query($conn, "select mobile,email from users where email='$email' or mobile='$password'  ");
-            $myjson = '{"email":' . '"' . $email . '","password":' . '"' . $password . '"}';
-            print $myjson;
+        $count=$conn->prepare("select email from users where email=:emails");
+        $count1=$conn->prepare("select password from users where password=:passwords");
+        $count1->bindParam(":passwords",$password);
+        $count->bindParam(":emails",$email);
+        $count->execute();
+        $count1->execute();
+        $no1=$count1->rowCount();
+        $no=$count->rowCount();
 
+        // Create connection
+        if ($no > 0 && $no1 > 0 ) {
+            // echo "Registered User\n";
+            $myjson = '{"email":' . '"' . $email . '","password":' . $password . "}";
+                print $myjson;
+                // echo "REG";
         } else {
-            print("User Is Not Registered\n");
+                
+                echo "Not Registred\n";
         }
     }
 }
