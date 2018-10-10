@@ -15,6 +15,8 @@ import {DatabaseService} from './service/database.service';
 import {RouterModule} from '@angular/router';
 import { HttpClientModule } from "@angular/common/http";
 import { ForgetComponent } from './forget/forget.component';
+import { ResetComponent } from './reset/reset.component';
+import { ResetsComponent } from './resets/resets.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +24,8 @@ import { ForgetComponent } from './forget/forget.component';
     RegisterComponent,
     LoginsComponent,
     ForgetComponent,
+    ResetComponent,
+    ResetsComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,8 +8,10 @@ export class DatabaseService {
   constructor(private http: HttpClient) { }
   mode: any = {};
   mode1:any ={};
+  mode2:any = {};
   public urls = "http://localhost/codeigniter/regform";
   public loginurl="http://localhost/codeigniter/login";
+  private forgeturl="http://localhost/codeigniter/forgot";
   Register(mode) {
     const params = new FormData();
     params.append("name", mode.name);
@@ -38,6 +40,19 @@ export class DatabaseService {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
     return this.http.post(this.loginurl, params, otheroption).pipe(
+      map((res: Response) => res)
+    )
+  }
+
+  Forget(mode2) {
+    debugger;
+    const params = new FormData();
+    params.append("email", mode2.email);
+
+    let otheroption: any = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    return this.http.post(this.forgeturl, params, otheroption).pipe(
       map((res: Response) => res)
     )
   }

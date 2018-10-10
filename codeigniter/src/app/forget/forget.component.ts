@@ -20,30 +20,31 @@ responseMessage="";
     return this.email.hasError('required') ? 'Email is required':
     '';
   }
-  getPasswordErrorMessage(){
-    return this.passwd.hasError('required') ? 'password is required':
-    '';
+  save()
+{
+  var fetch=this.model;
+  debugger;
+  this.service.Forget(fetch).subscribe(
+    // data returned will be stored in status variable
+    (status:any) => {
+      debugger;
+      if(status.status == "1" ){
+
+        console.log("got respo",status);
+    // this.responseMessage="Successfully Saved";
+    alert("Email Available")
+    // move to the other page after success
+    this.routes.navigate(['/resets'])
+      }
+      else if(status.status == "null"){
+        alert("Enter All Mandatory Field")
+      }
+      else{
+        alert("Email-Id is Not Present")
+      }
   }
-  getPassword1ErrorMessage(){
-    return this.passwd1.hasError('required') ? 'password is required':
-    '';
-  }
-  save(){
-    debugger;
-    debugger;
-    var fetch=this.model;
-    this.service.Register(fetch).subscribe((status:any)=>{
-      console.log("got respo",status);
-      // this.responseMessage="Successfully Saved";
-      alert("SuccessFully Saved")
-      // move to the other page after success
-      this.routes.navigate(['/logins'])
-    },(error)=>{
-      console.log(error)
-      // this.responseMessage="Error MailId/Mobile Is Already Present";
-      alert("Error MailId/Mobile Is Already Present")
-    })
-  }
+  );
+}
   ngOnInit() {
   }
 

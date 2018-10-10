@@ -56,17 +56,23 @@ save()
   var fetch=this.model;
   this.service.Register(fetch).subscribe(
     // data returned will be stored in status variable
-    success => {
+    (status:any) => {
       debugger;
-    console.log("got respo",success);
+      if(status.status == "1" ){
+
+        console.log("got respo",status);
     // this.responseMessage="Successfully Saved";
     alert("SuccessFully Saved")
     // move to the other page after success
     this.routes.navigate(['/logins'])
-  },error => {
-    console.log(error)
-    // this.responseMessage="Error MailId/Mobile Is Already Present";
-    alert("Error MailId/Mobile Is Already Present")
+      }
+      else if(status.status == "null"){
+        alert("Enter All Mandatory Field")
+      }
+      else{
+        alert("Email/Mobile is Already Present")
+      }
+    
   }
   );
 }
