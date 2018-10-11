@@ -1,12 +1,28 @@
-.example-container > * {
-    width: 30%;
-    
-  }
+
   .heading{
-    background-color: rgb(53, 73, 245);
+    background-color: rgb(43, 138, 43);
     text-align: center;
     color: whitesmoke;
     font-size: 30px;  
+    height: 13%;
+    padding-top: 17px;
   }
+  .example-container {
+    display: flex;
+    flex-direction: column;
+    }
+    
+    .example-container>* {
+    width: 100%;
+    }
   
-  
+  mat-card{
+    width: 350px;
+    height: 400px;
+    margin-top: 30px;
+    margin-right: auto;
+    margin-left: auto
+  }
+  .button-row{
+    align-content: center;
+  }

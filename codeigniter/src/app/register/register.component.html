@@ -28,7 +28,7 @@
             </mat-form-field>
             <br><br>
             <div class="button-row">
-                <button mat-flat-button (click)="save()">Registers</button>&nbsp;&nbsp;&nbsp; 
+                <button mat-flat-button (click)="save()" [disabled]="!(model.name && model.passwd && model.email && model.mobile)">Registers</button>&nbsp;&nbsp;&nbsp; 
                  <!-- {{responseMessage}} -->
                 <a routerLink="/logins"><button mat-flat-button>Login</button></a>
             </div>

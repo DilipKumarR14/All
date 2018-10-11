@@ -39,15 +39,16 @@ export class DatabaseService {
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
+    debugger;
     return this.http.post(this.loginurl, params, otheroption).pipe(
       map((res: Response) => res)
     )
   }
 
   Forget(mode2) {
-    debugger;
     const params = new FormData();
     params.append("email", mode2.email);
+    debugger;
 
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'

@@ -15,8 +15,8 @@ import {DatabaseService} from './service/database.service';
 import {RouterModule} from '@angular/router';
 import { HttpClientModule } from "@angular/common/http";
 import { ForgetComponent } from './forget/forget.component';
-import { ResetComponent } from './reset/reset.component';
 import { ResetsComponent } from './resets/resets.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +24,6 @@ import { ResetsComponent } from './resets/resets.component';
     RegisterComponent,
     LoginsComponent,
     ForgetComponent,
-    ResetComponent,
     ResetsComponent,
   ],
   imports: [
@@ -41,7 +40,7 @@ import { ResetsComponent } from './resets/resets.component';
     MatCardModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
 
   ],
   providers: [DatabaseService],

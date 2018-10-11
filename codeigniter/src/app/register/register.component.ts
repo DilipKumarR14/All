@@ -53,23 +53,25 @@ getPasswordErrorMessage(){
 
 save()
 {
+  debugger;
   var fetch=this.model;
   this.service.Register(fetch).subscribe(
     // data returned will be stored in status variable
     (status:any) => {
-      debugger;
+      
       if(status.status == "1" ){
-
+        debugger;
         console.log("got respo",status);
-    // this.responseMessage="Successfully Saved";
-    alert("SuccessFully Saved")
+    alert("SuccessFullysssssssssssssssssssss Saved")
     // move to the other page after success
     this.routes.navigate(['/logins'])
       }
       else if(status.status == "null"){
+        debugger;
         alert("Enter All Mandatory Field")
       }
       else{
+        debugger;
         alert("Email/Mobile is Already Present")
       }
     

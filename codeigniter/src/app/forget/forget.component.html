@@ -1,18 +1,17 @@
-<mat-card class="heading">{{title}}</mat-card>
+<div class="heading">Reset password</div>
 <br><br>
-<div align="center" class="example-container">
-    <form>
-        <mat-card class="matstyle">
-            <mat-card-title>Password Form</mat-card-title>
-            <mat-form-field>
-                <input matInput placeholder="Email" [formControl]="email" required autofocus name="email" [(ngModel)]="model.email">
-                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-            </mat-form-field>
-
-            <br><br>
-            <div class="button-row">
-                    <button mat-flat-button (click)="save()">Submit</button>&nbsp;&nbsp;&nbsp; 
-            </div>&nbsp;&nbsp;&nbsp;
-        </mat-card>
-    </form>
-</div>
+<mat-card>
+    <div>
+        <mat-card-title>Password forget<br></mat-card-title>
+    </div>
+    <div class="example-container">
+        <mat-form-field>
+            <input matInput  placeholder="Email" type="text" [formControl]="email" required autofocus name="email" [(ngModel)]="model.email">
+            <mat-error *ngIf="email.invalid ">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <br>
+    </div>
+    <div class="button-row">
+        <button mat-flat-button (click)="save()">Reset</button>&nbsp;&nbsp;&nbsp;
+    </div>
+</mat-card>

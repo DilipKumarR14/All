@@ -6,6 +6,7 @@
 <div align="center" class="example-container">
     <form>
         <mat-card class="matstyle">
+            <mat-card-title>Login</mat-card-title>
             <br>
             <mat-form-field>
                 <input matInput placeholder="Email" [formControl]="email" required autofocus name="email" [(ngModel)]="model.email">
@@ -25,7 +26,14 @@
                 <a routerLink="/register"><button mat-flat-button>Register</button></a>
             </div>&nbsp;&nbsp;&nbsp;
             <br>
-            <a routerLink="/forget">Forget Password ?</a>
+            <a routerLink="/forget" style="color:blue">Forget Password ?</a><h6>Or</h6>
+            <h6 style="color:blue">Sign In With</h6>
+            <a target="__blank" href="https://www.facebook.com/login/device-based/regular/login/?login_attempt=1&lwv=110">
+                <mat-icon svgIcon="fb"></mat-icon>
+                </a>&nbsp;&nbsp;&nbsp;
+                <a target="__blank" href="https://accounts.google.com/signin/v2/sl/pwd?passive=1209600&continue=https%3A%2F%2Faccounts.google.com%2FManageAccount&followup=https%3A%2F%2Faccounts.google.com%2FManageAccount&flowName=GlifWebSignIn&flowEntry=ServiceLogin">
+                <mat-icon svgIcon="g"></mat-icon>
+                </a>
         </mat-card> 
     </form>
 </div>
