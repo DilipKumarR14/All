@@ -1,4 +1,5 @@
 <?php
+// defined('BASEPATH') or exit('No direct script access allowed');
 // if not set we will not get back the response back to front-end(rest calls)
 header('Access-Control-Allow-Origin: *');
 include_once "Config.php";
@@ -19,6 +20,7 @@ class Account
         $password = $_POST['password'];
         $conf = new Config();
         $conn = $conf->configs();
+        // echo"hey";
         // $res=$conn->prepare("SELECT email where email='$email'");
         $sqlmail = "select email from users where email='$email'";
         $sqlmobile = "select mobile from users where mobile='$mobile'";
@@ -28,10 +30,14 @@ class Account
 
         // Create connection
         if ($qm == true || $qe == true) {
-            echo "Already EXist\n";
+            // echo "Already EXist\n";
+            $res = '{"status":"0"}';
+            print $res;
+        } else if ($name == "undefined" || $email == "undefined" || $mobile == "" || $password == "undefined") {
+            $res = '{"status":"null"}';
+            print $res;
         } else {
             try {
-                //echo "Success";
                 $conf = new Config();
                 $conn = $conf->configs();
 
@@ -42,10 +48,11 @@ class Account
                         ':name' => '$name',
                         ':email' => '$email',
                         ':mobile' => '$mobile',
-                        ':password' => '$password')
+                        ':password' => '$password',
+                    )
                 );
-                $myjson = '{"name":' . '"' . $name . '","email":' . '"' . $email . '","mobile":' . $mobile . "}";
-                print $myjson;
+                $res = '{"status":"1"}';
+                print $res;
             } catch (PDOException $e) {
                 echo "NOt SAved" . $e->getMessage();
             }
@@ -68,24 +75,47 @@ class Account
         // $qm = $conn->query($sqlmobile)->fetch();
         // $qe = $conn->query($sqlmail)->fetch();
 
-        $count=$conn->prepare("select email from users where email=:emails");
-        $count1=$conn->prepare("select password from users where password=:passwords");
-        $count1->bindParam(":passwords",$password);
-        $count->bindParam(":emails",$email);
-        $count->execute();
-        $count1->execute();
-        $no1=$count1->rowCount();
-        $no=$count->rowCount();
+        try {
+            $stmt = $conn->prepare("select * from users where email='$email'");
+            // $count1 = $conn->prepare("select id from users where password=:passwords");
+            $stmt->execute();
+            // $stmt1->bindParam(':passwords', $password);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        $pass = "";
+        $mail = "";
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $id = $row['id'];
+            $pass = $row['password'];
+            $mail = $row['email'];
+        }
 
-        // Create connection
-        if ($no > 0 && $no1 > 0 ) {
+        if ($pass == $password && $email == $mail) {
             // echo "Registered User\n";
-            $myjson = '{"email":' . '"' . $email . '","password":' . $password . "}";
-                print $myjson;
-                // echo "REG";
-        } else {
-                
-                echo "Not Registred\n";
+            // $myjson = '{"email":' . '"' . $email . '","password":' . $password . "}";
+            $res = '{"status":"1"}';
+            // print $myjson;
+            print $res;
+            // echo "REG";
+        } else if ($pass == "" && $mail == "") {
+            $res = '{"status":"null"}';
+            // print $myjson;
+            print $res;
+            // echo "Not Registred\n";
+        } else if ($pass =! $pass && $mail =! $mail){
+            $res = '{"status":"2"}';
+            // print $myjson;
+            print $res;
+        }
+        else {
+            $res = '{"status":"0"}';
+            // print $myjson;
+            print $res;
         }
     }
+    #main ends
 }
+
+
+?>
