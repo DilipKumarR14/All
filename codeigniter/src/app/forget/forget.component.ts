@@ -36,7 +36,7 @@ responseMessage="";
           alert("Problem In Sending Error/Check Email")
         }
         else if (status.status == "2"){   
-          alert("Link EXpired")
+          alert("Not A Valid Email")
         }
       });
 }

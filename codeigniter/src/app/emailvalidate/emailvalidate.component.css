@@ -1,0 +1,30 @@
+
+  .heading{
+    background-color: rgb(233, 181, 40);
+    text-align: center;
+    color: whitesmoke;
+    font-size: 30px;  
+    height: 13%;
+    padding-top: 17px;
+  }
+  .example-container {
+    display: flex;
+    flex-direction: column;
+    }
+    
+    .example-container>* {
+    width: 100%;
+    }
+    .mat-card:not([class*=mat-elevation-z]) {
+      box-shadow: 0px 0px 20px 0px blue;
+      }
+  mat-card{
+    width: 350px;
+    height: 270px;
+    margin-top: 30px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .button-row{
+    text-align: center;
+  }

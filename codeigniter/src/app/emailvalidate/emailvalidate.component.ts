@@ -3,27 +3,19 @@ import { FormControl, Validators } from '@angular/forms';
 import { DatabaseService } from '../service/database.service';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-resets',
-  templateUrl: './resets.component.html',
-  styleUrls: ['./resets.component.css']
+  selector: 'app-emailvalidate',
+  templateUrl: './emailvalidate.component.html',
+  styleUrls: ['./emailvalidate.component.css']
 })
-export class ResetsComponent implements OnInit {
-  public title = "Reset Password";
+export class EmailvalidateComponent implements OnInit {
+
+  public title = "";
   email = new FormControl('', [Validators.email]);
-  pass = new FormControl('', [Validators.required]);
-  pass1 = new FormControl('', [Validators.required]);
 
   model: any = {};// fetching the value from form
   responseMessage = "";
   constructor(private service: DatabaseService, private routes: Router) { }
-  getPassErrorMessage() {
-    return this.pass.hasError('required') ? 'Password is required' :
-      '';
-  }
-  getConfErrorMessage() {
-    return this.pass1.hasError('required') ? 'Confirm Password is required' :
-      '';
-  }
+ 
   getEmailErrorMessage() {
     return this.email.hasError('required') ? 'Email is required' :
       '';
@@ -31,7 +23,7 @@ export class ResetsComponent implements OnInit {
   save() {
     var fetch = this.model;
     debugger;
-    this.service.Reset(fetch).subscribe(
+    this.service.Valid(fetch).subscribe(
       // data returned will be stored in status variable
       (status: any) => {
         debugger;
@@ -39,20 +31,16 @@ export class ResetsComponent implements OnInit {
 
           console.log("got respo", status);
           // this.responseMessage="Successfully Saved";
-          alert("Password Reset Success")
+          alert("Validated Successfully")
           // move to the other page after success
           this.routes.navigate(['/logins'])
         }
-        else if (status.status == "2") {
-          alert("Not A Valid Email")
+        else if (status.status == "null") {
+          alert("Enter All Mandatory Field")
         }
-        else if (status.status == "3") {
-          alert("Token Is Invalid")
+        else {
+          alert("Link Is Expired")
         }
-        else if (status.status == "4") {
-          alert("Linked EXpired/Email Is Invalid")
-        }
-        
       }
     );
   }

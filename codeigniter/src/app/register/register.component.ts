@@ -58,11 +58,12 @@ save()
   this.service.Register(fetch).subscribe(
     // data returned will be stored in status variable
     (status:any) => {
-      
+      debugger;
       if(status.status == "1" ){
         debugger;
         console.log("got respo",status);
-    alert("SuccessFully Saved")
+         alert("SuccessFully Saved")
+         alert("Check Your Mail")
     // move to the other page after success
     this.routes.navigate(['/logins'])
       }
@@ -70,9 +71,12 @@ save()
         debugger;
         alert("Enter All Mandatory Field")
       }
-      else{
+      else if (status.status == "2"){
         debugger;
-        alert("Email/Mobile is Already Present")
+        alert("EMail Not sent")
+      }
+      else{
+        alert("Email/Mobile is already present")
       }
     
   }

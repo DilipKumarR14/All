@@ -1,0 +1,18 @@
+<div class="heading">E-Mail Validation</div>
+<br><br>
+<mat-card>
+    <div>
+        <!-- <mat-card-title>Password Reset<br></mat-card-title> -->
+    </div>
+    <div class="example-container">
+        <mat-form-field>
+            <input matInput placeholder="Email" type="email" [formControl]="email"
+            required autofocus name="email" [(ngModel)]="model.email">
+            <mat-error *ngIf="email.invalid ">{{getEmailErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <br>
+    </div>
+    <div class="button-row">
+        <button mat-flat-button (click)="save()">Submit</button>&nbsp;&nbsp;&nbsp;
+    </div>
+</mat-card>

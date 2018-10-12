@@ -5,7 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginsComponent } from './logins/logins.component';
 import { ForgetComponent } from './forget/forget.component';
 import {ResetsComponent} from './resets/resets.component';
-
+import {EmailvalidateComponent} from './emailvalidate/emailvalidate.component';
 @NgModule({
   imports:
     [
@@ -16,6 +16,7 @@ import {ResetsComponent} from './resets/resets.component';
           { path: 'logins',component:LoginsComponent},
           { path: 'forget',component:ForgetComponent},
           { path: 'resets',component:ResetsComponent},
+          { path: 'valid',component:EmailvalidateComponent},
         ])
     ],
   exports: [RouterModule],

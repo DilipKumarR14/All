@@ -16,6 +16,7 @@ import {RouterModule} from '@angular/router';
 import { HttpClientModule } from "@angular/common/http";
 import { ForgetComponent } from './forget/forget.component';
 import { ResetsComponent } from './resets/resets.component';
+import { EmailvalidateComponent } from './emailvalidate/emailvalidate.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ResetsComponent } from './resets/resets.component';
     LoginsComponent,
     ForgetComponent,
     ResetsComponent,
+    EmailvalidateComponent,
   ],
   imports: [
     BrowserModule,
