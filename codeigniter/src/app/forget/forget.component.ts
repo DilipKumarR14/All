@@ -29,7 +29,7 @@ responseMessage="";
           debugger;
           console.log("got respo", status);
           alert("Check Your EMail")
-          this.routes.navigate(['/logins'])
+          this.routes.navigate(['/resets'])
         }
         else if (status.status == "0") {         
 

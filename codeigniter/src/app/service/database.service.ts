@@ -57,5 +57,20 @@ export class DatabaseService {
       map((res: Response) => res)
     )
   }
+
+  Reset(mode2) {
+    debugger;
+    const params = new FormData();
+    params.append("email", mode2.email);
+
+    let otheroption: any = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    return this.http.post(this.forgeturl, params, otheroption).pipe(
+      map((res: Response) => res)
+    )
+  }
+
+
   
 }

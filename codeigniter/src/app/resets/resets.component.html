@@ -2,18 +2,23 @@
 <br><br>
 <mat-card>
     <div>
-        <mat-card-title>Password Reset<br></mat-card-title>
+        <!-- <mat-card-title>Password Reset<br></mat-card-title> -->
     </div>
     <div class="example-container">
         <mat-form-field>
-            <input matInput maxlength="6" minlength="6" placeholder="Password" type="password" [formControl]="pass"
-                required>
-            <mat-error *ngIf="pass.invalid ">{{getPass1ErrorMessage()}}</mat-error>
+            <input matInput placeholder="Email" type="email" [formControl]="mail"
+            required autofocus name="email" [(ngModel)]="model.mail">
+            <mat-error *ngIf="mail.invalid ">{{getEmailErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input matInput maxlength="6" minlength="6" placeholder="Password" type="password" [formControl]="pass"
-                required>
-            <mat-error *ngIf="pass.invalid ">{{getPass1ErrorMessage()}}</mat-error>
+            <input matInput  placeholder="Password" type="password" [formControl]="pass"
+            required autofocus name="pass" [(ngModel)]="model.pass">
+            <mat-error *ngIf="pass.invalid ">{{getConfErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Confirm Password" type="password" [formControl]="pass1"
+            required autofocus name="pass1" [(ngModel)]="model.pass1">
+            <mat-error *ngIf="pass1.invalid ">{{getPassErrorMessage()}}</mat-error>
         </mat-form-field>
         <br>
     </div>

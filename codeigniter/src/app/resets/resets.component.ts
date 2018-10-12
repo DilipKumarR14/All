@@ -9,29 +9,28 @@ import { Router } from '@angular/router';
 })
 export class ResetsComponent implements OnInit {
   public title = "Reset Password";
-  passwd = new FormControl('', [Validators.required]);
-  passwd1 = new FormControl('', [Validators.required]);
+  mail = new FormControl('',[Validators.email]);
+  pass = new FormControl('', [Validators.required]);
+  pass1 = new FormControl('', [Validators.required]);
   model: any = {};// fetching the value from form
   responseMessage = "";
   constructor(private service: DatabaseService, private routes: Router) { }
   getPassErrorMessage() {
-    return this.passwd.hasError('required') ? 'Password is required' :
+    return this.pass.hasError('required') ? 'Password is required' :
       '';
   }
   getConfErrorMessage() {
-    return this.passwd1.hasError('required') ? 'Confirm Password is required' :
+    return this.pass1.hasError('required') ? 'Confirm Password is required' :
       '';
   }
-  pass = new FormControl("", [Validators.required]);
-  getPass1ErrorMessage() {
-    return this.pass.hasError("required")
-      ? "You must enter password"
-      : "enter 6 digit password";
+  getEmailErrorMessage(){
+    return this.mail.hasError('required') ? 'Email is required':
+		'';
   }
   save() {
     var fetch = this.model;
     debugger;
-    this.service.Forget(fetch).subscribe(
+    this.service.Reset(fetch).subscribe(
       // data returned will be stored in status variable
       (status: any) => {
         debugger;
@@ -39,9 +38,9 @@ export class ResetsComponent implements OnInit {
 
           console.log("got respo", status);
           // this.responseMessage="Successfully Saved";
-          alert("Email Available")
+          alert("Password Reset Success")
           // move to the other page after success
-          this.routes.navigate(['/resets'])
+          this.routes.navigate(['/logins'])
         }
         else if (status.status == "null") {
           alert("Enter All Mandatory Field")

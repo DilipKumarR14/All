@@ -18,11 +18,12 @@
   
   mat-card{
     width: 350px;
-    height: 400px;
+    height: 300px;
     margin-top: 30px;
     margin-right: auto;
     margin-left: auto
   }
+
   .button-row{
-    align-content: center;
+    text-align: center;
   }

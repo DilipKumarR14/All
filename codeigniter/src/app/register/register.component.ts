@@ -62,7 +62,7 @@ save()
       if(status.status == "1" ){
         debugger;
         console.log("got respo",status);
-    alert("SuccessFullysssssssssssssssssssss Saved")
+    alert("SuccessFully Saved")
     // move to the other page after success
     this.routes.navigate(['/logins'])
       }
