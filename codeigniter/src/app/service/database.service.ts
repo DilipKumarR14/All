@@ -46,9 +46,9 @@ export class DatabaseService {
   }
 
   Forget(mode2) {
+    debugger;
     const params = new FormData();
     params.append("email", mode2.email);
-    debugger;
 
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'

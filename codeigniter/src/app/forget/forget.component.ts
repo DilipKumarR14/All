@@ -20,22 +20,23 @@ responseMessage="";
 	}
 	save()
 {
-	var fetch = this.model;          // define the function and parameter (ts)
-    this.service.Forget(fetch).subscribe
-      (
+  debugger;
+	var fetch = this.model;         
+    this.service.Forget(fetch).subscribe(
       (status: any) => {
         debugger;
         if (status.status == "1") {
-
+          debugger;
           console.log("got respo", status);
           alert("Check Your EMail")
           this.routes.navigate(['/logins'])
         }
-        else if (status.status == "null") {
-          alert("Enter All Mandatory Field")
+        else if (status.status == "0") {         
+
+          alert("Problem In Sending Error/Check Email")
         }
-        else {
-          alert("Email/Mobile is Already Present")
+        else if (status.status == "2"){   
+          alert("Check Email Entered")
         }
       });
 }
