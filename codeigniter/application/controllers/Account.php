@@ -42,7 +42,7 @@ class Account
                 $conn = $conf->configs();
 
                 $stm = $conn->prepare("INSERT INTO users(name,email,mobile,password) VALUES('$name','$email','$mobile','$password')");
-
+                // require_once("EmailValidation.php");
                 $stm->execute(
                     array(
                         ':name' => '$name',
@@ -51,8 +51,68 @@ class Account
                         ':password' => '$password',
                     )
                 );
-                $res = '{"status":"1"}';
-                print $res;
+                
+                $stm = $conn->prepare("select * from users");
+                $stm->execute();
+                $mail1 = "";
+                $n = "";
+                $nm = "";
+                while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+                    $id = $row['id'];
+                    $mail1 = $row['email'];
+                    $nm = $row['name'];
+                }
+                    $token = md5($mail1);
+                    $mail1 = "";
+                    $n = "";
+                    $nm = "";
+                    $stmt = $conn->prepare("UPDATE users SET emailval = 'Not Validated' WHERE email = '$email'");
+                    $stmt->execute();
+                   
+                    if (!class_exists('PHPMailer')) {
+                        require 'phpmailer/class.phpmailer.php';
+                        require 'phpmailer/class.smtp.php';
+                    }
+                    require_once "mailconfig.php";
+                    $mail = new PHPMailer();
+
+                    $emailBody = "<div>" . $nm . ",<br>
+                    <p>Click this link to recover your password<br>
+                    <a href='" . PROJECT_VALIDATE . "?token=" . $token . "'>"
+                        . PROJECT_VALIDATE .
+                        "</a><br></p>Regards,<br> Dilip.</div>";
+
+                    $mail->IsSMTP();
+                    $mail->SMTPDebug = 1;
+                    $mail->SMTPAuth = true;
+                    $mail->SMTPSecure = "tls";
+                    $mail->Port = PORT;
+                    $mail->Username = MAIL_USERNAME;
+                    $mail->Password = MAIL_PASSWORD;
+                    $mail->Host = MAIL_HOST;
+                    $mail->Mailer = MAILER;
+
+                    $mail->SetFrom(SENDER_EMAIL, SENDER_NAME);
+                    $mail->AddReplyTo(SENDER_EMAIL, SENDER_NAME);
+                    $mail->ReturnPath = SENDER_EMAIL;
+                    $mail->AddAddress($email);
+                    $mail->Subject = "Verification of Email";
+                    $mail->MsgHTML($emailBody);
+                    $mail->IsHTML(true);
+
+                    $stmt = $conn->prepare("select * from users where email='$email'");
+                    $stmt->execute();
+
+                    if (!$mail->Send()) {
+                 // $error_message = 'Problem in Sending Password Recovery Email';
+                        $res = '{"status":"2"}';// error in sending email
+                        print $res;
+                    } else {
+                    // $success_message = 'Please check your email to reset password!';
+                        $res = '{"status":"1"}';//successs
+                        print $res;
+                    }
+                
             } catch (PDOException $e) {
                 echo "NOt SAved" . $e->getMessage();
             }
@@ -103,18 +163,17 @@ class Account
             // print $myjson;
             print $res;
             // echo "Not Registred\n";
-        } else if ($pass =! $pass && $mail =! $mail){
+        } else if ($pass = !$pass && $mail = !$mail) {
             $res = '{"status":"2"}';
             // print $myjson;
             print $res;
-        }
-        else {
+        } else {
             $res = '{"status":"0"}';
             // print $myjson;
             print $res;
         }
     }
-    #main ends
+        #main ends
 }
 
 
