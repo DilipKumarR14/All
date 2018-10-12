@@ -29,14 +29,14 @@ responseMessage="";
           debugger;
           console.log("got respo", status);
           alert("Check Your EMail")
-          this.routes.navigate(['/resets'])
+          this.routes.navigate(['/logins'])
         }
         else if (status.status == "0") {         
 
           alert("Problem In Sending Error/Check Email")
         }
         else if (status.status == "2"){   
-          alert("Check Email Entered")
+          alert("Link EXpired")
         }
       });
 }

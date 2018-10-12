@@ -9,9 +9,10 @@ import { Router } from '@angular/router';
 })
 export class ResetsComponent implements OnInit {
   public title = "Reset Password";
-  mail = new FormControl('',[Validators.email]);
+  email = new FormControl('',[Validators.email]);
   pass = new FormControl('', [Validators.required]);
   pass1 = new FormControl('', [Validators.required]);
+  
   model: any = {};// fetching the value from form
   responseMessage = "";
   constructor(private service: DatabaseService, private routes: Router) { }
@@ -24,7 +25,7 @@ export class ResetsComponent implements OnInit {
       '';
   }
   getEmailErrorMessage(){
-    return this.mail.hasError('required') ? 'Email is required':
+    return this.email.hasError('required') ? 'Email is required':
 		'';
   }
   save() {

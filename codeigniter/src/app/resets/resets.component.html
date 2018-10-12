@@ -6,9 +6,9 @@
     </div>
     <div class="example-container">
         <mat-form-field>
-            <input matInput placeholder="Email" type="email" [formControl]="mail"
-            required autofocus name="email" [(ngModel)]="model.mail">
-            <mat-error *ngIf="mail.invalid ">{{getEmailErrorMessage()}}</mat-error>
+            <input matInput placeholder="Email" type="email" [formControl]="email"
+            required autofocus name="email" [(ngModel)]="model.email">
+            <mat-error *ngIf="email.invalid ">{{getEmailErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field>
             <input matInput  placeholder="Password" type="password" [formControl]="pass"

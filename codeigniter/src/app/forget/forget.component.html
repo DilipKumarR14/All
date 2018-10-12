@@ -4,14 +4,17 @@
     <div>
         <mat-card-title>Password forget<br></mat-card-title>
     </div>
-    <div class="example-container">
-        <mat-form-field>
-            <input matInput  placeholder="Email" type="text" [formControl]="email" required autofocus name="email" [(ngModel)]="model.email">
-            <mat-error *ngIf="email.invalid ">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-        <br>
-    </div>
-    <div class="button-row">
-        <button mat-flat-button (click)="save()">Reset</button>&nbsp;&nbsp;&nbsp;
-    </div>
+    <form method="GET">
+        <div class="example-container">
+            <mat-form-field>
+                <input matInput placeholder="Email" type="text" [formControl]="email" required autofocus name="email"
+                    [(ngModel)]="model.email">
+                <mat-error *ngIf="email.invalid ">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <br>
+        </div>
+        <div class="button-row">
+            <button mat-flat-button (click)="save()">Reset</button>&nbsp;&nbsp;&nbsp;
+        </div>
+    </form>
 </mat-card>
