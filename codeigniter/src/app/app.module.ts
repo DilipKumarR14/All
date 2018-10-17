@@ -17,6 +17,19 @@ import { HttpClientModule } from "@angular/common/http";
 import { ForgetComponent } from './forget/forget.component';
 import { ResetsComponent } from './resets/resets.component';
 import { EmailvalidateComponent } from './emailvalidate/emailvalidate.component';
+import { FundooComponent } from './fundoo/fundoo.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { FunComponent } from './fun/fun.component';
+import { NotesComponent } from './notes/notes.component';
+import { ReminderComponent } from './reminder/reminder.component';
+// import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatMenuModule} from '@angular/material/menu';
+import { NgxSpinnerModule } from "ngx-spinner";
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -27,8 +40,12 @@ import { EmailvalidateComponent } from './emailvalidate/emailvalidate.component'
     ForgetComponent,
     ResetsComponent,
     EmailvalidateComponent,
+    FundooComponent,
+    FunComponent,
+    NotesComponent,
+    ReminderComponent,
   ],
-  imports: [
+  imports: [ 
     BrowserModule,
     HttpClientModule,
     RouterModule,
@@ -43,6 +60,14 @@ import { EmailvalidateComponent } from './emailvalidate/emailvalidate.component'
     MatFormFieldModule,
     ReactiveFormsModule,
     MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatMenuModule,
+    NgxSpinnerModule,
+    MatExpansionModule,
 
   ],
   providers: [DatabaseService],

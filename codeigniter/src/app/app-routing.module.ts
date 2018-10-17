@@ -6,6 +6,12 @@ import { LoginsComponent } from './logins/logins.component';
 import { ForgetComponent } from './forget/forget.component';
 import {ResetsComponent} from './resets/resets.component';
 import {EmailvalidateComponent} from './emailvalidate/emailvalidate.component';
+import { FundooComponent } from './fundoo/fundoo.component';
+import { FunComponent } from './fun/fun.component';
+import { NotesComponent } from './notes/notes.component';
+import { ReminderComponent } from './reminder/reminder.component';
+
+
 @NgModule({
   imports:
     [
@@ -17,6 +23,16 @@ import {EmailvalidateComponent} from './emailvalidate/emailvalidate.component';
           { path: 'forget',component:ForgetComponent},
           { path: 'resets',component:ResetsComponent},
           { path: 'valid',component:EmailvalidateComponent},
+          { path: 'fundoo',component:FundooComponent},
+          { path: 'fun',component:FunComponent,
+        children:[
+          {path:'note',component:NotesComponent},
+          {path:'reminder',component:ReminderComponent}
+        ]
+        
+        },
+        
+
         ])
     ],
   exports: [RouterModule],

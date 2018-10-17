@@ -1,0 +1,31 @@
+mat-card{
+  width: 666px;
+  height: 60px;
+  margin-right: auto;
+  margin-top: 1%;
+  line-height: 1%;
+    /* background-color: red; */
+  }
+
+  .card{
+    font-family: serif;
+    margin-left: 23%;
+  }
+  .bar{
+    padding-right: 50%;
+    border: 59px;
+  }
+
+  /* .hoverWrapper:hover #hoverShow1 {
+    display: block;
+   }
+   
+   .hoverWrapper #hoverShow1 {
+    display: none;
+    position: absolute;
+    background-color: rgb(104, 94, 94);
+    width: 250px;
+    height: 250px;
+    left: 200px;
+    top: 100px;
+   } */

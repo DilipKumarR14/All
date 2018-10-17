@@ -1,6 +1,6 @@
 
   .heading{
-    background-color: rgb(43, 138, 43);
+    background-color: rgb(20, 86, 185);
     text-align: center;
     color: whitesmoke;
     font-size: 30px;  
@@ -18,7 +18,7 @@
   
   mat-card{
     width: 350px;
-    height: 300px;
+    height: 350px;
     margin-top: 30px;
     margin-right: auto;
     margin-left: auto
@@ -27,3 +27,9 @@
   .button-row{
     text-align: center;
   }
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  

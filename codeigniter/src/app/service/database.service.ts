@@ -12,11 +12,14 @@ export class DatabaseService {
   mode2:any = {};
   mode3:any = {};
   mode4:any = {};
+  obs:any={};
   public urls = "http://localhost/codeigniter/regform";
   public loginurl="http://localhost/codeigniter/login";
   private forgeturl="http://localhost/codeigniter/forgot";
   private resetloginurl="http://localhost/codeigniter/reset";
   private validloginurl="http://localhost/codeigniter/mailvali";
+  private getmail="http://localhost/codeigniter/getEmailId1";
+
   Register(mode) {
     debugger;
     const params = new FormData();
@@ -59,6 +62,8 @@ export class DatabaseService {
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
+    // this.obs =  
+    // debugger;
     return this.http.post(this.forgeturl, params, otheroption).pipe(
       map((res: Response) => res)
     )
@@ -94,7 +99,15 @@ export class DatabaseService {
       map((res: Response) => res)
     )
   }
-
-
   
+  gett(){
+    debugger;
+    let getid = new FormData();
+    getid.append("token",this.route.snapshot.queryParamMap.get('token'));
+    let otheroption: any = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    return this.http.post(this.getmail, getid, otheroption)
+    }
+
 }

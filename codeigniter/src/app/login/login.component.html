@@ -9,7 +9,7 @@
     <div class="form-group">
       <label>Name<br></label>    
         <!--template reference variable #name point to input element ,after asssigning now point to ngModel of form control-->                           <!--Property Binidng 6->4:47[ngModel] one way   [(ngModel)] two way binding model and view is in sync(-->
-      <input type="text" required #name="ngModel" pattern="[A-Za-z]{10}" [class.is-invalid]="name.invalid && name.touched" class="form-control" autofocus  required name="name" [(ngModel)]="userModel.name">
+      <input type="text" required #name="ngModel" pattern="[A-Za-z]{10}" [class.is-invalid]="name.invalid && name.touched" class="form-control" autofocus  required name="name" [(ngModel)]="userModel.name" [(ngModel)]="userModel.n">
                                 <!-- if name is cleared out red frame indicated-->       
       <!-- <small class="text-danger" [class.d-none]="name.valid || name.untouched">Name is Required</small> -->
       <div *ngIf="name.errors && (name.invalid||name.touched)">

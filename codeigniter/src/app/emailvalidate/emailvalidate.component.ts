@@ -21,14 +21,13 @@ export class EmailvalidateComponent implements OnInit {
       '';
   }
   save() {
-    var fetch = this.model;
+    var fetch = this.model; 
     debugger;
     this.service.Valid(fetch).subscribe(
       // data returned will be stored in status variable
       (status: any) => {
         debugger;
         if (status.status == "1") {
-
           console.log("got respo", status);
           // this.responseMessage="Successfully Saved";
           alert("Validated Successfully")

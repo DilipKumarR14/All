@@ -1,4 +1,4 @@
-<title>Welcome To Registeration</title>
+<!-- <title>Welcome To Registeration</title>
 <mat-card class="heading">{{title}}</mat-card>
 <br>
 
@@ -10,6 +10,7 @@
                 <input matInput maxlength="10" placeholder="Name" [formControl]="user" required autofocus name="name" [(ngModel)]="model.name">
                 <mat-error *ngIf="user.invalid">{{getNameErrorMessage()}}</mat-error>
             </mat-form-field>
+
             <mat-form-field>
                 <input matInput placeholder="Email" [formControl]="email" required name="email" [(ngModel)]="model.email">
                 <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
@@ -24,15 +25,56 @@
                 <input matInput placeholder="Password" required type="password" [formControl]="passwd"  name="password" [(ngModel)]="model.passwd">
                 <mat-error *ngIf="passwd.invalid">{{getPasswordErrorMessage()}}</mat-error>
 
-                <!-- <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon> -->
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
             </mat-form-field>
             <br><br>
             <div class="button-row">
                 <button mat-flat-button (click)="save()" [disabled]="!(model.name && model.passwd && model.email && model.mobile)">Registers</button>&nbsp;&nbsp;&nbsp; 
-                 <!-- {{responseMessage}} -->
+                 {{responseMessage}}
                 <a routerLink="/logins"><button mat-flat-button>Login</button></a>
             </div>
         </mat-card>
-        <!-- {{greeting}} -->
+        {{greeting}}
     </form>
-</div>
+</div> -->
+
+
+<div class="heading">Register Form</div>
+<br><br>
+<mat-card>
+    <div>
+        <!-- <mat-card-title>Password Reset<br></mat-card-title> -->
+    </div>
+    <div class="example-container">
+        <mat-form-field>
+            <input matInput maxlength="10" placeholder="Name" [formControl]="user" required autofocus name="name"
+                [(ngModel)]="model.name" [(ngModel)]="model.aname" >
+            <mat-error *ngIf="user.invalid">{{getNameErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Email" [formControl]="email" required name="email" 
+            [(ngModel)]="model.email" [(ngModel)]="model.aemail">
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput maxlength="10"
+             placeholder="Mobile Number" [formControl]="mobile" name="mobile" required
+                [(ngModel)]="model.mobile" [(ngModel)]="model.amobile">
+            <mat-error *ngIf="mobile.invalid">{{getMobileErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Password" required type="password" [formControl]="passwd" name="password"
+                [(ngModel)]="model.passwd" [(ngModel)]="model.apasswd">
+            <mat-error *ngIf="passwd.invalid">{{getPasswordErrorMessage()}}</mat-error>
+
+        </mat-form-field>
+
+        <br>
+        <div class="button-row">
+            <button mat-flat-button (click)="save()" [disabled]="!(model.aname && model.apasswd && model.aemail && model.amobile)">Registers</button>&nbsp;&nbsp;&nbsp;
+            {{responseMessage}}
+            <a routerLink="/logins"><button mat-flat-button>Login</button></a>
+        </div>
+        <br>
+    </div>
+</mat-card>
