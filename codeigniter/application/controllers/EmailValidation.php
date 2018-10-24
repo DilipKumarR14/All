@@ -11,8 +11,7 @@ class EmailValidation
 
         $email = $_POST['email'];
         $token = $_POST["token"];
-        echo $token;
-
+        // echo $token;
 
         $conf = new Config();
         $conn = $conf->configs();
@@ -26,25 +25,40 @@ class EmailValidation
         $mail1 = "";
         $pass = "";
         $tok = "";
+        $id = "";
+        $val = "";
+        $stmt = $conn->prepare("select * from users where email = '$email' ");
+            $stmt->execute();// already validated
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $id = $row['id'];
             $mail1 = $row['email'];
             $tok = $row['emailval'];
         }
-            if ($tok == $token) {
-                if ($mail1 == $email) {
 
-                        $stmt = $conn->prepare("UPDATE users SET emailval = 'validated' WHERE email = '$email'");
+        if ($tok != "Validated") {
+            if ($id != "") {
+                if ($tok == $token) {
+                    if ($mail1 == $email) {
+
+                        $stmt = $conn->prepare("UPDATE users SET emailval = 'Validated' WHERE email = '$email'");
                         $stmt->execute();
-                        $res = '{"status":"1"}';
-                    print $res;
-                } else {
-                    $res = '{"status":"0"}';
-                print $res;
+                        $res = '{"status":"200"}'; // validated successfully
+                        print $res;
+                    } else {
+                        $res = '{"status":"498"}'; // token expired
+                        print $res;
+                    }
                 }
-            } 
-    }
+            } else {
+                $res = '{"status":"204"}'; // email id not found
+                print $res;
+            }
+        } else {
+            $res = '{"status":"304"}'; // already validated
+            print $res;
+        }
 
+    }
 
 #main
 }

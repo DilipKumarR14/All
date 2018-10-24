@@ -66,7 +66,7 @@ class Account
                     $mail1 = "";
                     $n = "";
                     $nm = "";
-                    $stmt = $conn->prepare("UPDATE users SET emailval = 'Not Validated' WHERE email = '$email'");
+                    $stmt = $conn->prepare("UPDATE users SET emailval = '$token' WHERE email = '$email'");
                     $stmt->execute();
                    
                     if (!class_exists('PHPMailer')) {
@@ -137,20 +137,21 @@ class Account
 
         try {
             $stmt = $conn->prepare("select * from users where email='$email'");
-            // $count1 = $conn->prepare("select id from users where password=:passwords");
             $stmt->execute();
-            // $stmt1->bindParam(':passwords', $password);
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
         $pass = "";
         $mail = "";
+        $validation = "";
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $id = $row['id'];
             $pass = $row['password'];
             $mail = $row['email'];
+            $emailval = $row['emailval'];
         }
-
+        if($emailval == "Validated")
+        {
         if ($pass == $password && $email == $mail) {
             // echo "Registered User\n";
             // $myjson = '{"email":' . '"' . $email . '","password":' . $password . "}";
@@ -172,6 +173,13 @@ class Account
             // print $myjson;
             print $res;
         }
+    }
+    else{
+        $res = '{"status":"3"}';
+            // print $myjson;
+            print $res;
+    }
+
     }
         #main ends
 }
