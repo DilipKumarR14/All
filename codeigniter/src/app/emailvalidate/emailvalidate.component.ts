@@ -27,15 +27,20 @@ export class EmailvalidateComponent implements OnInit {
       // data returned will be stored in status variable
       (status: any) => {
         debugger;
-        if (status.status == "1") {
+        if (status.status == "200") {
           console.log("got respo", status);
-          // this.responseMessage="Successfully Saved";
           alert("Validated Successfully")
           // move to the other page after success
           this.routes.navigate(['/logins'])
         }
         else if (status.status == "null") {
           alert("Enter All Mandatory Field")
+        }
+        else if (status.status == "304") {
+          alert("Already Validated")
+        }
+        else if (status.status == "204") {
+          alert("MailID not Found")
         }
         else {
           alert("Link Is Expired")

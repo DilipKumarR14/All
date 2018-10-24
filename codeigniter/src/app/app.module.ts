@@ -30,7 +30,13 @@ import { ReminderComponent } from './reminder/reminder.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { NgxSpinnerModule } from "ngx-spinner";
 import {MatExpansionModule} from '@angular/material/expansion';
-
+import { RoughComponent } from './rough/rough.component';
+import { CreateComponent } from './create/create.component';
+import { ArchiveComponent } from './archive/archive.component';
+import { TrashComponent } from './trash/trash.component';
+import { AddnoteComponent } from './addnote/addnote.component';
+import { AComponent } from './a/a.component';
+import { BComponent } from './b/b.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +50,13 @@ import {MatExpansionModule} from '@angular/material/expansion';
     FunComponent,
     NotesComponent,
     ReminderComponent,
+    RoughComponent,
+    CreateComponent,
+    ArchiveComponent,
+    TrashComponent,
+    AddnoteComponent,
+    AComponent,
+    BComponent,
   ],
   imports: [ 
     BrowserModule,
@@ -68,7 +81,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatMenuModule,
     NgxSpinnerModule,
     MatExpansionModule,
-
   ],
   providers: [DatabaseService],
   bootstrap: [AppComponent]

@@ -1,19 +1,130 @@
-<div id="swap1">
-  <mat-card class="card" >
-    <input type="text" value="Take A Note1...." class="bar">
+<div *ngIf="maincard" class="card1" (click)="matcardVisbility()" fxLayout="row">
+  <mat-card>
+    <input style="width: 100%;border:0px;outline: none;" placeholder="Take A Note !....">
   </mat-card>
 </div>
 
-<div id="swap2">
-    <mat-card class="card" >
-        <input type="text" value="Take A Note2...." class="bar">
-      </mat-card>
+<!-- <div *ngIf="displaycard">
+  <mat-card class="receive1">
+    <mat-card-title>
+        <input matInput placeholder="Title" value="{{title1}}" [formControl]="title" class="divtext"  name="title" [(ngModel)]="model.title">
+    </mat-card-title>
+    <input matInput placeholder="Note" value="{{note1}}" [formControl]="note" class="divtext"  name="note" [(ngModel)]="model.note">
+    
+    <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" style="opacity: 0.5;">
+      <mat-menu #menu [overlapTrigger]="false">
+        <label style="margin:1%;">Reminder:</label>
+        <button mat-menu-item>Later Today 8.00pm</button>
+        <button mat-menu-item>Tomorrow</button>
+        <button mat-menu-item>Next Week</button>
+        <button mat-menu-item>Home</button>
+      </mat-menu>
+      <img src="../../assets/img/login/rem.svg">
+    </button>
+    <button mat-icon-button style="opacity: 0.5;">
+      <img src="../../assets/img/login/collab.svg">
+    </button>
+    <button mat-icon-button aria-label="Color" [matMenuTriggerFor]="menu1" style="opacity: 0.5;">
+      <mat-menu #menu1 [overlapTrigger]="false">
+        <label style="margin:1%;">Color</label>
+        <button mat-menu-item (click)="mat(red)">Red</button>
+        <button mat-menu-item (click)="mat()">Green</button>
+        <button mat-menu-item (click)="mat()">Blue</button>
+
+      </mat-menu>
+      <img src="../../assets/img/login/color.svg">
+    </button>
+    <button mat-icon-button (click)="imageUpload($event)" style="opacity: 0.5;">
+      <img src="../../assets/img/login/image.svg">
+    </button>
+    <button mat-icon-button style="opacity: 0.5;">
+      <img src="../../assets/img/login/archive.svg">
+    </button>
+    <button mat-icon-button style="opacity: 0.5;">
+      <img src="../../assets/img/login/vertical.svg">
+    </button>
+  </mat-card>
+</div> -->
+
+<div *ngIf="expcard">
+    <!-- <mat-card class="receive" style="background-color:rgb(173, 138, 207)"> -->
+    <mat-card class="receive" [style.background-color]="item">
+      <mat-card-title>
+        <!-- <input type="text" contenteditable="true" aria-multiline="true" 
+      style="outline-style:none;opacity: 0.5;"
+        data-text="Title" matInput
+        class="divtext" 
+        name="title"
+        [style.background-color]="item" 
+        placeholder="Title" 
+        [formControl]="title"
+        [(ngModel)]="model.title"> -->
+        <input matInput
+         placeholder="Title"
+          class="divtext" [formControl]="title" name="title" [(ngModel)]="model.title">
+
+        <!-- </div> -->
+        <!-- <input type="text" style="font-weight: bold" placeholder="Title" [style.background-color]="item"> -->
+        <!-- <span style="margin:1%;"><img src="../../assets/img/login/pin.svg"></span>  -->
+      </mat-card-title>
+      <input matInput
+       placeholder="Note"
+        [formControl]="note" class="divtext" required autofocus name="note"
+        [(ngModel)]="model.note">
+
+      <!-- </div> -->
+      <!-- <div contenteditable="true" aria-placeholder="Take a Note" aria-multiline="true" 
+     style="outline-style:none"></div> -->
+
+      <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" style="opacity: 0.5;">
+        <mat-menu #menu [overlapTrigger]="false">
+          <label style="margin:1%;">Reminder:</label>
+          <button mat-menu-item>Later Today 8.00pm</button>
+          <button mat-menu-item>Tomorrow</button>
+          <button mat-menu-item>Next Week</button>
+          <button mat-menu-item>Home</button>
+        </mat-menu>
+        <img src="../../assets/img/login/rem.svg">
+      </button>
+      <button mat-icon-button style="opacity: 0.5;">
+        <img src="../../assets/img/login/collab.svg">
+      </button>
+      <button mat-icon-button aria-label="Color" [matMenuTriggerFor]="menu1" style="opacity: 0.5;">
+        <mat-menu #menu1 [overlapTrigger]="false">
+          <label style="margin:1%;">Color</label>
+          <button mat-menu-item (click)="mat(red)">Red</button>
+          <button mat-menu-item (click)="mat()">Green</button>
+          <button mat-menu-item (click)="mat()">Blue</button>
+
+        </mat-menu>
+        <img src="../../assets/img/login/color.svg">
+      </button>
+      <button mat-icon-button (click)="imageUpload($event)" style="opacity: 0.5;">
+        <img src="../../assets/img/login/image.svg">
+      </button>
+      <button mat-icon-button style="opacity: 0.5;">
+        <img src="../../assets/img/login/archive.svg">
+      </button>
+      <button mat-icon-button style="opacity: 0.5;">
+        <img src="../../assets/img/login/vertical.svg">
+      </button>
+      <button mat-icon-button style="opacity: 0.5;">
+        <img src="../../assets/img/login/undo.svg">
+      </button>
+      <button mat-icon-button style="opacity: 0.5;">
+        <img src="../../assets/img/login/redo.svg">
+      </button>
+
+      <button mat-button (click)="expcardVisibiilty()" style="margin-left:1%;" (click)="save()">Close</button>
+
+    </mat-card>
 </div>
 
-<!-- <div class="hoverWrapper">Show Div 1
-    <div id="hoverShow1">this is shown only on hover</div>
-   </div> -->
-
-<!-- <button type="button" mat-icon-button (click)="drawer">
-    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-  </button> -->
+<div class="receive">
+  <mat-card>
+    <mat-card-title>
+      Title <input type="text" value="{{title1}}">
+    </mat-card-title>
+    Note <input type="text" value="{{note1}}">
+  </mat-card>
+</div>

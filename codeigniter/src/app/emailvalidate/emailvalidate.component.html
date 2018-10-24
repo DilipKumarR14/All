@@ -13,6 +13,6 @@
         <br>
     </div>
     <div class="button-row">
-        <button mat-flat-button (click)="save()">Submit</button>&nbsp;&nbsp;&nbsp;
+        <button mat-flat-button (click)="save()" [disabled]="email.invalid" >Submit</button>&nbsp;&nbsp;&nbsp;
     </div>
 </mat-card>

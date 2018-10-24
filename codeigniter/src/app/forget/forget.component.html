@@ -16,7 +16,7 @@
             <br>
         </div>
         <div class="button-row">
-            <button mat-flat-button (click)="save()">Reset</button>&nbsp;&nbsp;&nbsp;
+            <button mat-flat-button  [disabled]="email.invalid"  (click)="save()">Reset</button>&nbsp;&nbsp;&nbsp;
         </div>
         <div class="spin">
             <br>

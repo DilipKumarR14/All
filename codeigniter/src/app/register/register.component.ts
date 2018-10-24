@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { DatabaseService } from '../service/database.service';
 import { Router } from '@angular/router';
 
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   // public greeting="";
-  constructor(private service: DatabaseService, private routes: Router) {
+  constructor(private service: DatabaseService, private routes: Router,private spinner:NgxSpinnerService) {
 
   }
   public title = "Welcome";
@@ -30,6 +31,7 @@ export class RegisterComponent {
   aemail = new FormControl('', [Validators.required, Validators.email]);
 
   model: any = {};// fetching the value from form
+  
   public altr: boolean;
   responseMessage = "";
   // getErrorMessage() {
@@ -84,7 +86,7 @@ export class RegisterComponent {
     }
     else if (this.aemail.hasError("required")) {
       this.model.aemail = null
-      return "You must enter a EMail";
+      return "You must enter a password";
     }
     else {
       this.model.aemail = null
@@ -112,6 +114,7 @@ export class RegisterComponent {
 
   save() {
     debugger;
+    this.spinner.show();
     var fetch = this.model;
     this.service.Register(fetch).subscribe(
       // data returned will be stored in status variable
@@ -122,19 +125,27 @@ export class RegisterComponent {
           console.log("got respo", status);
           alert("SuccessFully Saved")
           alert("Check Your Mail")
+          this.spinner.hide();
+
           // move to the other page after success
           this.routes.navigate(['/logins'])
         }
         else if (status.status == "null") {
           debugger;
           alert("Enter All Mandatory Field")
+          this.spinner.hide();
+
         }
         else if (status.status == "2") {
           debugger;
-          alert("EMail Not sent")
+          alert("EMail Not sent/Check Your EmailId")
+          this.spinner.hide();
+
         }
         else {
           alert("Email/Mobile is already present")
+          this.spinner.hide();
+
         }
 
       }

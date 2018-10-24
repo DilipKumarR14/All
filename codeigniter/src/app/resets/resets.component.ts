@@ -10,7 +10,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
     const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
-
     return (invalidCtrl || invalidParent);
   }
 }
@@ -61,7 +60,7 @@ public value="change";
       // data returned will be stored in status variable
       (status: any) => {
         debugger;
-        if (status.status == "1") {
+        if (status.status == "200") {
           
           console.log("got respo", status);
           // this.responseMessage="Successfully Saved";
@@ -69,13 +68,10 @@ public value="change";
           // move to the other page after success
           this.routes.navigate(['/logins'])
         }
-        else if (status.status == "2") {
-          alert("Not A Valid Email")
-        }
-        else if (status.status == "3") {
+        else if (status.status == "498") {
           alert("Token Is Invalid")
         }
-        else if (status.status == "4") {
+        else if (status.status == "401") {
           alert("Linked EXpired/Email Is Invalid")
         }
         
@@ -95,7 +91,7 @@ ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
   debugger;
-let obs= this.service.gett();
+let obs= this.service.getMail();
 obs.subscribe(
 (res:any) =>{
 this.value = res.key;

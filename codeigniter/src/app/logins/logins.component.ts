@@ -30,9 +30,10 @@ export class LoginsComponent {
     }
 
   public title = "Fundoo Notes";
+  // values from [formControl] in form
   email = new FormControl('', [Validators.required, Validators.email]);
   passwd = new FormControl('', [Validators.required]);
-  model: any = {};// fetching the value from form
+  model: any = {};// fetching the value from form  by [(ngModel)]
   responseMessage = "";
 
   getEmailErrorMessage() {
@@ -57,7 +58,7 @@ export class LoginsComponent {
           this.spinner.hide();
           alert("LoggedIn Succesfully")
           this.spinner.hide();
-          this.routes.navigate(['/fun'])
+          this.routes.navigate(['/fundoo'])
         } 
         else if (status.status == "null") {
           debugger;
@@ -69,6 +70,14 @@ export class LoginsComponent {
           this.spinner.hide();
 
           alert("Email/Mobile is Incorrect")
+          this.spinner.hide();
+
+          // this.ValueError = "Email/Mobile is Incorrect";
+        }
+        else if( status.status == "3"){
+          this.spinner.hide();
+
+          alert("Validated Your EmailID")
           this.spinner.hide();
 
           // this.ValueError = "Email/Mobile is Incorrect";

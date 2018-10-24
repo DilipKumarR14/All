@@ -8,10 +8,11 @@ import { ActivatedRoute } from '@angular/router';
 export class DatabaseService {
   constructor(private http: HttpClient, private route:ActivatedRoute) { }
   mode: any = {};
-  mode1:any ={};
+  mode1:any = {};
   mode2:any = {};
   mode3:any = {};
   mode4:any = {};
+  mode5:any = {};
   obs:any={};
   public urls = "http://localhost/codeigniter/regform";
   public loginurl="http://localhost/codeigniter/login";
@@ -19,6 +20,10 @@ export class DatabaseService {
   private resetloginurl="http://localhost/codeigniter/reset";
   private validloginurl="http://localhost/codeigniter/mailvali";
   private getmail="http://localhost/codeigniter/getEmailId1";
+
+  private getcolor="http://localhost/codeigniter/color";
+
+  private storenote="http://localhost/codeigniter/note";
 
   Register(mode) {
     debugger;
@@ -57,8 +62,9 @@ export class DatabaseService {
   Forget(mode2) {
     debugger;
     const params = new FormData();
-    params.append("email", mode2.email);
-
+    params.append("email",mode2.email);
+    params.append("pass", mode2.passwd);
+    params.append("pass1", mode2.passwd);
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -72,7 +78,7 @@ export class DatabaseService {
   Reset(mode3) {
     debugger;
     const params = new FormData();
-    params.append("email", mode3.email);
+    // params.append("email", mode3.email);
     params.append("pass",mode3.pass);
     params.append("pass1",mode3.pass1);
     // To fetch the particular query parameter values
@@ -82,7 +88,7 @@ export class DatabaseService {
     }
     return this.http.post(this.resetloginurl, params, otheroption).pipe(
       map((res: Response) => res)
-    )
+    ) 
   }
 
 
@@ -99,8 +105,28 @@ export class DatabaseService {
       map((res: Response) => res)
     )
   }
+
+  store(mode5){
+    debugger;
+
+    let otheroption: any = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    const params = new FormData();
+    params.append("title",mode5.title);
+    params.append("note",mode5.note);
+    
+    console.log(params);
+    
+    debugger;
+    return this.http.post(this.storenote,params, otheroption).pipe(
+      map((res: Response) => res)
+    )
+  }
+
+
   
-  gett(){
+  getMail(){
     debugger;
     let getid = new FormData();
     getid.append("token",this.route.snapshot.queryParamMap.get('token'));
@@ -109,5 +135,7 @@ export class DatabaseService {
     }
     return this.http.post(this.getmail, getid, otheroption)
     }
+
+
 
 }

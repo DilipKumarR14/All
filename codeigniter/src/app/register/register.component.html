@@ -38,7 +38,7 @@
     </form>
 </div> -->
 
-
+<ngx-spinner></ngx-spinner>
 <div class="heading">Register Form</div>
 <br><br>
 <mat-card>
@@ -71,7 +71,7 @@
 
         <br>
         <div class="button-row">
-            <button mat-flat-button (click)="save()" [disabled]="!(model.aname && model.apasswd && model.aemail && model.amobile)">Registers</button>&nbsp;&nbsp;&nbsp;
+            <button mat-flat-button (click)="save()" [disabled]="(model.aname && model.apasswd && model.aemail && model.amobile)">Registers</button>&nbsp;&nbsp;&nbsp;
             {{responseMessage}}
             <a routerLink="/logins"><button mat-flat-button>Login</button></a>
         </div>

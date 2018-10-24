@@ -37,7 +37,7 @@ responseMessage="";
     this.service.Forget(fetch).subscribe(
       (status: any) => {
         debugger;
-        if (status.status == "1") {
+        if (status.status == "200") {
           debugger;
           // this.value = 90;
           console.log("got respo", status);
@@ -45,13 +45,13 @@ responseMessage="";
           this.spinner.hide();
           this.routes.navigate(['/logins']);
         }
-        else if (status.status == "0") {         
+        else if (status.status == "400") {         
 
           alert("Problem In Sending Error/Check Email")
           this.spinner.hide();
         }
-        else if (status.status == "2"){   
-          alert("Not A Valid Email/Email Field Is Empty")
+        else if (status.status == "204"){   
+          alert("Email Field Is NOt FOund")
           this.spinner.hide();
         }
       });
