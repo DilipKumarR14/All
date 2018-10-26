@@ -1,11 +1,17 @@
 <?php
 header('Access-Control-Allow-Origin: *');
+/**
+ * @description this api used for emailvalidation purpose
+ */
 class EmailValidation
 {
+    /**
+     * @method used for validating the email after registeration of the form
+     */
 
     public function emailValid()
     {
-        header('Access-Control-Allow-Origin: *');
+        // header('Access-Control-Allow-Origin: *');
 
         require_once "Config.php";
 
@@ -35,7 +41,7 @@ class EmailValidation
             $tok = $row['emailval'];
         }
 
-        if ($tok != "Validated") {
+        if ($tok != "Validated") {// tok is validated
             if ($id != "") {
                 if ($tok == $token) {
                     if ($mail1 == $email) {

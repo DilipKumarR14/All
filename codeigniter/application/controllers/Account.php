@@ -3,6 +3,9 @@
 // if not set we will not get back the response back to front-end(rest calls)
 header('Access-Control-Allow-Origin: *');
 include_once "Config.php";
+/**
+ * @description Account API which is used for register and login
+ */
 class Account
 {
     public function register()
@@ -66,6 +69,7 @@ class Account
                     $mail1 = "";
                     $n = "";
                     $nm = "";
+                    // to update the emailval column in db for validation purpose
                     $stmt = $conn->prepare("UPDATE users SET emailval = '$token' WHERE email = '$email'");
                     $stmt->execute();
                    
@@ -104,11 +108,11 @@ class Account
                     $stmt->execute();
 
                     if (!$mail->Send()) {
-                 // $error_message = 'Problem in Sending Password Recovery Email';
+                 // 'Problem in Sending Password Recovery Email';
                         $res = '{"status":"2"}';// error in sending email
                         print $res;
                     } else {
-                    // $success_message = 'Please check your email to reset password!';
+                    // 'Please check your email to reset password!';
                         $res = '{"status":"1"}';//successs
                         print $res;
                     }
@@ -181,6 +185,7 @@ class Account
     }
 
     }
+
         #main ends
 }
 

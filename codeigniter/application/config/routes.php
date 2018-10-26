@@ -63,4 +63,4 @@ $route['getEmailId1']="ForgetPassword/getEmailId";
 
 $route['color']="GetColor/fetchColor";
 
-$route['note']="FetchNote/note";
+$route['note']="FetchNote/createNote";
