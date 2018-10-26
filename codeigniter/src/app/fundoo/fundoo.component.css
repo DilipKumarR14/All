@@ -3,7 +3,7 @@
   height: 100%;
  
 }
-.ten{
+.changesize{
   color: #6a6a6a;
   line-height: 40px;
   font-size: small;
@@ -62,8 +62,8 @@
   border: none;
   outline: none;
 }
-.mat-icon-button:hover {
-  background-color: #f3b703;
+/* .mat-icon-button:hover {
+  background-color: #8b7e56;
   padding: 0;
   min-width: 0;
   width: 50px;
@@ -71,4 +71,5 @@
   line-height: 40px;
   border-radius: 50%;
   border: none;
-}
+} */
+

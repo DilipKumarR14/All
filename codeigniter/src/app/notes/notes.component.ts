@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from '../service/database.service';
-import { FormControl,Validators } from '@angular/forms';
-
+import { FormControl } from '@angular/forms';
+import { NoteService } from '../service/note.service';
+import {CookieService} from 'angular2-cookie';
 @Component({
     selector: 'app-notes',
     templateUrl: './notes.component.html',
@@ -9,63 +9,64 @@ import { FormControl,Validators } from '@angular/forms';
 })
 export class NotesComponent implements OnInit {
 
-//    imageUpload(event) {
-//       debugger;
-//         const file = event.target.files;
-//         let res  = file;
-//         debugger
-//     }
 public title = new FormControl();
 public note = new FormControl();
 title1="";
 note1="";
+email = this.cookie.get("email");
+time="";
 model: any = {};
+res2 = "";
 
-    public items = [1];
 
+settime(){
+    this.time = "Later Today 8PM ";
+}
+settimetomo(){
+    this.time = "Tomorrow 8.00PM";
+}
+settimeweek(){
+    this.time = "Next Week 8.00PM"
+}
     maincard: boolean = true;
     expcard: boolean = false;
     displaycard:boolean = true;
-    constructor(private service: DatabaseService) {
-
+    test: any;
+    constructor(private service: NoteService,private cookie:CookieService) {
+ 
+            this.service.store(this.model,this.email).subscribe((status: any) => {
+                debugger;
+                this.test=status;
+        });
     }
-
+    stopPropagation(event){
+        event.stopPropagation();
+        // console.log("Clicked!");
+      }
     ngOnInit() {
-
+        
     }
     matcardVisbility() {
         this.maincard = false;
         this.expcard = true;
-        // this.displaycard = false;
     }
     expcardVisibiilty() {
         this.expcard = false;
         this.maincard = true;
-        // this.displaycard = true;
     }
     
     save() {
+        // var fetch = this.model;
         debugger;
-        var fetch = this.model;
-        this.service.store(this.model).subscribe(
-            // data returned will be stored in status variable
-            (status: any) => {
-                debugger;
-                if (status.title != "") {
-                    debugger;
-                    console.log("got respo", status);
-                    this.title1 = status.title;
-                    this.note1 = status.note;
-                }
-                else {
-                    console.log(status.status)
-                    this.title1 = status.title1;
-                    alert("Not Fetched")
-                }
+        this.email = this.cookie.get("email");
 
-            }
-        );
+        this.service.store(this.model,this.email).subscribe((status: any) => {
+                debugger;
+                this.test=status;
+        });
     }
    
-   
+   mat(color){
+
+   }
 }

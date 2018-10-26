@@ -26,6 +26,7 @@ export class DatabaseService {
   private storenote="http://localhost/codeigniter/note";
 
   Register(mode) {
+    //
     debugger;
     const params = new FormData();
     params.append("name", mode.name);

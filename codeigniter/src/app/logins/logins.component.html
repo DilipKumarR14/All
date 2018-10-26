@@ -3,7 +3,7 @@
 <ngx-spinner></ngx-spinner>
 <mat-card>
     <div>
-        <!-- <mat-card-title>Password Reset<br></mat-card-title> -->
+        <!-- <mat-card-title>Password Reset</mat-card-title> -->
     </div>
     <div class="example-container">
         <mat-form-field>
@@ -14,7 +14,6 @@
             name="email" [(ngModel)]="model.email">
             <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
         </mat-form-field>
-<br>
         <mat-form-field>
             <input matInput placeholder="Password" required type="password" [formControl]="passwd" name="password"
                 [(ngModel)]="model.passwd">
@@ -22,12 +21,10 @@
             {{ValueError}}
         </mat-form-field>
 
-        <br>
         <div class="button-row">
             <button mat-flat-button [disabled]="email.invalid || passwd.invalid"  (click)="saves()" >Login</button>&nbsp;&nbsp;&nbsp;
             <a routerLink="/register"><button mat-flat-button>Create New Account</button></a>
         </div>
-        <br>
         <div class="log">
             <a routerLink="/forget" style="color:blue">Forget Password ?</a><br>
             <h6>Or</h6>

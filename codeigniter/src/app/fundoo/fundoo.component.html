@@ -1,5 +1,5 @@
 <mat-toolbar class="toolbar">
-    <button  aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+    <button  aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" matTooltip="Main Menu">
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
     <span class="title">Fundoo Note</span>
@@ -7,38 +7,46 @@
       <mat-icon aria-label="Side nav toggle icon">search</mat-icon>
     </button>
   
-    <input class="searchbar" aria-label="Search" autocomplete="off" placeholder="Search" name="q" type="text" aria-hidden="true">
+    <input class="searchbar" aria-label="Search" autocomplete="off" 
+    placeholder="Search" name="q" type="text" aria-hidden="true">
   
     <!-- value=""  role="combobox" -->
     <div>
       <div>
-        <span>
+        <!-- <span>
           <button aria-label="Toggle sidenav" mat-icon-button>
             <mat-icon aria-label="Side nav toggle icon">refresh</mat-icon>
           </button>
-        </span>
+        </span> -->
         <span>
           <button aria-label="Toggle sidenav" mat-icon-button>
             <mat-icon aria-label="Side nav toggle icon">view_agenda</mat-icon>
           </button>
         </span>
-        <span>
+        <!-- <span>
           <button aria-label="Toggle sidenav" mat-icon-button>
-            <mat-icon aria-label="Side nav toggle icon">view_module</mat-icon>
+            <mat-icon aria-label="Side nav toggle icon">
+                <img src="../../assets/img/login/apps.svg">
+            </mat-icon>
           </button>
-        </span>
-        <span>
+        </span> -->
+        <!-- <span>
           <button aria-label="Toggle sidenav" mat-icon-button>
             <mat-icon aria-label="Side nav toggle icon">notifications</mat-icon>
 
           </button>
-        </span>
+        </span> -->
         <span>
-          <button aria-label="Toggle sidenav" mat-icon-button mat-button [matMenuTriggerFor]="menu">
-            <mat-icon aria-label="Side nav toggle icon">account_circle</mat-icon>
+          <button aria-label="Toggle sidenav" mat-icon-button mat-button matTooltip="Account" [matMenuTriggerFor]="menu" style="margin-left:50px;">
+            <mat-icon aria-label="Side nav toggle icon" >account_circle</mat-icon>
             <mat-menu #menu [overlapTrigger]="false">
-              <button mat-menu-item>Profile</button>
-              <button mat-menu-item>Log Out</button>
+            <img src="../../assets/img/login/pic.svg" 
+            width="20%" height="20%"
+            alt="user">
+          <button mat-button style="margin-left:15%;"> Google Account </button>
+          <mat-divider></mat-divider>
+            <button mat-button>Add Account</button>
+            <button mat-button style="margin-left:15%;">Log Out</button>
             </mat-menu>
           </button>
         </span>
@@ -50,7 +58,7 @@
     <mat-sidenav #drawer class="sidenav" fixedInViewport="false" [attr.role]="(isHandset | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset | async) ? 'over' : 'side'" [opened]="(isHandset | async)">
       <mat-nav-list>
-        <a mat-list-item class="ten" routerLink="note">
+        <a mat-list-item class="changesize" routerLink="note">
           <button aria-label="Toggle sidenav" mat-icon-button>
             <mat-icon aria-label="Side nav toggle icon">
               <img src="../../assets/img/login/note.svg">
@@ -58,75 +66,79 @@
   
           </button>Notes</a>
   
-        <a mat-list-item routerLink="reminder" class="ten">
+        <a mat-list-item routerLink="reminder" class="changesize">
           <button aria-label="Toggle sidenav" mat-icon-button>
             <mat-icon aria-label="Side nav toggle icon">
               <img src="../../assets/img/login/rem.svg">
             </mat-icon>
           </button>Reminders</a>
         <hr>
-        <label class="ten">&nbsp;&nbsp;Labels
+        <label class="changesize">Labels
           <span style="margin-left:170px">
-            <button mat-icon-button>Click</button></span>
+            <button mat-icon-button >Edit</button></span>
         </label>
-
-        <a mat-list-item routerLink="create" class="ten">
-          <button aria-label="Toggle sidenav" mat-icon-button>
+        <a mat-list-item *ngIf="label">
+            <mat-icon >label</mat-icon>{{label}}
+          </a>
+        <a mat-list-item routerLink="create" class="changesize">
+          <button aria-label="Toggle sidenav" mat-icon-button (click)="openDialog()">
             <mat-icon aria-label="Side nav toggle icon">
-              <img src="../../assets/img/login/plus.svg">
+              <img src="../../assets/img/login/plus.svg" style="margin-left:10px;">
             </mat-icon>
-          </button>Create New Labels</a>
+            Create New Labels</button>
+          </a>
+          
         <!-- <hr> -->
         <mat-divider>
           </mat-divider>
-        <a mat-list-item routerLink="archive" class="ten">
+        <a mat-list-item routerLink="archive" class="changesize">
           <button aria-label="Toggle sidenav" mat-icon-button>
             <mat-icon aria-label="Side nav toggle icon">
               <img src="../../assets/img/login/archive.svg">
             </mat-icon>
           </button>Archive</a>
   
-        <a mat-list-item routerLink="trash" class="ten">
+        <a mat-list-item routerLink="trash" class="changesize">
           <button aria-label="Toggle sidenav" mat-icon-button>
             <mat-icon aria-label="Side nav toggle icon">
               <img src="../../assets/img/login/trash.svg">
             </mat-icon>
           </button>Trash</a>
-        <hr>
-        <a mat-list-item href="#" class="ten">
+        <!-- <hr>
+        <a mat-list-item href="#" class="changesize">
           <button aria-label="Toggle sidenav" mat-icon-button>
             <mat-icon aria-label="Side nav toggle icon">
               <img src="../../assets/img/login/settings.svg">
             </mat-icon>
           </button>Settings</a>
   
-        <a mat-list-item href="#" class="ten">
+        <a mat-list-item href="#" class="changesize">
           <button aria-label="Toggle sidenav" mat-icon-button>
             <mat-icon aria-label="Side nav toggle icon">
               <img src="../../assets/img/login/feedback.svg">
             </mat-icon>
           </button>Send Feedback</a>
   
-        <a mat-list-item href="#" class="ten">
+        <a mat-list-item href="#" class="changesize">
           <button aria-label="Toggle sidenav" mat-icon-button>
             <mat-icon aria-label="Side nav toggle icon">
               <img src="../../assets/img/login/help.svg">
             </mat-icon>
           </button>Help</a>
   
-        <a mat-list-item href="#" class="ten">
+        <a mat-list-item href="#" class="changesize">
           <button aria-label="Toggle sidenav" mat-icon-button>
             <mat-icon aria-label="Side nav toggle icon">
               <img src="../../assets/img/login/app.svg">
             </mat-icon>
           </button>App Download</a>
   
-        <a mat-list-item href="#" class="ten">
+        <a mat-list-item href="#" class="changesize">
           <button aria-label="Toggle sidenav" mat-icon-button>
             <mat-icon aria-label="Side nav toggle icon">
               <img src="../../assets/img/login/keyboard.svg">
             </mat-icon>
-          </button>keyboard shortcut</a>
+          </button>keyboard shortcut</a> -->
       </mat-nav-list>
   
     </mat-sidenav>
@@ -134,6 +146,5 @@
     <mat-sidenav-content style="background-color:#e8e8e8">
       <!--connect the sidenavigation to the w.r.t notes,reminder-->
       <router-outlet></router-outlet>
-      <app-addnote></app-addnote>
     </mat-sidenav-content>
   </mat-sidenav-container>

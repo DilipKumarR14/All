@@ -5,7 +5,9 @@ import { Router } from '@angular/router';
 import { DomSanitizer } from "@angular/platform-browser";
 import { MatIconRegistry } from "@angular/material";
 import { NgxSpinnerService } from "ngx-spinner";
+import {CookieService} from 'angular2-cookie';
 
+// import { LocalStorageService } from "ngx-webstorage";
 @Component({
   selector: 'app-logins',
   templateUrl: './logins.component.html',
@@ -16,8 +18,9 @@ export class LoginsComponent {
   errorMessage: any;
   errorstack: any;
   ValueError:any;
-  constructor(private service: DatabaseService, private routes: Router,iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
-    private spinner:NgxSpinnerService) { 
+  constructor(private service: DatabaseService, private routes: Router,
+    iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
+    private spinner:NgxSpinnerService,private cookie:CookieService) { 
 
     iconRegistry.addSvgIcon(
     "fb",
@@ -33,6 +36,9 @@ export class LoginsComponent {
   // values from [formControl] in form
   email = new FormControl('', [Validators.required, Validators.email]);
   passwd = new FormControl('', [Validators.required]);
+  // setLocal(){
+  //   this.ls.store("user","dilip");
+  // }
   model: any = {};// fetching the value from form  by [(ngModel)]
   responseMessage = "";
 
@@ -46,9 +52,11 @@ export class LoginsComponent {
       '';
   }
   saves() {
+    // this.setLocal();
     this.spinner.show();
     debugger;
     var fetch = this.model;     // define the function and parameter (ts)
+    this.cookie.put("email",this.model.email);
     this.service.Login(fetch).subscribe(
       (status: any) => {
         debugger;

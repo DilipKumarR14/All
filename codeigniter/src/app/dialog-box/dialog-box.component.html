@@ -1,0 +1,24 @@
+<!-- <div>
+<label>Edit Labels</label><br>
+<img src="../../assets/img/login/close.svg" alt="close">
+<input type="text" style="margin-left:5%;outline-style: none;border:none;" placeholder="Create new label">
+<img src="../../assets/img/login/close.svg" style="margin-left:3%;outline:none" alt="close">
+</div><br>
+<mat-divider></mat-divider>
+<div>
+  <button mat-button type="button" style="margin-top:5%;margin-left:70%; 
+  outline-style: none;border:none;    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;">Done</button>
+</div> -->
+<h1 mat-dialog-title>Edit labels {{data.name}}</h1>
+<div mat-dialog-content>
+    <img src="../../assets/img/login/close.svg" alt=""> 
+  <mat-form-field>
+     <input matInput placeholder="Create new label"  [(ngModel)]="data.label">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()"></button><!-- <i class="material-icons">delete</i>-->
+  <button mat-button [mat-dialog-close]="data.label" cdkFocusInitial>Done</button>
+</div>

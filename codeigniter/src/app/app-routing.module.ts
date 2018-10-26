@@ -11,7 +11,6 @@ import { FunComponent } from './fun/fun.component';
 import { NotesComponent } from './notes/notes.component';
 import { ReminderComponent } from './reminder/reminder.component';
 import { RoughComponent } from './rough/rough.component';
-import { CreateComponent } from './create/create.component';
 import { ArchiveComponent } from './archive/archive.component';
 import { TrashComponent } from './trash/trash.component';
 import { AddnoteComponent } from './addnote/addnote.component';
@@ -39,7 +38,6 @@ import { BComponent } from './b/b.component';
               }]
             },
             { path: 'reminder', component: ReminderComponent },
-            { path: 'create', component: CreateComponent },
             { path: 'archive', component: ArchiveComponent },
             { path: 'trash', component: TrashComponent },
             ]

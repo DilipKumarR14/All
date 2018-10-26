@@ -35,9 +35,12 @@ mat-card-title{
     border: 59px;
   }
   input{
-      width: 100%;
+      width: 95%;
       border:0px;
       outline: none;
+      font-weight: bold;
+      outline-style:none;
+      opacity: 0.5;
   }
 
   .div2{
@@ -47,40 +50,21 @@ mat-card-title{
     position: relative;
 }
 
-.card1{
-  max-width: 46%;
+.takeanotecard{
+  width: 560px;
   margin: auto;
-  margin-top:3%;
-  position: relative;
+  margin-top: 3%;
  }
- .receive{
-  max-width: 46%;
+ .titlecard{
+  max-width: 560px;
   margin: auto;
   margin-top: 3%;
   }
-  .receive1{
-    max-width: 30%;
-    margin: auto;
-    margin-top: 3%;
+  .rescard{
+    width: 560px;
+    margin: 4% 0% -7% 28%;
+    margin-top: 8%;
     }
-/* .matred{
-  max-width: 100%;
-  margin: auto;
-  margin-top: 3%;
-  background-color: rgb(223, 83, 83);
-}
-.matblue{
-  max-width: 100%;
-  margin: auto;
-  margin-top: 3%;
-  background-color: rgb(113, 113, 238);
-}
-.matgreen{
-  max-width: 100%;
-  margin: auto;
-  margin-top: 3%;
-  background-color: rgb(70, 165, 70);
-} */
 
 .mat-icon-button{
     outline: none;
@@ -95,3 +79,21 @@ mat-card-title{
   outline-style:none;
   opacity: 0.5;
 }
+.pin{
+  outline-style:none;
+  opacity: 0.5;
+  margin: -20px;
+}
+.pin1{
+  outline-style:none;
+  opacity: 0.5;
+  margin: -8px;
+}
+
+.menubutton{
+  margin: 1% -16% 2% -8%;
+}
+
+/* .colorcard{
+  background-color: red;
+} */
