@@ -16,21 +16,41 @@ class FetchNote
             $email = $_POST['email'];
             $title = $_POST['title'];
             $note = $_POST['note'];
+            $time = $_POST['time'];
+            $date = $_POST['date'];
             $conf = new NoteStoreConfig();
             $conn = $conf->configs();
 
-            $stm = $conn->prepare("INSERT INTO note(title,note,email) VALUES('$title','$note','$email')");
+            $stm = $conn->prepare("INSERT INTO note(title,note,email,date,time) VALUES('$title','$note','$email','$date','$time')");
             $stm->execute();
 
             $stmt = $conn->prepare("select * from note where email = '$email' order by id desc ");
             $stmt->execute();
 
-            $title = "";
-            $note = "";
             $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $res = json_encode($row);
+    
+
 
             print($res);
 
     }
+
+    public function fetch(){
+        /**
+         * @var email holds the title entered by the user and stored in cookie while login
+         */
+        $email = $_POST['email'];
+        $conf = new NoteStoreConfig();
+        $conn = $conf->configs();
+        
+        $stmt = $conn->prepare("select * from note where email = '$email' order by id desc ");
+        $stmt->execute();
+
+        $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $res = json_encode($row);
+
+        print($res);
+    }
+
 }
