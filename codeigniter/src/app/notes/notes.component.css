@@ -64,6 +64,7 @@ mat-card-title{
     width: 560px;
     margin: 4% 0% -7% 28%;
     margin-top: 8%;
+    border-radius: 30px;
     }
 
 .mat-icon-button{
@@ -97,3 +98,29 @@ mat-card-title{
 /* .colorcard{
   background-color: red;
 } */
+
+.dropmenu{
+  width: 273px;
+  height: 250px;
+  margin: -5% 1% 1% 28%;
+  position: absolute;
+  z-index:100;
+  padding: 1% 1% 1% 1%;
+  border-radius: 0px;
+}
+.button{
+  width: 68px;
+    margin-top: 10px;
+    margin-left: 170px;
+    font-size: 12px;
+    font-family: MONOSPACE; 
+}
+mat-card{
+  border-radius: 8px;
+}
+/* .allcards{
+width: 1000px;
+} */
+.timestamp{
+  line-height: 10px;
+}

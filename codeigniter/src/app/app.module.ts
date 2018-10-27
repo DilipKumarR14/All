@@ -62,7 +62,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     MatListModule,MatProgressSpinnerModule, MatProgressBarModule,
     MatMenuModule,NgxSpinnerModule,MatExpansionModule,
     MatDialogModule,MatTooltipModule,MatGridListModule,MatDatepickerModule,
-    MatNativeDateModule,NgxMaterialTimepickerModule.forRoot(),
+    MatNativeDateModule,NgxMaterialTimepickerModule.forRoot(),MatExpansionModule
   ],
   entryComponents: [DialogBoxComponent],
   providers: [DatabaseService, CookieService, NoteService],
