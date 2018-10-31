@@ -60,3 +60,9 @@ $route['reset']="ForgetPassword/reset";
 
 $route['mailvali']="EmailValidation/emailValid";
 $route['getEmailId1']="ForgetPassword/getEmailId";
+
+$route['color']="GetColor/fetchColor";
+
+$route['note']="FetchNote/createNote";
+
+$route['fetch']="FetchNote/fetch";
