@@ -14,7 +14,7 @@ export class NoteService {
 
   private storenote="http://localhost/codeigniter/note";
   private fetch="http://localhost/codeigniter/fetch";
-  store(mode5,email){
+  store(mode5,email,datetime){
     debugger;
 
     let otheroption: any = {
@@ -24,8 +24,7 @@ export class NoteService {
     params.append("email",email);
     params.append("title",mode5.title);
     params.append("note",mode5.note);
-    params.append("time",mode5.time);
-    params.append("date",mode5.date);
+    params.append("date",datetime);
     console.log(params);
     
     debugger;

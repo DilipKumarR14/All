@@ -1,9 +1,9 @@
-import { Component, Inject} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatIconRegistry} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatIconRegistry } from '@angular/material';
 
 export interface DialogData {
   label: string;
@@ -19,7 +19,7 @@ export interface DialogData {
 export class FundooComponent {
   label: string;
   name: string;
-  panelOpenState=false;
+  panelOpenState = false;
 
   public user = "Dilip";
   public email = "dilipkumar14inc@gmail.com";
@@ -30,21 +30,45 @@ export class FundooComponent {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver,public dialog: MatDialog) { }
-  
+    imgloc:string;
+    view:boolean = true;
+    func(){
+      if (this.view == false) {
+        this.imgloc = "../../assets/img/login/gridview.svg";    
+      }
+      else{
+        this.imgloc = "../../assets/img/login/listview.svg";
+      }
+      
+    }
+
+
+
+  constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog) { }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
       width: '25%',
-      height:'35%',
-      data: {name: this.name, label: this.label}
+      height: '35%',
+      data: { name: this.name, label: this.label }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.label=result;
+      this.label = result;
     });
   }
+  public changeIcon;
+  icon: any = true;
 
+  viewNote() {
+    if(this.icon == true){
+      this.icon = "view_module";
+    }
+    else{
+      this.changeIcon = "view_module";
+    }    
+  }
 
 
 }

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NoteService } from '../service/note.service';
-import {CookieService} from 'angular2-cookie';
+import { CookieService } from 'angular2-cookie';
+import { error } from 'util';
+declare let require: any;
 @Component({
     selector: 'app-notes',
     templateUrl: './notes.component.html',
@@ -9,58 +11,87 @@ import {CookieService} from 'angular2-cookie';
 })
 export class NotesComponent implements OnInit {
 
-    
-public title = new FormControl();
-public note = new FormControl();
-public temp=false;
-title1="";
-note1="";
-email = this.cookie.get("email");
-time="";
-model: any = {};
-res2 = "";
-exp = false;
-res = false;
-public date=new Date();
+    public title = new FormControl();
+    public note = new FormControl();
+    public temp = false;
 
-// when the button is clicked on time setting later today
-settime(){
-    this.time = "Later Today 8PM ";
-    this.res = true;
-}
-// when the button is clicked on time setting for tomorrow
-settimetomo(){
-    this.time = "Tomorrow 8.00PM";
-}
-// when the button is clicked on time setting for next week
-settimeweek(){
-    this.time = "Next Week 8.00PM"
-}
+    email = this.cookie.get("email");
+    time = "";
+    model: any = {};
+    res2 = "";
+    exp = false;
+    res = false;
+    public date = new Date();
+    errorMsg: any;
+    error: boolean = false;
+    public datemsg = Date.now().toString();
+    myDate: Date;
+    myTime: Date;
+    titles = document.getElementById("title");
+    notes = document.getElementById("note");;
+
+    public now: Date = new Date();
+    gridview:boolean = false;
+
+    // when the button is clicked on time setting later today
+    settime() {
+        this.time = "Select Today Time ";
+        this.res = true;
+    }
+    // when the button is clicked on time setting for tomorrow
+    settimetomo() {
+        this.time = "Tomorrow 8.00PM";
+    }
+    // when the button is clicked on time setting for next week
+    settimeweek() {
+        this.time = "Next Week 8.00PM"
+    }
     maincard: boolean = true;
     expcard: boolean = false;
-    displaycard:boolean = true;
+    displaycard: boolean = true;
     test: any;
 
-
-    constructor(private service: NoteService,private cookie:CookieService) {
-        debugger;
+    constructor(private service: NoteService, private cookie: CookieService) {
         this.service.storeRefresh(this.email).subscribe((status: any) => {
-            debugger;
-            this.test=status;
-    });
+            this.test = status;
+        });
+        // call the function recursively every 5 seconds 
+        setInterval(() => {
+            this.somefunc();
+        }, 5000);
     }
-expan(){
-this.exp = true;
-}
-expanclose(){
-    this.exp = false;
-}
+    // function that display the note when the date and time is matched
+    somefunc() {
+        this.test.forEach(element => {
+            // dateformat need to be installed 
+            let dateFormat = require('dateformat');
+            let now = new Date();
+            // fetch the today time
+            let todaytime = dateFormat(now, "dd/mm/yyyy hh:MM tt");
+            // let res = dateFormat(element.time,"hh:MM tt");
+            // checks the today date and time with db time and date
+            if (todaytime == element.date) {
+                alert("remainder")
+
+            } 
+            else {
+                return;
+            }
+        });
+    }
+
+    expan() {
+        this.exp = true;
+    }
+    expanclose() {
+        this.exp = false;
+    }
     ngOnInit() {
+        //once the page is reloaded data is fetched 
         debugger;
         this.service.storeRefresh(this.email).subscribe((status: any) => {
-            debugger;
-            this.test=status;
-    });
+            this.test = status;
+        });
     }
     matcardVisbility() {
         this.maincard = false;
@@ -71,16 +102,31 @@ expanclose(){
         this.maincard = true;
     }
 
+
+
+
+
     // when the close is clicked on the card for savinf to database
     save() {
         // var fetch = this.model;
-        debugger;
-        if(this.model.title != null || this.model.note != null )
-          this.service.store(this.model,this.email).subscribe((status: any) => {
-                debugger;
-                this.test=status;
+        let dateFormat = require("dateformat");
+        let dateformat = dateFormat(this.model.date, "dd/mm/yyyy");
+        let datetime = dateformat + " " + this.model.time;
+        this.service.store(this.model, this.email, datetime).subscribe(
+            (status: any) => {
 
-        });     
+                this.test = status;
+
+            }, error => {
+                this.error = true;
+                this.errorMsg = error.message;// error.message inbuilt method
+            });
     }
+
+    @Input() get:boolean ;
+
+
+
+    //main ends
 
 }
