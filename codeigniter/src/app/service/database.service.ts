@@ -1,30 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
-  constructor(private http: HttpClient, private route:ActivatedRoute) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute) { }
   mode: any = {};
-  mode1:any = {};
-  mode2:any = {};
-  mode3:any = {};
-  mode4:any = {};
-  mode5:any = {};
-  obs:any={};
+  mode1: any = {};
+  mode2: any = {};
+  mode3: any = {};
+  mode4: any = {};
+  mode5: any = {};
+  obs: any = {};
   public urls = "http://localhost/codeigniter/regform";
-  public loginurl="http://localhost/codeigniter/login";
-  private forgeturl="http://localhost/codeigniter/forgot";
-  private resetloginurl="http://localhost/codeigniter/reset";
-  private validloginurl="http://localhost/codeigniter/mailvali";
-  private getmail="http://localhost/codeigniter/getEmailId1";
+  public loginurl = "http://localhost/codeigniter/login";
+  private forgeturl = "http://localhost/codeigniter/forgot";
+  private resetloginurl = "http://localhost/codeigniter/reset";
+  private validloginurl = "http://localhost/codeigniter/mailvali";
+  private getmail = "http://localhost/codeigniter/getEmailId1";
+  private getcolor = "http://localhost/codeigniter/color";
+  private storenote = "http://localhost/codeigniter/note";
 
-  private getcolor="http://localhost/codeigniter/color";
-
-  private storenote="http://localhost/codeigniter/note";
-
+  // store the user data into the db after register
   Register(mode) {
     //
     debugger;
@@ -42,8 +41,10 @@ export class DatabaseService {
     return this.http.post(this.urls, params, otheroption).pipe(
       map((res: Response) => res)
     );
-   
-  } 
+
+  }
+
+  // for login check the whether the user is valid or not
 
   Login(mode1) {
     debugger;
@@ -59,46 +60,45 @@ export class DatabaseService {
       map((res: Response) => res)
     )
   }
-
+  // forget password link to user to change the password
   Forget(mode2) {
     debugger;
     const params = new FormData();
-    params.append("email",mode2.email);
+    params.append("email", mode2.email);
     params.append("pass", mode2.passwd);
     params.append("pass1", mode2.passwd);
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
-    // this.obs =  
-    // debugger;
+
     return this.http.post(this.forgeturl, params, otheroption).pipe(
       map((res: Response) => res)
     )
   }
-
+  // to reset the apssword of particular emailid
   Reset(mode3) {
     debugger;
     const params = new FormData();
     // params.append("email", mode3.email);
-    params.append("pass",mode3.pass);
-    params.append("pass1",mode3.pass1);
+    params.append("pass", mode3.pass);
+    params.append("pass1", mode3.pass1);
     // To fetch the particular query parameter values
-    params.append("token",this.route.snapshot.queryParamMap.get('token'));
+    params.append("token", this.route.snapshot.queryParamMap.get('token'));
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
     return this.http.post(this.resetloginurl, params, otheroption).pipe(
       map((res: Response) => res)
-    ) 
+    )
   }
 
-
+  // to validate the email and token 
   Valid(mode4) {
     debugger;
     const params = new FormData();
     params.append("email", mode4.email);
     // To fetch the particular query parameter values
-    params.append("token",this.route.snapshot.queryParamMap.get('token'));
+    params.append("token", this.route.snapshot.queryParamMap.get('token'));
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -106,37 +106,44 @@ export class DatabaseService {
       map((res: Response) => res)
     )
   }
+    // to check whether the localstorage is set with token when logged in user is valid or not
+    mode6: any = {};
+    public urlverify = "http://localhost/codeigniter/verify";
 
-  store(mode5){
+    loggedIn() {
+      return !!localStorage.getItem("token");
+    }
+
+  // title and note entered by user is is added to table
+  store(mode5) {
     debugger;
 
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
     const params = new FormData();
-    params.append("title",mode5.title);
-    params.append("note",mode5.note);
-    
+    params.append("title", mode5.title);
+    params.append("note", mode5.note);
+
     console.log(params);
-    
+
     debugger;
-    return this.http.post(this.storenote,params, otheroption).pipe(
+    return this.http.post(this.storenote, params, otheroption).pipe(
       map((res: Response) => res)
     )
   }
 
 
-  
-  getMail(){
+  // retirve the mail in forget password link send to mail
+  getMail() {
     debugger;
     let getid = new FormData();
-    getid.append("token",this.route.snapshot.queryParamMap.get('token'));
+    getid.append("token", this.route.snapshot.queryParamMap.get('token'));
     let otheroption: any = {
-    'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded'
     }
     return this.http.post(this.getmail, getid, otheroption)
-    }
-
+  }
 
 
 }

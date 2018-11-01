@@ -18,18 +18,23 @@
 
 
       <div *ngIf="res">
-        <button mat-button contenteditable="false" style="border-radius:20px;outline-style: none;" (click)="expan()">
+
+        <button mat-button contenteditable="false" style="border-radius:20px;outline-style:     none;font-size: 10px;"
+          (click)="expan()">
           <mat-icon class="timestamp">
             <img style="margin-bottom: -12px;" src="../../assets/img/login/time.svg">
           </mat-icon> {{time}} {{ date | date:'shortDate' }}
         </button>
-
+          <mat-icon class="timestamp">
+            <img style="margin-bottom: -12px;" src="../../assets/img/login/close.svg" alt="close">
+          </mat-icon>
       </div>
+
 
       <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" style="opacity: 0.5;" matTooltip="Reminder">
         <mat-menu #menu [overlapTrigger]="false">
           <label style="margin:1%;">Reminder:</label>
-          <button mat-menu-item (click)="settime()">Select Today time</button>
+          <button mat-menu-item (click)="settime()">Select time</button>
           <button mat-menu-item (click)="settimetomo()">Tomorrow 8.00PM</button>
           <button mat-menu-item (click)="settimeweek()">Next Week 8.00PM</button>
           <button mat-menu-item (click)="expan()">
@@ -96,7 +101,10 @@
     </mat-card>
   </div>
 
-  <div fxLayout='row wrap' fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutGap="10px" style='margin-top: 6%; margin-left: 17%;margin-right: 1%;'>
+
+  <!--for the grid  view-->
+
+  <div *ngIf="view" fxLayout='row wrap' fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutGap="10px" style='margin-top: 6%;margin-left: 16%;margin-right: 4%;'>
 
     <mat-card *ngFor="let item of test" class="test" [ngStyle]="{'background-color': rescolor}">
       <mat-card-title>
@@ -172,4 +180,86 @@
       </div>
     </mat-card>
   </div>
+  <!--for the list view-->
+
+  <div *ngIf="!view" fxLayoutAlign="center center" fxLayout="column" style="margin-top: 6%;margin-left: -5%;margin-right: 4%;"
+    fxLayoutGap="20px">
+
+    <mat-card *ngFor="let item of test" class="testlist" [ngStyle]="{'background-color': rescolor}">
+      <mat-card-title>
+
+        <input matInput type="text" placeholder="Title" class="divtext" value="{{item.title}}" [ngStyle]="{'background-color': rescolor}">
+
+        <button class="pin" mat-icon-button>
+          <img src="../../assets/img/login/pin.svg"></button>
+      </mat-card-title>
+
+      <input matInput type="text" placeholder="Take a Note" class="divtext" value="{{item.note}}" [ngStyle]="{'background-color': rescolor}">
+
+
+      <div *ngIf="(item.date !='undefined' && item.date!='null' ) ">
+        <button mat-button contenteditable="false" style="border-radius:20px;outline-style: none;" (click)="expan()">
+          <mat-icon class="timestamp">
+            <img style="margin-bottom: -12px;" src="../../assets/img/login/time.svg">
+          </mat-icon> {{ item.date}}
+        </button>
+
+      </div>
+
+      <div class="menubutton">
+        <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" matTooltip="Reminder">
+          <mat-menu #menu [overlapTrigger]="false">
+            <label style="margin:1%;">Reminder:</label>
+            <button mat-menu-item>Today 8.00pm</button>
+            <button mat-menu-item>Tomorrow</button>
+            <button mat-menu-item>Next Week</button>
+            <button mat-menu-item>Home</button>
+          </mat-menu>
+          <img src="../../assets/img/login/rem.svg">
+        </button>
+        <button mat-icon-button matTooltip="Collaborator">
+          <img src="../../assets/img/login/collab.svg">
+        </button>
+        <button mat-icon-button aria-label="Color" [matMenuTriggerFor]="menu1" matTooltip="Change Color">
+          <mat-menu #menu1 [overlapTrigger]="false">
+            <button mat-mini-fab style="background-color:red;height: 30px;
+              width: 30px;" (click)="rescolor='red'"></button>
+            <button mat-mini-fab style="background-color:green;height: 30px;
+              width: 30px;" (click)="rescolor='green'"></button>
+            <button mat-mini-fab style="background-color:blue;height: 30px;
+              width: 30px;" (click)="rescolor='blue'"></button>
+            <button mat-mini-fab style="background-color:rgb(104, 104, 216);height: 30px;
+              width: 30px;"
+              (click)="rescolor='rgb(104, 104, 216)'"></button><br>
+            <button mat-mini-fab style="background-color:rgb(121, 226, 126);height: 30px;
+              width: 30px;"
+              (click)="rescolor='rgb(121, 226, 126)'"></button>
+            <button mat-mini-fab style="background-color:rgb(231, 123, 119);height: 30px;
+              width: 30px;"
+              (click)="rescolor='rgb(231, 123, 119)'"></button>
+            <button mat-mini-fab style="background-color:rgb(38, 75, 117);height: 30px;
+              width: 30px;"
+              (click)="rescolor='rgb(38, 75, 117)'"></button>
+            <button mat-mini-fab style="background-color:rgb(110, 193, 214);height: 30px;
+              width: 30px;"
+              (click)="rescolor='rgb(110, 193, 214)'"></button>
+
+          </mat-menu>
+          <img src="../../assets/img/login/color.svg">
+        </button>
+        <button mat-icon-button (click)="imageUpload($event)" matTooltip="Add Image">
+          <img src="../../assets/img/login/image.svg">
+        </button>
+        <button mat-icon-button matTooltip="Archive">
+          <img src="../../assets/img/login/archive.svg">
+        </button>
+        <button mat-icon-button matTooltip="More">
+          <img src="../../assets/img/login/vertical.svg">
+        </button>
+
+      </div>
+    </mat-card>
+  </div>
+
+
 </div>

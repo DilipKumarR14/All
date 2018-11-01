@@ -52,18 +52,19 @@ export class LoginsComponent {
       '';
   }
   saves() {
-    // this.setLocal();
     this.spinner.show();
     debugger;
     var fetch = this.model;     // define the function and parameter (ts)
     this.cookie.put("email",this.model.email);
+    debugger;
     this.service.Login(fetch).subscribe(
       (status: any) => {
         debugger;
-        if (status.status == "1") {
+        if (status.status == "200") {
           debugger;
           console.log("got respo", status);
           this.spinner.hide();
+          localStorage.setItem("token",status.token);
           alert("LoggedIn Succesfully")
           this.spinner.hide();
           this.routes.navigate(['/fundoo'])
@@ -74,7 +75,7 @@ export class LoginsComponent {
           alert("Enter Valid Email/Password Field")
           this.spinner.hide();
 
-        }else if( status.status == "2"){
+        }else if( status.status == "403"){
           this.spinner.hide();
 
           alert("Email/Mobile is Incorrect")
@@ -82,7 +83,7 @@ export class LoginsComponent {
 
           // this.ValueError = "Email/Mobile is Incorrect";
         }
-        else if( status.status == "3"){
+        else if( status.status == "401"){
           this.spinner.hide();
 
           alert("Validated Your EmailID")

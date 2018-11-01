@@ -1,22 +1,3 @@
-/* mat-card{
-  max-width: 56%;
-  height: 60px;
-  margin: auto;
-  margin-top: 3%;
-  padding: 2%;
-  line-height: 1%;
-  } */
- /* .receive{
-  max-width: 50%;
-  margin: auto;
-  margin-top: 3%;
-  width: 100%;
-  height: 66%;
-  padding: 1% 1% 1% 1%;
-  border: 0px;
-  outline: none;
- } */
-
 mat-card-title{
   font-size: large;
   font-weight: bolder;
@@ -157,4 +138,8 @@ min-height: 20px;
   img{
     width:20px;
     height: 20px;
+  }
+  .testlist{
+    width: 561px;
+    margin-left: 100px;
   }

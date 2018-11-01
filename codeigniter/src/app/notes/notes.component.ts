@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NoteService } from '../service/note.service';
 import { CookieService } from 'angular2-cookie';
 import { error } from 'util';
+import { CommondataService } from '../service/commondata.service';
+import { Subscription } from 'rxjs';
 declare let require: any;
 @Component({
     selector: 'app-notes',
@@ -15,6 +17,8 @@ export class NotesComponent implements OnInit {
     public note = new FormControl();
     public temp = false;
 
+    private subscribedata: Subscription;
+
     email = this.cookie.get("email");
     time = "";
     model: any = {};
@@ -25,17 +29,18 @@ export class NotesComponent implements OnInit {
     errorMsg: any;
     error: boolean = false;
     public datemsg = Date.now().toString();
-    myDate: Date;
-    myTime: Date;
+    // myDate: Date;
+    // myTime: Date;
     titles = document.getElementById("title");
-    notes = document.getElementById("note");;
+    notes = document.getElementById("note");
+    view: any;
 
     public now: Date = new Date();
-    gridview:boolean = false;
+    gridview: boolean = false;
 
     // when the button is clicked on time setting later today
     settime() {
-        this.time = "Select Today Time ";
+        this.time = "Select Time ";
         this.res = true;
     }
     // when the button is clicked on time setting for tomorrow
@@ -51,7 +56,8 @@ export class NotesComponent implements OnInit {
     displaycard: boolean = true;
     test: any;
 
-    constructor(private service: NoteService, private cookie: CookieService) {
+    constructor(private service: NoteService, private cookie: CookieService,
+        private common: CommondataService) {
         this.service.storeRefresh(this.email).subscribe((status: any) => {
             this.test = status;
         });
@@ -59,6 +65,10 @@ export class NotesComponent implements OnInit {
         setInterval(() => {
             this.somefunc();
         }, 5000);
+
+        this.subscribedata = common.notifyObservables$.subscribe((res) => {
+            this.view = res;
+        })
     }
     // function that display the note when the date and time is matched
     somefunc() {
@@ -72,8 +82,7 @@ export class NotesComponent implements OnInit {
             // checks the today date and time with db time and date
             if (todaytime == element.date) {
                 alert("remainder")
-
-            } 
+            }
             else {
                 return;
             }
@@ -102,10 +111,6 @@ export class NotesComponent implements OnInit {
         this.maincard = true;
     }
 
-
-
-
-
     // when the close is clicked on the card for savinf to database
     save() {
         // var fetch = this.model;
@@ -123,7 +128,7 @@ export class NotesComponent implements OnInit {
             });
     }
 
-    @Input() get:boolean ;
+    @Input() get: boolean;
 
 
 

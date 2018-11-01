@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatIconRegistry } from '@angular/material';
-
+import { CommondataService } from "../service/commondata.service";
 export interface DialogData {
   label: string;
   name: string;
@@ -21,30 +21,33 @@ export class FundooComponent {
   name: string;
   panelOpenState = false;
 
-  public user = "Dilip";
-  public email = "dilipkumar14inc@gmail.com";
-
+  constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog,
+    private commondata:CommondataService) { }
 
   isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
 
-    imgloc:string;
-    view:boolean = true;
-    func(){
-      if (this.view == false) {
+    imgloc:string =  "../../assets/img/login/listview.svg";
+    view:boolean = false;
+    viewtip:string="Grid_View";
+      
+    toggle(){
+      this.view = !this.view
+      if (this.view) {
         this.imgloc = "../../assets/img/login/gridview.svg";    
+        this.viewtip = "Grid_View";
       }
       else{
         this.imgloc = "../../assets/img/login/listview.svg";
+        this.viewtip = "List_View";
       }
+      //notify the commondata service true/false
+      this.commondata.notifyOther(this.view);
       
     }
 
-
-
-  constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog) { }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {

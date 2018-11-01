@@ -14,14 +14,11 @@
     <div>
 
       <span>
-        <button *ngIf="view" aria-label="Toggle sidenav" mat-icon-button matTooltip="View" (click)="func()">
-          <mat-icon aria-label="Side nav toggle icon" >
-            <img src="{{imgloc}}" alt="grid_view">
+        <button aria-label="Toggle sidenav" mat-icon-button matTooltip="{{viewtip}}" (click)="toggle()">
+          <mat-icon aria-label="Side nav toggle icon">
+            <img src="{{imgloc}}">
           </mat-icon>
         </button>
-
-        
-
       </span>
       <span>
         <button aria-label="Toggle sidenav" mat-icon-button mat-button matTooltip="Account" [matMenuTriggerFor]="menu"
@@ -98,9 +95,9 @@
 
   <mat-sidenav-content>
     <!--connect the sidenavigation to the w.r.t notes,reminder style="background-color: #e8e8e8"-->
-    
+
     <!-- to return the result from fundoo to note for view -->
-    
+
     <router-outlet></router-outlet>
 
   </mat-sidenav-content>

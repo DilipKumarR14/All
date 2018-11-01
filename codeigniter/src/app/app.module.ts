@@ -11,7 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginsComponent } from './logins/logins.component';
 import { DatabaseService } from './service/database.service';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule,HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ForgetComponent } from './forget/forget.component';
 import { ResetsComponent } from './resets/resets.component';
 import { EmailvalidateComponent } from './emailvalidate/emailvalidate.component';
@@ -29,6 +29,7 @@ import { NoteService } from './service/note.service';
 import { CookieService } from "angular2-cookie";
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { AuthGuard } from './auth.guard';
 @NgModule({
   declarations: [
     AppComponent, LoginComponent,  
@@ -51,7 +52,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
     FlexLayoutModule
   ],
   entryComponents: [DialogBoxComponent],
-  providers: [DatabaseService, CookieService, NoteService],
+  providers: [DatabaseService, CookieService, NoteService, AuthGuard],
   bootstrap: [AppComponent]  
 })
 export class AppModule { }

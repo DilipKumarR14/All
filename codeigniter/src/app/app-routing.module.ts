@@ -12,8 +12,7 @@ import { RoughComponent } from './rough/rough.component';
 import { ArchiveComponent } from './archive/archive.component';
 import { TrashComponent } from './trash/trash.component';
 import { AddnoteComponent } from './addnote/addnote.component';
-
-
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   imports:
@@ -27,16 +26,16 @@ import { AddnoteComponent } from './addnote/addnote.component';
           { path: 'resets', component: ResetsComponent },
           { path: 'valid', component: EmailvalidateComponent },
           {
-            path: 'fundoo', component: FundooComponent,
+            path: 'fundoo', component: FundooComponent, canActivate: [AuthGuard],
             children: [
-              { path: 'note', component: NotesComponent },
-              { path: 'remainder', component: ReminderComponent },
-              { path: 'archive', component: ArchiveComponent },
-              { path: 'trash', component: TrashComponent },
+              { path: 'note', component: NotesComponent, canActivate: [AuthGuard], },
+              { path: 'remainder', component: ReminderComponent, canActivate: [AuthGuard], },
+              { path: 'archive', component: ArchiveComponent, canActivate: [AuthGuard], },
+              { path: 'trash', component: TrashComponent, canActivate: [AuthGuard], },
             ]
           },
-          { path: 'rough', component: RoughComponent },
-          { path: 'addnote', component: AddnoteComponent },
+          { path: 'rough', component: RoughComponent, canActivate: [AuthGuard], },
+          { path: 'addnote', component: AddnoteComponent, canActivate: [AuthGuard], },
 
         ])
     ],
