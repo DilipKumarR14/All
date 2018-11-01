@@ -66,3 +66,4 @@ $route['color']="GetColor/fetchColor";
 $route['note']="FetchNote/createNote";
 
 $route['fetch']="FetchNote/fetch";
+
