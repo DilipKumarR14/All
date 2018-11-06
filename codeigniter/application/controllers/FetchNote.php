@@ -22,7 +22,7 @@ class FetchNote
         $jwttoken = explode(" ", $jwt); // bearer
         require "Account.php";
 
-        $validate=new Account();
+        $validate = new Account();
         if ($validate->verify($jwttoken[1])) {
             if ($_POST['email'] != null) {
 
@@ -62,7 +62,7 @@ class FetchNote
             }
         } else {
             $res = json_encode(array(
-                "status" => "404"
+                "status" => "404",
             ));
             print $res;
         }
@@ -93,6 +93,22 @@ class FetchNote
          * return the result response
          */
         print($res);
+    }
+   
+    public function editReminderCard()
+    {
+
+        $idcard = $_POST['idcard'];
+        $timecard = $_POST['date'];
+
+        $conf = new NoteStoreConfig();
+        $conn = $conf->configs();
+
+        $res = $timecard;
+
+        $stmt = $conn->prepare("UPDATE note SET date = '$timecard' where id = '$idcard' ");
+        $stmt->execute();
+
     }
 
 }

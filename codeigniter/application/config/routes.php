@@ -53,17 +53,17 @@ $route['default_controller'] = 'welcome';
 // $route['Register1'] = 'Register/Register1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = false;
-$route['regform']="Account/register";
-$route['login']="Account/logins";
-$route['forgot']="ForgetPassword/forgotPassword";
-$route['reset']="ForgetPassword/reset";
+$route['regform'] = "Account/register";
+$route['login'] = "Account/logins";
+$route['forgot'] = "ForgetPassword/forgotPassword";
+$route['reset'] = "ForgetPassword/reset";
 
-$route['mailvali']="EmailValidation/emailValid";
-$route['getEmailId1']="ForgetPassword/getEmailId";
+$route['mailvali'] = "EmailValidation/emailValid";
+$route['getEmailId1'] = "ForgetPassword/getEmailId";
 
-$route['color']="GetColor/fetchColor";
+$route['color'] = "GetColor/fetchColor";
 
-$route['note']="FetchNote/createNote";
+$route['note'] = "FetchNote/createNote";
 
-$route['fetch']="FetchNote/fetch";
-
+$route['fetch'] = "FetchNote/fetch";
+$route['resultcard'] = "FetchNote/editReminderCard";
