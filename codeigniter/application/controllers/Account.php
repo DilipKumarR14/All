@@ -1,7 +1,11 @@
 <?php
-// defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 // if not set we will not get back the response back to front-end(rest calls)
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Expose-Headers: Authorization');
+header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, Authorization
+');
+
 include_once "Config.php";
 include_once "Implement.php";
 /**
@@ -123,6 +127,46 @@ class Account
             }
         }
     }
+
+
+
+
+    public static  function  createJwtToken($email)
+    {
+        $header = json_encode(['typ' => 'JWT', 'alg' => 'sha256']);
+        $payload = json_encode(['user_id' => $email]);
+        $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
+        $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
+        $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, 'abC123!', true);
+        $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
+        $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
+        return $jwt;
+    }
+
+    public function verify($jwt): bool
+    {
+        list($headerEncoded, $payloadEncoded, $signatureEncoded) = explode('.', $jwt);
+
+        $dataEncoded = "$headerEncoded.$payloadEncoded";
+
+        $signature = Account::base64UrlDecode($signatureEncoded);
+
+        $rawSignature = hash_hmac('sha256', $dataEncoded, 'abC123!', true);
+
+        return hash_equals($rawSignature, $signature);
+    }
+    
+    public static function base64UrlDecode($data): string
+    {
+        $urlUnsafeData = strtr($data, '-_', '+/');
+
+        $paddedData = str_pad($urlUnsafeData, strlen($data) % 4, '=', STR_PAD_RIGHT);
+
+        return base64_decode($paddedData);
+    }
+
+
+
     public function logins()
     {
         /**
@@ -139,8 +183,8 @@ class Account
         //tokens
 
         $tokenData['email'] = $email;
-        $tokenData['timeStamp'] = Date('Y-m-d h:i:s');
-        $jwtToken = $objOfJwt->generateToken($tokenData);
+
+        $jwtToken = Account::createJwtToken($email);
 
         $conf = new Config();
         $conn = $conf->configs();
@@ -167,8 +211,8 @@ class Account
                 // $res = '{"status":"1"}';
 
                 $res = json_encode(array(
-                    "status"=>"200",
-                    "token"=>"$jwtToken"
+                    "status" => "200",
+                    "token" => "$jwtToken",
                 ));
 
                 print $res;
@@ -183,7 +227,7 @@ class Account
                 // print $myjson;
                 print $res;
             } else {
-                $res = '{"status":"404"}';//page not found error
+                $res = '{"status":"404"}'; //page not found error
                 // print $myjson;
                 print $res;
             }
@@ -194,8 +238,6 @@ class Account
         }
 
     }
-
-   
 
     #main ends
 }
