@@ -32,13 +32,10 @@ responseMessage="";
   save()
 {  this.spinner.show();
   // this.ngProgress.start();
-  debugger;
 	var fetch = this.model;         
     this.service.Forget(fetch).subscribe(
       (status: any) => {
-        debugger;
         if (status.status == "200") {
-          debugger;
           // this.value = 90;
           console.log("got respo", status);
           alert("Check Your EMail")

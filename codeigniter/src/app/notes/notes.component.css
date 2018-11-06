@@ -40,6 +40,7 @@ mat-card-title{
   max-width: 560px;
   margin: auto;
   margin-top: 3%;
+
   }
   .rescard{
     margin: 6% 0% -4% 13%;
@@ -142,4 +143,23 @@ min-height: 20px;
   .testlist{
     width: 561px;
     margin-left: 100px;
+  }
+  .timestampclose{
+    margin-left: -8px;
+    margin-top: -1px;
+    margin-bottom: -1px;
+    line-height: 10px;
+  }
+  .closereminder{
+    border-radius: 20px;
+        outline-style: none;
+        margin: -1% 0% 0% -9%;
+        font-size: 12px;
+        height:0px;
+  }
+  .setreminder{
+    border-radius:20px;
+    outline-style:none;
+    font-size: 10px;
+    height: 0px;
   }

@@ -1,47 +1,85 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 import { CookieService } from 'angular2-cookie';
+import { Observable } from 'rxjs';
+import { DatabaseService } from './database.service';
 @Injectable({
   providedIn: 'root'
 })
 export class NoteService {
 
-  res="";
-  email="";
-  constructor(private http: HttpClient,private cookie:CookieService) { }
+  res = "";
+  email = "";
+  constructor(private http: HttpClient, private cookie: CookieService, private dbs: DatabaseService) { }
   mode: any = {};
 
-  private storenote="http://localhost/codeigniter/note";
-  private fetch="http://localhost/codeigniter/fetch";
-  store(mode5,email,datetime){
-    debugger;
+  private storenote = "http://localhost/codeigniter/note";
+  private fetch = "http://localhost/codeigniter/fetch";
+  private colorurl = "http://localhost/codeigniter/color";
 
+  store(mode5, email, datetime, color) {
+    debugger;
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
     const params = new FormData();
-    params.append("email",email);
-    params.append("title",mode5.title);
-    params.append("note",mode5.note);
-    params.append("date",datetime);
+    params.append("email", email);
+    params.append("title", mode5.title);
+    params.append("note", mode5.note);
+    params.append("date", datetime);
+    params.append("color", color)
     console.log(params);
-    
-    debugger;
-    return this.http.post(this.storenote,params, otheroption).pipe(
-      map((res: Response) => res)
-    )
+
+    // return this.http.post(this.storenote, params, otheroption).pipe(
+    //   map((res: Response) => res)
+    // )
+
+    return this.http.post(this.storenote, params, otheroption);
   }
 
-  storeRefresh(email){
+  storeRefresh(email) {
+    debugger;
+    let otheroption: any = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+
+    }
+    const params = new FormData();
+    params.append("email", email);
+
+    // return this.http.post(this.fetch, params, otheroption).pipe(
+    //   map((res: Response) => res)
+    // )
+    return this.http.post(this.fetch, params, otheroption);
+
+  }
+
+  updateTheCard(idcard, colorcard) {
+
+    debugger;
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
     const params = new FormData();
-    params.append("email",email);
+    params.append("idcard", idcard);
+    params.append("colorcard", colorcard);
+    return this.http.post(this.colorurl, params, otheroption);
 
-    return this.http.post(this.fetch,params, otheroption).pipe(
-      map((res: Response) => res)
-    )
   }
+  //updating the note on db when card title and note is changed
+  updateNoteDb(idcard, model) {
+    let otheroption: any = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    const params = new FormData();
+    params.append("idcard", idcard);
+    params.append("colorcard", model.note);
+    params.append("colorcard", model.title);
+    return this.http.post(this.colorurl, params, otheroption)
+  }
+
+
+
+  //main ends
 }
+

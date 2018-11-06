@@ -1,0 +1,76 @@
+<div align="center">
+  <div mat-dialog-content>
+
+    <input matInput placeholder="Title" class="divtext" name="title"  [(ngModel)]="title" [ngStyle]="{'background-color': color}"
+      value="{{title}}">
+    <button class="pin" mat-icon-button><img src="../../assets/img/login/pin.svg"></button>
+
+    
+
+    <input matInput placeholder="Take a Note" class="divtext" required name="note" [(ngModel)]="note" [ngStyle]="{'background-color': color}"
+      value="{{note}}">
+
+    <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" style="opacity: 0.5;" matTooltip="Reminder">
+      <mat-menu #menu [overlapTrigger]="false">
+        <label style="margin:1%;">Reminder:</label>
+        <button mat-menu-item (click)="settime()">Select time</button>
+        <button mat-menu-item (click)="settimetomo()">Tomorrow 8.00PM</button>
+        <button mat-menu-item (click)="settimeweek()">Next Week 8.00PM</button>
+        <button mat-menu-item (click)="expan()">
+          <mat-icon>query_builder</mat-icon>Pick date & time
+        </button>
+      </mat-menu>
+      <img src="../../assets/img/login/rem.svg">
+    </button>
+    <button mat-icon-button style="opacity: 0.5;" matTooltip="Collaborator">
+      <img src="../../assets/img/login/collab.svg">
+    </button>
+    <button mat-icon-button aria-label="Color" [matMenuTriggerFor]="menu1" style="opacity: 0.5;" matTooltip="Change Color">
+      <mat-menu #menu1 [overlapTrigger]="false">
+        <button mat-mini-fab style="background-color:#fcf476;height: 30px;
+          width: 30px;" (click)="color='#fcf476'"></button>
+        <button mat-mini-fab style="background-color:#f8bc04;height: 30px;
+          width: 30px;" (click)="color='#f8bc04'"></button>
+        <button mat-mini-fab style="background-color:#f28b82;height: 30px;
+          width: 30px;" (click)="color='#f28b82'"></button>
+        <button mat-mini-fab style="background-color:#ffffff;height: 30px;
+          width: 30px;" (click)="color='#ffffff'"></button>
+        <br>
+        <button mat-mini-fab style="background-color:#aecbfa;height: 30px;
+          width: 30px;" (click)="color='#aecbfa'"></button>
+        <button mat-mini-fab style="background-color:#cbf0f8;height: 30px;
+          width: 30px;" (click)="color='#cbf0f8'"></button>
+        <button mat-mini-fab style="background-color:#a7ffea;height: 30px;
+          width: 30px;" (click)="color='#a7ffea'"></button>
+        <button mat-mini-fab style="background-color:#ccff90;height: 30px;
+          width: 30px;" (click)="color='#ccff90s'"></button>
+        <br>
+        <button mat-mini-fab style="background-color:#e8eaed;height: 30px;
+          width: 30px;" (click)="color='#e8eaed'"></button>
+        <button mat-mini-fab style="background-color:#e6c9a8;height: 30px;
+          width: 30px;" (click)="color='#e6c9a8'"></button>
+        <button mat-mini-fab style="background-color:#fccfe8;height: 30px;
+          width: 30px;" (click)="color='#fccfe8'"></button>
+        <button mat-mini-fab style="background-color:#d7aefb;height: 30px;
+          width: 30px;" (click)="color='#d7aefb'"></button>
+      </mat-menu>
+      <img src="../../assets/img/login/color.svg">
+    </button>
+    <button mat-icon-button (click)="imageUpload($event)" style="opacity: 0.5;" matTooltip="Add Image">
+      <img src="../../assets/img/login/image.svg">
+    </button>
+    <button mat-icon-button style="opacity: 0.5;" matTooltip="Archive">
+      <img src="../../assets/img/login/archive.svg">
+    </button>
+    <button mat-icon-button style="opacity: 0.5;" matTooltip="More">
+      <img src="../../assets/img/login/vertical.svg">
+    </button>
+
+    <button mat-button (click)="onNoClick()" style="margin-left:20%;">Close</button>
+  </div>
+  <div mat-dialog-actions>
+    <!-- <button mat-button (click)="onNoClick()"><i class="material-icons">delete</i></button>
+  <button mat-button [mat-dialog-close]="data.label" cdkFocusInitial>Done</button> -->
+    <!-- <button mat-button (click)="expcardVisibiilty()" style="margin-left:20%;" (click)="onNoClick()">Close</button> -->
+
+  </div>

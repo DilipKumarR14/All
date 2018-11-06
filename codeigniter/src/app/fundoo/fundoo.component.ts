@@ -5,6 +5,9 @@ import { map } from 'rxjs/operators';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatIconRegistry } from '@angular/material';
 import { CommondataService } from "../service/commondata.service";
+import {CookieService} from 'angular2-cookie';
+import { Router } from '@angular/router';
+
 export interface DialogData {
   label: string;
   name: string;
@@ -21,13 +24,11 @@ export class FundooComponent {
   name: string;
   panelOpenState = false;
 
-  constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog,
-    private commondata:CommondataService) { }
+  constructor(public dialog: MatDialog,private commondata:CommondataService,private cookie:CookieService,private router:Router) { 
 
-  isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
+
+    }
+ 
 
     imgloc:string =  "../../assets/img/login/listview.svg";
     view:boolean = false;
@@ -44,9 +45,10 @@ export class FundooComponent {
         this.viewtip = "List_View";
       }
       //notify the commondata service true/false
-      this.commondata.notifyOther(this.view);
+      this.commondata.commonData(this.view);
       
     }
+
 
 
   openDialog(): void {
@@ -72,6 +74,14 @@ export class FundooComponent {
       this.changeIcon = "view_module";
     }    
   }
+
+  logout(){
+    
+    this.cookie.remove("email");
+    localStorage.removeItem("token");
+    this.router.navigate(['/logins']);
+  }
+
 
 
 }

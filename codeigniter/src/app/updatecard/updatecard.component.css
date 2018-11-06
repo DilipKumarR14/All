@@ -1,0 +1,168 @@
+mat-card-title{
+    font-size: large;
+    font-weight: bolder;
+    
+  }
+  .mat3{
+    max-width: 50%;
+    margin: auto;
+    margin-top: 3%;
+  }
+    .card{
+      font-family: serif;
+      margin-left: 23%;
+    }
+    .bar{
+      padding-right: 50%;
+      border: 59px;
+    }
+    input{
+        width: 95%;
+        border:0px;
+        outline: none;
+        font-weight: bold;
+        outline-style:none;
+        opacity: 0.5;
+    }
+  
+    .div2{
+      outline: none;
+      width: 400px;
+      position: relative;
+  }
+  
+  .takeanotecard{
+    width: 560px;
+    margin-top: 3%;
+    margin-left: 27%;
+   }
+   .titlecard{
+    max-width: 560px;
+    margin: auto;
+    margin-top: 3%;
+  
+    }
+    .rescard{
+      margin: 6% 0% -4% 13%;
+       } 
+  
+      .arrangecard{
+        margin:1%;
+      } 
+  
+  .mat-icon-button{
+      outline: none;
+      margin-left: 2%;
+      width: 33px;
+  }
+  
+  [contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text)
+  }
+  .divtext{
+    font-weight: bold;
+    outline-style:none;
+    opacity: 0.5;
+  }
+  .pin{
+    outline-style:none;
+    opacity: 0.5;
+    margin: -20px;
+  }
+  .pin1{
+    outline-style:none;
+    opacity: 0.5;
+    margin: -8px;
+  }
+  
+  .menubutton{
+    /* margin: 1% -16% 2% -8%; */
+    opacity: 0.5;
+    margin: -2% -16% 2% -3%;
+  
+  }
+  
+  /* .colorcard{
+    background-color: red;
+  } */
+  
+  .dropmenu{
+    width: 273px;
+    height: 250px;
+    margin: -5% 1% 1% 28%;
+    position: absolute;
+    z-index:100;
+    padding: 1% 1% 1% 1%;
+    border-radius: 0px;
+  }
+  .button{
+    width: 68px;
+      margin-top: 10px;
+      margin-left: 170px;
+      font-size: 12px;
+      font-family: MONOSPACE; 
+  }
+  mat-card{
+    border-radius: 8px;
+  
+  }
+  /* .allcards{
+  width: 1000px;
+  } */
+  .timestamp{
+    line-height: 10px;
+    padding-bottom:27px;
+    font-size: 10px;
+  }
+  .timedisplay{
+    margin: -42% 2% 0% 86%;
+  }
+  .test{
+    margin-top:10px;
+    margin-left:15px;
+    padding:6px;
+  }
+  .content
+  {
+  
+  border: none;
+  border-color: transparent;
+  outline: none;
+  word-wrap: break-word;
+  width: 100%;
+  min-height: 20px;
+  }
+  
+  [contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-text)
+    }
+    img{
+      width:20px;
+      height: 20px;
+    }
+    .testlist{
+      width: 561px;
+      margin-left: 100px;
+    }
+    .timestampclose{
+      margin-left: -8px;
+      margin-top: -1px;
+      margin-bottom: -1px;
+      line-height: 10px;
+    }
+    .closereminder{
+      border-radius: 20px;
+          outline-style: none;
+          margin: -1% 0% 0% -9%;
+          font-size: 12px;
+          height:0px;
+    }
+    .setreminder{
+      border-radius:20px;
+      outline-style:none;
+      font-size: 10px;
+      height: 0px;
+    }
+mat-toolbar{
+  background-color: black;
+}

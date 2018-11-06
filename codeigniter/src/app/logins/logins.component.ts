@@ -20,7 +20,8 @@ export class LoginsComponent {
   ValueError:any;
   constructor(private service: DatabaseService, private routes: Router,
     iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
-    private spinner:NgxSpinnerService,private cookie:CookieService) { 
+    private spinner:NgxSpinnerService,private cookie:CookieService,
+   ) { 
 
     iconRegistry.addSvgIcon(
     "fb",
@@ -53,15 +54,11 @@ export class LoginsComponent {
   }
   saves() {
     this.spinner.show();
-    debugger;
     var fetch = this.model;     // define the function and parameter (ts)
     this.cookie.put("email",this.model.email);
-    debugger;
     this.service.Login(fetch).subscribe(
       (status: any) => {
-        debugger;
         if (status.status == "200") {
-          debugger;
           console.log("got respo", status);
           this.spinner.hide();
           localStorage.setItem("token",status.token);
@@ -70,7 +67,6 @@ export class LoginsComponent {
           this.routes.navigate(['/fundoo'])
         } 
         else if (status.status == "null") {
-          debugger;
           this.spinner.hide();
           alert("Enter Valid Email/Password Field")
           this.spinner.hide();

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 @Injectable({
@@ -26,7 +26,7 @@ export class DatabaseService {
   // store the user data into the db after register
   Register(mode) {
     //
-    debugger;
+    
     const params = new FormData();
     params.append("name", mode.name);
     params.append("email", mode.email);
@@ -37,7 +37,7 @@ export class DatabaseService {
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
-    debugger;
+    
     return this.http.post(this.urls, params, otheroption).pipe(
       map((res: Response) => res)
     );
@@ -46,23 +46,26 @@ export class DatabaseService {
 
   // for login check the whether the user is valid or not
 
+  public getToken():string{
+    return localStorage.getItem("token");
+  }
+
+
   Login(mode1) {
-    debugger;
+    
     const params = new FormData();
     params.append("email", mode1.email);
     params.append("password", mode1.passwd);
+    // const res = localStorage.getItem("token");
 
-    let otheroption: any = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    debugger;
-    return this.http.post(this.loginurl, params, otheroption).pipe(
+    
+    return this.http.post(this.loginurl, params).pipe(
       map((res: Response) => res)
     )
   }
   // forget password link to user to change the password
   Forget(mode2) {
-    debugger;
+    
     const params = new FormData();
     params.append("email", mode2.email);
     params.append("pass", mode2.passwd);
@@ -77,7 +80,7 @@ export class DatabaseService {
   }
   // to reset the apssword of particular emailid
   Reset(mode3) {
-    debugger;
+    
     const params = new FormData();
     // params.append("email", mode3.email);
     params.append("pass", mode3.pass);
@@ -94,7 +97,6 @@ export class DatabaseService {
 
   // to validate the email and token 
   Valid(mode4) {
-    debugger;
     const params = new FormData();
     params.append("email", mode4.email);
     // To fetch the particular query parameter values
@@ -116,7 +118,6 @@ export class DatabaseService {
 
   // title and note entered by user is is added to table
   store(mode5) {
-    debugger;
 
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -127,7 +128,7 @@ export class DatabaseService {
 
     console.log(params);
 
-    debugger;
+    
     return this.http.post(this.storenote, params, otheroption).pipe(
       map((res: Response) => res)
     )
@@ -136,7 +137,7 @@ export class DatabaseService {
 
   // retirve the mail in forget password link send to mail
   getMail() {
-    debugger;
+    
     let getid = new FormData();
     getid.append("token", this.route.snapshot.queryParamMap.get('token'));
     let otheroption: any = {
@@ -145,5 +146,6 @@ export class DatabaseService {
     return this.http.post(this.getmail, getid, otheroption)
   }
 
+  
 
 }
