@@ -163,3 +163,13 @@ min-height: 20px;
     font-size: 10px;
     height: 0px;
   }
+  /* for the menu for select the time and date */
+.dropmenures{
+  width: 273px;
+  height: 250px;
+  position: absolute;
+  padding: 1% 1% 1% 1%;
+  border-radius: 0px;
+  z-index: 100;
+  margin: -9% 1% 1% 4%;
+}

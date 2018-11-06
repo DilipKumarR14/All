@@ -22,7 +22,7 @@
         <button mat-button contenteditable="false" class="setreminder" (click)="expan()">
           <mat-icon class="timestamp">
             <img style="margin-bottom: -12px;" src="../../assets/img/login/time.svg">
-          </mat-icon> {{time}} {{ date | date:'shortDate' }}
+          </mat-icon> {{currenttime}}
         </button>
         <button mat-button (click)="closeReminder()" class="closereminder">
           <mat-icon class="timestampclose">
@@ -30,7 +30,7 @@
           </mat-icon>
         </button>
 
-      </div>
+      </div>     
 
       <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" style="opacity: 0.5;" matTooltip="Reminder">
         <mat-menu #menu [overlapTrigger]="false">
@@ -40,7 +40,7 @@
           <button mat-menu-item (click)="settimeweek()">Next Week 8.00PM</button>
           <button mat-menu-item (click)="expan()">
             <mat-icon>query_builder</mat-icon>Pick date & time
-          </button>
+          </button>   
         </mat-menu>
         <img src="../../assets/img/login/rem.svg">
       </button>
@@ -132,14 +132,15 @@
         (click)="openDialog(item)">
 
 
-      <div *ngIf="(item.date !='undefined' && item.date!='null' ) ">
-        <button mat-button contenteditable="false" style="border-radius:20px;outline-style: none;" (click)="expan()">
+      <div>
+        <button mat-button contenteditable="false" style="border-radius:20px;outline-style: none;" (click)="viewcard(item.id)">
           <mat-icon class="timestamp">
             <img style="margin-bottom: -12px;" src="../../assets/img/login/time.svg">
           </mat-icon> {{ item.date}}
         </button>
 
       </div>
+
 
       <div class="menubutton">
         <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" matTooltip="Reminder">
@@ -201,10 +202,8 @@
             <button mat-mini-fab style="background-color:#fccfe8;height: 30px;
                   width: 30px;" (click)="setColor(item.id,'#fccfe8')"></button>
 
-
             <button mat-mini-fab style="background-color:#d7aefb;height: 30px;
                 width: 30px;" (click)="setColor(item.id,'#d7aefb')"></button>
-
           </mat-menu>
           <img src="../../assets/img/login/color.svg">
         </button>
@@ -217,7 +216,27 @@
         <button mat-icon-button matTooltip="More">
           <img src="../../assets/img/login/vertical.svg">
         </button>
+      </div>
+      <!-- for the menu display under the card -->
+      <!--result cards -->
+      <div *ngIf="cardmenu && idstore == item.id">
+        <mat-card class="dropmenures">
+          <label style="padding: 5px;">Choose Date</label>
+          <mat-form-field style="margin:10px;">
+            <input matInput [matDatepicker]="picker" [(ngModel)]="model.date" placeholder="Choose a date" (click)="date = this.model.date"><br>
 
+            <mat-datepicker-toggle matSuffix [for]="picker">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <label style="padding: 5px;">Choose Time</label>
+          <input [ngxTimepicker]="picker1" type="text" [(ngModel)]="model.time" placeholder="Choose a time" style="margin-left:10px;"
+            (click)="time = this.model.time">
+          <ngx-material-timepicker #picker1></ngx-material-timepicker>
+          <input type="submit" value="SAVE" class="button" (click)="editReminder(item.id)">
+        </mat-card>
       </div>
     </mat-card>
   </div>
@@ -226,33 +245,29 @@
 
   <div *ngIf="!view" fxLayoutAlign="center center" fxLayout="column" style="margin-top: 6%;margin-left: -5%;margin-right: 4%;"
     fxLayoutGap="20px">
-
     <mat-card *ngFor="let item of test" class="testlist" [ngStyle]="{'background-color': item.colorcode}">
       <mat-card-title>
-
-        <input matInput type="text" placeholder="Title" class="divtext" value="{{item.title}}" [ngStyle]="{'background-color': item.colorcode}">
+        <input matInput type="text" placeholder="Title" class="divtext" [(ngModel)]="item.title" [ngStyle]="{'background-color': item.colorcode}">
 
         <button class="pin" mat-icon-button>
           <img src="../../assets/img/login/pin.svg"></button>
       </mat-card-title>
 
-      <input matInput type="text" placeholder="Take a Note" class="divtext" value="{{item.note}}" [ngStyle]="{'background-color': item.colorcode}">
+      <input matInput type="text" placeholder="Take a Note" class="divtext" [(ngModel)]="item.note" [ngStyle]="{'background-color': item.colorcode}">
 
-
-      <div *ngIf="(item.date !='undefined' && item.date!='null' ) ">
-        <button mat-button contenteditable="false" style="border-radius:20px;outline-style: none;" (click)="expan()">
+      <div>
+        <button mat-button contenteditable="false" style="border-radius:20px;outline-style: none;" (click)="viewcard(item.id)">
           <mat-icon class="timestamp">
             <img style="margin-bottom: -12px;" src="../../assets/img/login/time.svg">
           </mat-icon> {{ item.date}}
         </button>
-
       </div>
 
       <div class="menubutton">
         <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" matTooltip="Reminder">
           <mat-menu #menu [overlapTrigger]="false">
             <label style="margin:1%;">Reminder:</label>
-            <button mat-menu-item>Today 8.00pm</button>
+            <button mat-menu-item (click)="viewcard(item.id)">Today 8.00pm</button>
             <button mat-menu-item>Tomorrow</button>
             <button mat-menu-item>Next Week</button>
             <button mat-menu-item>Home</button>
@@ -274,8 +289,6 @@
 
             <button mat-mini-fab style="background-color:#ffffff;height: 30px;
               width: 30px;" (click)="setColor(item.id,'#ffffff')"></button>
-
-
             <br>
             <button mat-mini-fab style="background-color:#aecbfa;height: 30px;
                   width: 30px;" (click)="setColor(item.id,'#aecbfa')"></button>
@@ -291,27 +304,18 @@
             <button mat-mini-fab style="background-color:#ccff90;height: 30px;
                       width: 30px;"
               (click)="setColor(item.id,'#ccff90')"></button>
-
-
             <br>
             <!--card in view-->
-
             <button mat-mini-fab style="background-color:#e8eaed;height: 30px;
                       width: 30px;"
               (click)="setColor(item.id,'#e8eaed')"></button>
-
             <button mat-mini-fab style="background-color:#e8eaed;height: 30px;
                     width: 30px;"
               (click)="setColor(item.id,'#e8eaed')"></button>
-
-
             <button mat-mini-fab style="background-color:#fccfe8;height: 30px;
                   width: 30px;" (click)="setColor(item.id,'#fccfe8')"></button>
-
-
             <button mat-mini-fab style="background-color:#d7aefb;height: 30px;
                 width: 30px;" (click)="setColor(item.id,'#d7aefb')"></button>
-
           </mat-menu>
           <img src="../../assets/img/login/color.svg">
         </button>
@@ -324,14 +328,31 @@
         <button mat-icon-button matTooltip="More">
           <img src="../../assets/img/login/vertical.svg">
         </button>
-
       </div>
+      <!-- for the menu display under the card -->
+      <!--result cards -->
+      <div *ngIf="cardmenu && idstore == item.id">
+        <mat-card class="dropmenures">
+          <label style="padding: 5px;">Choose Date</label>
+          <mat-form-field style="margin:10px;">
+            <input matInput [matDatepicker]="picker" [(ngModel)]="model.date" placeholder="Choose a date"><br>
+
+            <mat-datepicker-toggle matSuffix [for]="picker">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <label style="padding: 5px;">Choose Time</label>
+          <input [ngxTimepicker]="picker1" type="text" [(ngModel)]="model.time" placeholder="Choose a time" style="margin-left:10px;">
+          <ngx-material-timepicker #picker1></ngx-material-timepicker>
+          <input type="submit" value="SAVE" class="button" (click)="editReminder(item.id)">
+        </mat-card>
+      </div>
+
     </mat-card>
   </div>
 
 
-  <div>
-    {{count}}
-  </div>
-
+  <!-- end -->
 </div>

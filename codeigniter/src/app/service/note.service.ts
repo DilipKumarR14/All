@@ -17,7 +17,7 @@ export class NoteService {
   private storenote = "http://localhost/codeigniter/note";
   private fetch = "http://localhost/codeigniter/fetch";
   private colorurl = "http://localhost/codeigniter/color";
-
+  private resultcard = "http://localhost/codeigniter/resultcard";
   store(mode5, email, datetime, color) {
     debugger;
     let otheroption: any = {
@@ -76,8 +76,17 @@ export class NoteService {
     params.append("colorcard", model.note);
     params.append("colorcard", model.title);
     return this.http.post(this.colorurl, params, otheroption)
-  }
+  }    
 
+  updateReminder(id, model) {
+    let otheroption: any = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    const params = new FormData();
+    params.append("idcard", id);
+    params.append("date", model);
+    return this.http.post(this.resultcard, params, otheroption)
+  }
 
 
   //main ends

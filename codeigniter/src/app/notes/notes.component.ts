@@ -8,6 +8,8 @@ import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { MatDialog } from '@angular/material';
 import { UpdatecardComponent } from '../updatecard/updatecard.component';
 declare let require: any;
+let dateFormat = require("dateformat");
+
 @Component({
     selector: 'app-notes',
     templateUrl: './notes.component.html',
@@ -45,6 +47,7 @@ export class NotesComponent implements OnInit {
 
     public now: Date = new Date();
     gridview: boolean = false;
+
 
     // when the button is clicked on time setting later today
     settime() {
@@ -105,9 +108,23 @@ export class NotesComponent implements OnInit {
     OnDestroy() {
 
     }
+    currentDateAndTime: string;
+    currenttime: any;
+    timer_button: boolean;
+    timer_panel: boolean;
 
     expan() {
+        debugger;
         this.exp = true;
+        let dateFormat = require("dateformat");
+        let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
+        this.currentDateAndTime = currentDate + " " + this.model.time;
+        this.currenttime = this.currentDateAndTime;
+        if (this.model.date != null && this.model.time != null) {
+            this.timer_button = true;
+            this.timer_panel = false;
+        }
+
     }
     expanclose() {
         this.exp = false;
@@ -167,7 +184,10 @@ export class NotesComponent implements OnInit {
     setColor(idcard, colorcard) {
 
         debugger;
-        this.service.updateTheCard(idcard, colorcard).subscribe();
+        this.service.updateTheCard(idcard, colorcard).subscribe(
+            (status: any) => {
+                status = this.test;
+            });
 
         this.test.forEach(element => {
             debugger;
@@ -181,7 +201,7 @@ export class NotesComponent implements OnInit {
     }
 
 
-
+    //card for update the notes entred
     updateNote(idcard, model) {
         this.service.updateNoteDb(idcard, model).subscribe(
             (status: any) => {
@@ -191,6 +211,7 @@ export class NotesComponent implements OnInit {
         )
     }
 
+    // display when the mat dialog is clicked on title or note
     public sendupdatecard = "";
     openDialog(dat): void {
         const dialogRef = this.dialog.open(UpdatecardComponent, {
@@ -204,10 +225,51 @@ export class NotesComponent implements OnInit {
         });
     }
 
+    // for the reminder in the cards below
+    cardmenu: boolean = false;
+    reminder: any;
+    idstore: any;
+    // used for display and selecting the date and time under the particular card
+    // for list view
+    viewcard(id) {
+
+        this.test.forEach(element => {
+            if (element.id == id) {
+
+                this.cardmenu = true;
+                this.idstore = id;
+            }
+
+        });
+    }
+
+    // for close the card after tie and date is selecte
+    //for list view
 
 
 
+    editReminder(id) {
+        this.cardmenu = false;
+        let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
+        let result = currentDate + " " + this.model.time;
+        debugger;
+        this.service.updateReminder(id, result).subscribe();
 
+        debugger;    
+        this.currentDateAndTime = currentDate + " " + this.model.time;
+ 
+        this.test.forEach(element => {
+            if (element.id == id) {
+                debugger;
+                return element.date = this.currentDateAndTime;
+            }
+            else{
+                return;
+            }
+        });
+ 
+
+    }
 
     //main ends
 
