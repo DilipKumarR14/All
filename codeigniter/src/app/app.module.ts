@@ -33,7 +33,7 @@ import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './service/auth-interceptor.service';
 import { UpdatecardComponent } from './updatecard/updatecard.component';
 
-@NgModule({
+@NgModule({ 
   declarations: [
     AppComponent, LoginComponent,  
     RegisterComponent, LoginsComponent, ForgetComponent,
@@ -43,7 +43,8 @@ import { UpdatecardComponent } from './updatecard/updatecard.component';
   ], 
   imports: [
     BrowserModule, HttpClientModule, RouterModule,AppRoutingModule, FormsModule, MatCardModule,BrowserModule, BrowserAnimationsModule,   MatButtonModule, MatInputModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule,
-    MatIconModule, MatToolbarModule, MatSidenavModule,MatListModule, MatProgressSpinnerModule, MatProgressBarModule,MatMenuModule, NgxSpinnerModule, MatExpansionModule,MatDialogModule, MatTooltipModule, MatGridListModule, MatDatepickerModule,MatNativeDateModule, NgxMaterialTimepickerModule.forRoot(),MatExpansionModule,FlexLayoutModule
+    MatIconModule, MatToolbarModule, MatSidenavModule,MatListModule, MatProgressSpinnerModule, MatProgressBarModule,MatMenuModule, NgxSpinnerModule, MatExpansionModule,MatDialogModule, MatTooltipModule, MatGridListModule, MatDatepickerModule,MatNativeDateModule, NgxMaterialTimepickerModule.forRoot(),MatExpansionModule,
+    FlexLayoutModule
   ],
   entryComponents: [DialogBoxComponent,UpdatecardComponent],
   providers: [DatabaseService, CookieService, NoteService, AuthGuard,{

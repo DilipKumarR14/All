@@ -47,6 +47,7 @@ export class NotesComponent implements OnInit {
 
     public now: Date = new Date();
     gridview: boolean = false;
+    reminderenable: boolean=false;
 
 
     // when the button is clicked on time setting later today
@@ -114,7 +115,7 @@ export class NotesComponent implements OnInit {
     timer_panel: boolean;
 
     expan() {
-        debugger;
+        
         this.exp = true;
         let dateFormat = require("dateformat");
         let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
@@ -131,7 +132,7 @@ export class NotesComponent implements OnInit {
     }
     ngOnInit() {
         //once the page is reloaded data is fetched 
-        debugger;
+        
         this.service.storeRefresh(this.email).subscribe((status: any) => {
             this.test = status;
         });
@@ -149,18 +150,19 @@ export class NotesComponent implements OnInit {
 
     closeReminder() {
         this.res = false;
+        
     }
 
 
     // when the close is clicked on the card for savinf to database
     save() {
-        debugger;
+        
         let dateFormat = require("dateformat");
         let dateformat = dateFormat(this.model.date, "dd/mm/yyyy");
         let datetime = dateformat + " " + this.model.time;
         this.service.store(this.model, this.email, datetime, this.color).subscribe(
             (status: any) => {
-                debugger;
+                
                 if (status.status == 404 || status.status == 204) {
                     alert("UnAuthorised User !!!");
                 } else {
@@ -183,14 +185,14 @@ export class NotesComponent implements OnInit {
     //change the color
     setColor(idcard, colorcard) {
 
-        debugger;
+        
         this.service.updateTheCard(idcard, colorcard).subscribe(
             (status: any) => {
                 status = this.test;
             });
 
         this.test.forEach(element => {
-            debugger;
+            
             if (element.id == idcard) {
                 return element.colorcode = colorcard;
             }
@@ -245,30 +247,42 @@ export class NotesComponent implements OnInit {
 
     // for close the card after tie and date is selecte
     //for list view
-
-
-
     editReminder(id) {
         this.cardmenu = false;
         let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
         let result = currentDate + " " + this.model.time;
-        debugger;
         this.service.updateReminder(id, result).subscribe();
 
-        debugger;    
         this.currentDateAndTime = currentDate + " " + this.model.time;
  
         this.test.forEach(element => {
             if (element.id == id) {
-                debugger;
+                this.reminderenable=true;
                 return element.date = this.currentDateAndTime;
             }
             else{
                 return;
             }
         });
- 
+    }
 
+    resultreminder;
+    result:boolean;
+    closeReminderResultCard(id){
+        
+       this.reminderenable=false;
+        this.service.deleteReminder(id).subscribe(); 
+        this.test.forEach(element => {
+            debugger;
+            if (element.id == id) {
+                element.date = '';
+                // this.result =; 
+            }
+            else{
+                debugger;
+                return this.result = true;
+            } 
+        });
     }
 
     //main ends

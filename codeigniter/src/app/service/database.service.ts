@@ -39,7 +39,7 @@ export class DatabaseService {
     }
     
     return this.http.post(this.urls, params, otheroption).pipe(
-      map((res: Response) => res)
+       
     );
 
   }
@@ -60,7 +60,7 @@ export class DatabaseService {
 
     
     return this.http.post(this.loginurl, params).pipe(
-      map((res: Response) => res)
+       
     )
   }
   // forget password link to user to change the password
@@ -75,7 +75,7 @@ export class DatabaseService {
     }
 
     return this.http.post(this.forgeturl, params, otheroption).pipe(
-      map((res: Response) => res)
+       
     )
   }
   // to reset the apssword of particular emailid
@@ -91,7 +91,7 @@ export class DatabaseService {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
     return this.http.post(this.resetloginurl, params, otheroption).pipe(
-      map((res: Response) => res)
+       
     )
   }
 
@@ -105,7 +105,7 @@ export class DatabaseService {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
     return this.http.post(this.validloginurl, params, otheroption).pipe(
-      map((res: Response) => res)
+       
     )
   }
     // to check whether the localstorage is set with token when logged in user is valid or not
@@ -130,7 +130,7 @@ export class DatabaseService {
 
     
     return this.http.post(this.storenote, params, otheroption).pipe(
-      map((res: Response) => res)
+       
     )
   }
 

@@ -19,7 +19,6 @@ export class UpdatecardComponent implements OnInit {
   // note  = this.data;
 
   onNoClick(): void {
-    debugger;
     // this.notes=this.data.se.id;
     console.log(this.notes)
     this.dialogRef.close();

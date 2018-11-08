@@ -55,11 +55,11 @@ public value="change";
   }
   save() {
     var fetch = this.model;
-    debugger;
+    
     this.service.Reset(fetch).subscribe(
       // data returned will be stored in status variable
       (status: any) => {
-        debugger;
+        
         if (status.status == "200") {
           
           console.log("got respo", status);
@@ -90,7 +90,7 @@ public value="change";
 ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
-  debugger;
+  
 let obs= this.service.getMail();
 obs.subscribe(
 (res:any) =>{

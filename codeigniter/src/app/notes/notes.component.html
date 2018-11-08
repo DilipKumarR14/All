@@ -30,7 +30,7 @@
           </mat-icon>
         </button>
 
-      </div>     
+      </div>
 
       <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" style="opacity: 0.5;" matTooltip="Reminder">
         <mat-menu #menu [overlapTrigger]="false">
@@ -40,7 +40,7 @@
           <button mat-menu-item (click)="settimeweek()">Next Week 8.00PM</button>
           <button mat-menu-item (click)="expan()">
             <mat-icon>query_builder</mat-icon>Pick date & time
-          </button>   
+          </button>
         </mat-menu>
         <img src="../../assets/img/login/rem.svg">
       </button>
@@ -131,14 +131,18 @@
       <input matInput type="text" placeholder="Take a Note" class="divtext" value="{{item.note}}" [ngStyle]="{'background-color': item.colorcode}"
         (click)="openDialog(item)">
 
-
-      <div>
+      <!--close the reminder in the result card-->
+      <div *ngIf="item.date != '' ">
         <button mat-button contenteditable="false" style="border-radius:20px;outline-style: none;" (click)="viewcard(item.id)">
           <mat-icon class="timestamp">
             <img style="margin-bottom: -12px;" src="../../assets/img/login/time.svg">
           </mat-icon> {{ item.date}}
         </button>
-
+        <button mat-button (click)="closeReminderResultCard(item.id)" class="closereminderres">
+          <mat-icon class="timestampresclose">
+            <img style="margin-bottom: -12px;margin-left:-42px;" src="../../assets/img/login/close.svg" alt="close">
+          </mat-icon>
+        </button>
       </div>
 
 
@@ -146,7 +150,7 @@
         <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" matTooltip="Reminder">
           <mat-menu #menu [overlapTrigger]="false">
             <label style="margin:1%;">Reminder:</label>
-            <button mat-menu-item>Today 8.00pm</button>
+            <button mat-menu-item (click)="viewcard(item.id)">Today 8.00pm</button>
             <button mat-menu-item>Tomorrow</button>
             <button mat-menu-item>Next Week</button>
             <button mat-menu-item>Home</button>
@@ -255,13 +259,20 @@
 
       <input matInput type="text" placeholder="Take a Note" class="divtext" [(ngModel)]="item.note" [ngStyle]="{'background-color': item.colorcode}">
 
-      <div>
+      <!--close the reminder in the result card-->
+      <div *ngIf="item.date != '' ">
         <button mat-button contenteditable="false" style="border-radius:20px;outline-style: none;" (click)="viewcard(item.id)">
           <mat-icon class="timestamp">
             <img style="margin-bottom: -12px;" src="../../assets/img/login/time.svg">
           </mat-icon> {{ item.date}}
         </button>
+        <button mat-button (click)="closeReminderResultCard(item.id)" class="closereminderres">
+          <mat-icon class="timestampresclose">
+            <img style="margin-bottom: -12px;margin-left:-42px;" src="../../assets/img/login/close.svg" alt="close">
+          </mat-icon>
+        </button>
       </div>
+
 
       <div class="menubutton">
         <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" matTooltip="Reminder">

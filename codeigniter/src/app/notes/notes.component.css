@@ -155,12 +155,13 @@ min-height: 20px;
         outline-style: none;
         margin: -1% 0% 0% -9%;
         font-size: 12px;
-        height:0px;
+        height: 0px;
   }
   .setreminder{
     border-radius:20px;
     outline-style:none;
     font-size: 10px;
+    /* for button invisible */
     height: 0px;
   }
   /* for the menu for select the time and date */
@@ -172,4 +173,17 @@ min-height: 20px;
   border-radius: 0px;
   z-index: 100;
   margin: -9% 1% 1% 4%;
+}
+.timestampresclose{
+  line-height: 10px;
+}
+.closereminderres{
+  margin-right: -68px;
+  height: 0px;
+  outline-style: none;
+  margin-left: -29px;
+
+}
+.reminderres{
+
 }

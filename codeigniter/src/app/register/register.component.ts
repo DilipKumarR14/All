@@ -113,15 +113,15 @@ export class RegisterComponent {
   // }
 
   save() {
-    debugger;
+    
     this.spinner.show();
     var fetch = this.model;
     this.service.Register(fetch).subscribe(
       // data returned will be stored in status variable
       (status: any) => {
-        debugger;
+        
         if (status.status == "1") {
-          debugger;
+          
           console.log("got respo", status);
           alert("SuccessFully Saved")
           alert("Check Your Mail")
@@ -131,13 +131,13 @@ export class RegisterComponent {
           this.routes.navigate(['/logins'])
         }
         else if (status.status == "null") {
-          debugger;
+          
           alert("Enter All Mandatory Field")
           this.spinner.hide();
 
         }
         else if (status.status == "2") {
-          debugger;
+          
           alert("EMail Not sent/Check Your EmailId")
           this.spinner.hide();
 

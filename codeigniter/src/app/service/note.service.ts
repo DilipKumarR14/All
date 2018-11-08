@@ -18,8 +18,11 @@ export class NoteService {
   private fetch = "http://localhost/codeigniter/fetch";
   private colorurl = "http://localhost/codeigniter/color";
   private resultcard = "http://localhost/codeigniter/resultcard";
+  private deletereminder = "http://localhost/codeigniter/deletecard";
+
+  
   store(mode5, email, datetime, color) {
-    debugger;
+    
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -39,7 +42,7 @@ export class NoteService {
   }
 
   storeRefresh(email) {
-    debugger;
+    
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
 
@@ -56,7 +59,7 @@ export class NoteService {
 
   updateTheCard(idcard, colorcard) {
 
-    debugger;
+    
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -86,6 +89,16 @@ export class NoteService {
     params.append("idcard", id);
     params.append("date", model);
     return this.http.post(this.resultcard, params, otheroption)
+  }
+
+  deleteReminder(id){
+    let otheroption: any = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    const params = new FormData();
+    params.append("idcard", id);
+    return this.http.post(this.deletereminder, params, otheroption)
+
   }
 
 
