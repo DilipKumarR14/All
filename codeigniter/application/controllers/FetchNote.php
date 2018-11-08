@@ -124,4 +124,20 @@ class FetchNote
 
     }
 
+
+    public function popCardEditReminder(){
+        $idcard = $_POST['id'];
+        $timecard = $_POST['dateandtime'];
+        $email = $_POST['email'];
+        $title = $_POST['title'];
+        $note = $_POST['note'];
+        $conf = new NoteStoreConfig();
+        $conn = $conf->configs();
+
+        $stmt = $conn->prepare("UPDATE note SET date = '$timecard',note = '$note',title = '$title' where id = '$idcard' ");
+        $stmt->execute();
+      
+    }
+
+
 }
