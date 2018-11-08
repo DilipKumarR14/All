@@ -111,4 +111,17 @@ class FetchNote
 
     }
 
+    public function deleteReminderCard()
+    {
+
+        $idcard = $_POST['idcard'];
+
+        $conf = new NoteStoreConfig();
+        $conn = $conf->configs();
+
+        $stmt = $conn->prepare("UPDATE note SET date = '' where id = '$idcard' ");
+        $stmt->execute();
+
+    }
+
 }

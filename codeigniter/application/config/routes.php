@@ -67,3 +67,4 @@ $route['note'] = "FetchNote/createNote";
 
 $route['fetch'] = "FetchNote/fetch";
 $route['resultcard'] = "FetchNote/editReminderCard";
+$route['deletecard'] = "FetchNote/deleteReminderCard";
