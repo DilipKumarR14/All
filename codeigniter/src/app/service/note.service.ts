@@ -19,8 +19,8 @@ export class NoteService {
   private colorurl = "http://localhost/codeigniter/color";
   private resultcard = "http://localhost/codeigniter/resultcard";
   private deletereminder = "http://localhost/codeigniter/deletecard";
-
-  
+  private popedit =  "http://localhost/codeigniter/popedit";
+  private popdelete = "http://localhost/codeigniter/popdelete";
   store(mode5, email, datetime, color) {
     
     let otheroption: any = {
@@ -101,7 +101,34 @@ export class NoteService {
 
   }
 
+  // note for pop card reminder
 
+  popUpdateReminder(id,result,datas){
+    debugger;
+    let otheroption: any = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    const params = new FormData();
+    params.append("id",id);
+    params.append("colorcode",datas.colorcode);
+    params.append("email",datas.email);
+    params.append("note",datas.note);
+    params.append("title",datas.title);
+    params.append("dateandtime", result);
+    const res = datas;
+    return this.http.post(this.popedit, params, otheroption)
+  }
+
+  deleteNote(id){
+    debugger;
+    let otheroption: any = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    const params = new FormData();
+    params.append("idcard", id);
+    return this.http.post(this.popdelete, params, otheroption)
+
+  }
   //main ends
 }
 

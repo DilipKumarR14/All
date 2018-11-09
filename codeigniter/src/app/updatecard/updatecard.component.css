@@ -63,11 +63,13 @@ mat-card-title{
     font-weight: bold;
     outline-style:none;
     opacity: 0.5;
+    margin: 1% 1%;
   }
   .pin{
     outline-style:none;
     opacity: 0.5;
-    margin: -20px;
+    margin: -18px;
+    
   }
   .pin1{
     outline-style:none;
@@ -76,10 +78,8 @@ mat-card-title{
   }
   
   .menubutton{
-    /* margin: 1% -16% 2% -8%; */
     opacity: 0.5;
-    margin: -2% -16% 2% -3%;
-  
+    margin: -3% 0% 3% 1%;  
   }
   
   /* .colorcard{
@@ -122,16 +122,6 @@ mat-card-title{
     margin-left:15px;
     padding:6px;
   }
-  .content
-  {
-  
-  border: none;
-  border-color: transparent;
-  outline: none;
-  word-wrap: break-word;
-  width: 100%;
-  min-height: 20px;
-  }
   
   [contentEditable=true]:empty:not(:focus):before{
     content:attr(data-text)
@@ -163,6 +153,29 @@ mat-card-title{
       font-size: 10px;
       height: 0px;
     }
-mat-toolbar{
-  background-color: black;
+    .closereminderres{
+      height: 0px;
+      outline-style: none;
+      margin-left: -25px;
+    }
+.contents{
+  font-size: 20px;
+  border-radius: 11px;
+
+}
+::ng-deep.mat-dialog-container {
+  padding: 0px !important;
+  /* overflow: hidden; */
+  border-radius: 10px;
+  height: fit-content;
+}
+
+.dropmenures{
+  width: 273px;
+  height: 250px;
+  position: absolute;
+  padding: 1% 1% 1% 1%;
+  border-radius: 0px;
+  z-index: 100;
+  margin: -4% 1% 1% 2%;
 }

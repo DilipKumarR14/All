@@ -10,11 +10,22 @@ import { UpdatecardComponent } from '../updatecard/updatecard.component';
 declare let require: any;
 let dateFormat = require("dateformat");
 
+// for passing the data from note to updatecard component
+export interface DialogData {
+    resulttitle: string;
+    resultnote: string;
+    resultcolorcode: string;
+    resultdate: string;
+    datas: any;
+}
+
 @Component({
     selector: 'app-notes',
     templateUrl: './notes.component.html',
     styleUrls: ['./notes.component.css']
 })
+
+
 export class NotesComponent implements OnInit {
 
     public title = new FormControl();
@@ -47,12 +58,11 @@ export class NotesComponent implements OnInit {
 
     public now: Date = new Date();
     gridview: boolean = false;
-    reminderenable: boolean=false;
+    reminderenable: boolean = false;
 
 
     // when the button is clicked on time setting later today
     settime() {
-        this.time = "Select Time ";
         this.res = true;
     }
     // when the button is clicked on time setting for tomorrow
@@ -114,55 +124,68 @@ export class NotesComponent implements OnInit {
     timer_button: boolean;
     timer_panel: boolean;
 
+    dis = "";
     expan() {
-        
+
         this.exp = true;
         let dateFormat = require("dateformat");
         let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
+        let currTime = dateFormat(this.model.time,"hh:MM tt");
+        debugger;
+        this.dis = currentDate+ " "+ currTime;
         this.currentDateAndTime = currentDate + " " + this.model.time;
         this.currenttime = this.currentDateAndTime;
-        if (this.model.date != null && this.model.time != null) {
-            this.timer_button = true;
-            this.timer_panel = false;
-        }
-
     }
     expanclose() {
+        debugger;   
         this.exp = false;
+        let dateFormat = require("dateformat");
+        let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
+        debugger;
+        this.dis = currentDate+ " "+ this.model.time;
     }
     ngOnInit() {
         //once the page is reloaded data is fetched 
-        
+
         this.service.storeRefresh(this.email).subscribe((status: any) => {
             this.test = status;
         });
 
     }
+    // the main card display settings
     matcardVisbility() {
         this.maincard = false;
         this.expcard = true;
+        this.res = false;
     }
+    //// the expand card display settings
     expcardVisibiilty() {
         this.expcard = false;
         this.maincard = true;
+        let dateFormat = require("dateformat");
+        let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
+        debugger;
+        this.dis = currentDate+ " "+ this.model.time;
     }
 
 
     closeReminder() {
         this.res = false;
-        
+
     }
 
 
     // when the close is clicked on the card for savinf to database
     save() {
-        
+        debugger;
+        this.maincard = true;
+        this.expcard = false;
         let dateFormat = require("dateformat");
-        let dateformat = dateFormat(this.model.date, "dd/mm/yyyy");
-        let datetime = dateformat + " " + this.model.time;
-        this.service.store(this.model, this.email, datetime, this.color).subscribe(
+        let dateformat = dateFormat(this.model.date, "dd/mm/yyyy hh:MM tt");
+        this.dis = dateformat;
+        this.service.store(this.model, this.email, this.dis, this.color).subscribe(
             (status: any) => {
-                
+
                 if (status.status == 404 || status.status == 204) {
                     alert("UnAuthorised User !!!");
                 } else {
@@ -180,19 +203,20 @@ export class NotesComponent implements OnInit {
         this.color = null;
         this.model.time = "";
         this.model.date = "";
+        this.dis = "";
     }
 
     //change the color
     setColor(idcard, colorcard) {
 
-        
+
         this.service.updateTheCard(idcard, colorcard).subscribe(
             (status: any) => {
                 status = this.test;
             });
 
         this.test.forEach(element => {
-            
+
             if (element.id == idcard) {
                 return element.colorcode = colorcard;
             }
@@ -214,16 +238,20 @@ export class NotesComponent implements OnInit {
     }
 
     // display when the mat dialog is clicked on title or note
-    public sendupdatecard = "";
-    openDialog(dat): void {
+
+    openDialog(datas): void {
+        // passing the data of particular id
         const dialogRef = this.dialog.open(UpdatecardComponent, {
-            width: '46%',
-            height: '23%',
-            data: { se: dat }
+            width: '50%',
+            height: '50%',
+            data: { datas: datas, resultdate: datas.date }
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
+            debugger;
+            // to display the card when pop card is not undefined
+            if (result != undefined)
+                this.test = result;
         });
     }
 
@@ -254,35 +282,44 @@ export class NotesComponent implements OnInit {
         this.service.updateReminder(id, result).subscribe();
 
         this.currentDateAndTime = currentDate + " " + this.model.time;
- 
+
         this.test.forEach(element => {
             if (element.id == id) {
-                this.reminderenable=true;
+                this.reminderenable = true;
                 return element.date = this.currentDateAndTime;
             }
-            else{
+            else {
                 return;
             }
         });
     }
 
     resultreminder;
-    result:boolean;
-    closeReminderResultCard(id){
-        
-       this.reminderenable=false;
-        this.service.deleteReminder(id).subscribe(); 
+    result: boolean;
+    closeReminderResultCard(id) {
+
+        this.reminderenable = false;
+        this.service.deleteReminder(id).subscribe();
         this.test.forEach(element => {
-            debugger;
             if (element.id == id) {
                 element.date = '';
                 // this.result =; 
             }
-            else{
-                debugger;
+            else {
                 return this.result = true;
-            } 
+            }
         });
+    }
+
+
+    deleteNote(id) {
+        debugger;
+        this.service.deleteNote(id).subscribe(
+            (status: any) => {
+                debugger;
+                this.test = status
+            }
+        );
     }
 
     //main ends
