@@ -13,7 +13,7 @@
       <button mat-button contenteditable="false" style="border-radius:20px;outline-style: none;">
         <mat-icon class="timestamp">
           <img style="margin-bottom: -12px;" src="../../assets/img/login/time.svg">
-        </mat-icon> {{ data.datas.date}}
+        </mat-icon> {{ data.datas.date }}
       </button>
       <button mat-button (click)="closeReminderResultCard(item.id)" class="closereminderres">
         <mat-icon class="timestampresclose">
@@ -96,7 +96,7 @@
         </mat-menu>
         <img src="../../assets/img/login/vertical.svg">
       </button>
-      <button mat-button style="margin-left:30%;outline-style: none;" (click)="save()">Close</button>
+      <button mat-button style="margin-left:30%;outline-style: none;" (click)="save(data.datas)">Close</button>
     </div>
 
 

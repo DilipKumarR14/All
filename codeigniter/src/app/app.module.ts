@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatButtonModule, MatIconModule, MatDialogModule, MatNativeDateModule,MatCardModule,MatToolbarModule,MatSidenavModule,MatListModule,MatProgressSpinnerModule,MatProgressBarModule,MatTooltipModule,MatGridListModule,MatFormFieldModule,MatMenuModule,MatExpansionModule,MatDatepickerModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatIconModule, MatDialogModule, MatNativeDateModule,MatCardModule,MatToolbarModule,MatSidenavModule,MatListModule,MatProgressSpinnerModule,MatProgressBarModule,MatTooltipModule,MatGridListModule,MatFormFieldModule,MatMenuModule,MatExpansionModule,MatDatepickerModule, MatDividerModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -44,7 +44,7 @@ import { UpdatecardComponent } from './updatecard/updatecard.component';
   imports: [
     BrowserModule, HttpClientModule, RouterModule,AppRoutingModule, FormsModule, MatCardModule,BrowserModule, BrowserAnimationsModule,   MatButtonModule, MatInputModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule,
     MatIconModule, MatToolbarModule, MatSidenavModule,MatListModule, MatProgressSpinnerModule, MatProgressBarModule,MatMenuModule, NgxSpinnerModule, MatExpansionModule,MatDialogModule, MatTooltipModule, MatGridListModule, MatDatepickerModule,MatNativeDateModule, NgxMaterialTimepickerModule.forRoot(),MatExpansionModule,
-    FlexLayoutModule
+    FlexLayoutModule,MatDividerModule
   ],
   entryComponents: [DialogBoxComponent,UpdatecardComponent],
   providers: [DatabaseService, CookieService, NoteService, AuthGuard,{

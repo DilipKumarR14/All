@@ -1,11 +1,24 @@
-<h1 mat-dialog-title>Edit labels {{data.name}}</h1>
-<div mat-dialog-content>
-    <img src="../../assets/img/login/close.svg" alt=""> 
-  <mat-form-field>
-     <input matInput placeholder="Create new label"  [(ngModel)]="data.label">
-  </mat-form-field>
+<div style="padding:0px;">
+  <label> Edit labels</label>
+  <div>
+    <button mat-button class="select"> <img src="../../assets/img/login/close.svg" alt="close"></button>
+
+    <mat-form-field>
+      <input matInput placeholder="Create new label" [(ngModel)]="data.label">
+    </mat-form-field>
+    <button mat-button class="select"><img src="../../assets/img/login/done.svg" alt="done"></button>
+
+  </div>
+
+  <div *ngFor="let item of items">
+    <button mat-button> <img src="../../assets/img/login/label.svg" alt="done"></button>
+    <input value="{{item.label}}" style="outline-style: none;border: none;">
+    <button mat-button><img src="../../assets/img/login/edit.svg" alt="done"></button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="close">
+    <button mat-button [mat-dialog-close]="data.label" (click)="labels()" cdkFocusInitial>Done</button>
+  </div>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()"></button><!-- <i class="material-icons">delete</i>-->
-  <button mat-button [mat-dialog-close]="data.label" cdkFocusInitial>Done</button>
-</div> 

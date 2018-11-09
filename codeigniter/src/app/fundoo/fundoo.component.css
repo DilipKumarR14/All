@@ -62,15 +62,8 @@
   border: none;
   outline: none;
 }
-/* .mat-icon-button:hover {
-  background-color: #8b7e56;
-  padding: 0;
-  min-width: 0;
-  width: 50px;
-  height: 40px;
-  line-height: 40px;
-  border-radius: 50%;
-  border: none;
-} */
-
-
+.lab{
+  margin-left: 33px;
+  font-size: 14px;
+  font-family: serif;
+}  

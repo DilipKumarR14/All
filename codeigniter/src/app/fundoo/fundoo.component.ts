@@ -1,16 +1,13 @@
-import { Component, Inject } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Component, Inject, OnInit } from '@angular/core';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatIconRegistry } from '@angular/material';
+import { MatDialog} from '@angular/material';
 import { CommondataService } from "../service/commondata.service";
 import {CookieService} from 'angular2-cookie';
 import { Router } from '@angular/router';
+import { LabelService } from '../service/label.service';
 
 export interface DialogData {
   label: string;
-  name: string;
 }
 
 @Component({
@@ -19,14 +16,13 @@ export interface DialogData {
   styleUrls: ['./fundoo.component.css'],
 })
 
-export class FundooComponent {
+export class FundooComponent implements OnInit{
   label: string;
-  name: string;
   panelOpenState = false;
+  items;
 
-  constructor(public dialog: MatDialog,private commondata:CommondataService,private cookie:CookieService,private router:Router) { 
-
-
+  constructor(public dialog: MatDialog,private commondata:CommondataService,private cookie:CookieService,private router:Router,private service: LabelService) { 
+    
     }
  
 
@@ -49,18 +45,16 @@ export class FundooComponent {
       
     }
 
-
-
   openDialog(): void {
+    debugger;
     const dialogRef = this.dialog.open(DialogBoxComponent, {
-      width: '25%',
-      height: '35%',
-      data: { name: this.name, label: this.label }
+      width: '35%',
+      data: { label: this.label }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.label = result;
+      if(result!=undefined)
+      this.items = result;
     });
   }
   public changeIcon;
@@ -82,7 +76,23 @@ export class FundooComponent {
     this.router.navigate(['/logins']);
   }
 
+  fetchnote(){
+    debugger;
+    this.service.fetchlabel().subscribe(
+      (status:any)=>{
+        this.items = status;
+      }
+    )
+  }
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
 
+    this.service.fetchlabel().subscribe(
+      (status:any)=>{
+        this.items = status;
+      }
+    )
+  }
 
 }
 

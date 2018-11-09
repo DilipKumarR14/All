@@ -57,7 +57,7 @@ export class UpdatecardComponent implements OnInit {
     private common: CommondataService, ) {
     // import is required from particular component
     // receiving the result from the notescomponent
-        
+
     this.service.storeRefresh(this.email).subscribe((status: any) => {
       this.test = status;
     });
@@ -92,14 +92,14 @@ export class UpdatecardComponent implements OnInit {
     });
   }
 
-ngOnInit() {
+  ngOnInit() {
     //once the page is reloaded data is fetched 
-    
+
     this.service.storeRefresh(this.email).subscribe((status: any) => {
-        this.test = status;
+      this.test = status;
     });
 
-}
+  }
 
   // close the popup box afetr edititng
   onNoClick(): void {
@@ -109,45 +109,43 @@ ngOnInit() {
   //change the color
   setColor(idcard, colorcard) {
 
-      
-      this.service.updateTheCard(idcard, colorcard).subscribe(
-          (status: any) => {
-              status = this.test;
-          });
 
-      this.test.forEach(element => {
-          
-          if (element.id == idcard) {
-              return element.colorcode = colorcard;
-          }
-          else {
-              return;
-          }
+    this.service.updateTheCard(idcard, colorcard).subscribe(
+      (status: any) => {
+        status = this.test;
       });
+
+    this.test.forEach(element => {
+
+      if (element.id == idcard) {
+        return element.colorcode = colorcard;
+      }
+      else {
+        return;
+      }
+    });
   }
 
-      // used for display and selecting the date and time under the particular card
-    // for list view
-    viewcard() {
-        this.cardmenu = true;
-    }
+  // used for display and selecting the date and time under the particular card
+  // for list view
+  viewcard() {
+    this.cardmenu = true;
+  }
 
-  // for close the card after tie and date is selecte
+  // for close the card after time and date is selected
   //for list view
   editReminder(id) {
-      this.cardmenu = false;
-      let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
-      let result = currentDate + " " + this.model.time;
-      this.service.popUpdateReminder(id,result,this.data.datas).subscribe();
-
-      this.data.datas.date = result;
-
-    //   this.data.resultdate = this.currentDateAndTime;
+    debugger;
+    this.cardmenu = false;
+    let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
+    let result = currentDate + " " + this.model.time;
+    this.data.datas.date = result;
+    this.service.popUpdateReminder(id, this.data.datas).subscribe();
   }
-  deleteNote(id){
+  deleteNote(id) {
     debugger;
     this.service.deleteNote(id).subscribe(
-      (status:any)=>{
+      (status: any) => {
         debugger;
         this.dialogRef.close(status);
       }
@@ -155,9 +153,13 @@ ngOnInit() {
 
   }
 
-save(){
-this.dialogRef.close();
-}
+  save(datas){
+    debugger;
+    this.service.saveData(datas).subscribe();
+  }
+
+
+
 
   //main ends
 }

@@ -7,7 +7,7 @@
     <mat-icon aria-label="Side nav toggle icon">search</mat-icon>
   </button>
 
-  <input class="searchbar" aria-label="Search" autocomplete="off" placeholder="Search"  type="text" aria-hidden="true">
+  <input class="searchbar" aria-label="Search" autocomplete="off" placeholder="Search" type="text" aria-hidden="true">
 
   <!-- value=""  role="combobox" -->
   <div>
@@ -59,16 +59,24 @@
         <span style="margin-left:170px">
           <button mat-icon-button>Edit</button></span>
       </label>
-      <a mat-list-item *ngIf="label">
-        <mat-icon>label</mat-icon>{{label}}
+
+      
+      <div *ngFor="let item of items">
+        <a mat-list-item>
+        <mat-icon>
+          <img src="assets/img/login/label.svg" />
+        </mat-icon>
+        {{item.label}}
       </a>
-      <a mat-list-item routerLink="create" class="changesize">
-        <button aria-label="Toggle sidenav" mat-icon-button (click)="openDialog()">
-          <mat-icon aria-label="Side nav toggle icon">
-            <img src="../../assets/img/login/plus.svg" style="margin-left:10px;">
-          </mat-icon>
-          Create New Labels
-        </button>
+      </div>
+
+      
+      <a mat-list-item (click)="openDialog()">
+        <mat-icon aria-label="Side nav toggle icon">
+          <img src="../../assets/img/login/plus.svg" style="    margin-left: 11px;
+            margin-top: -9px;">
+        </mat-icon>
+        <label class="lab">Create New Labels</label>
       </a>
 
       <!-- <hr> -->

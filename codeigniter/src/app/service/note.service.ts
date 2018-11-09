@@ -19,10 +19,11 @@ export class NoteService {
   private colorurl = "http://localhost/codeigniter/color";
   private resultcard = "http://localhost/codeigniter/resultcard";
   private deletereminder = "http://localhost/codeigniter/deletecard";
-  private popedit =  "http://localhost/codeigniter/popedit";
+  private popedit = "http://localhost/codeigniter/popedit";
   private popdelete = "http://localhost/codeigniter/popdelete";
+  private save = "http://localhost/codeigniter/save";
   store(mode5, email, datetime, color) {
-    
+
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -42,7 +43,7 @@ export class NoteService {
   }
 
   storeRefresh(email) {
-    
+
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
 
@@ -59,7 +60,7 @@ export class NoteService {
 
   updateTheCard(idcard, colorcard) {
 
-    
+
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -79,7 +80,7 @@ export class NoteService {
     params.append("colorcard", model.note);
     params.append("colorcard", model.title);
     return this.http.post(this.colorurl, params, otheroption)
-  }    
+  }
 
   updateReminder(id, model) {
     let otheroption: any = {
@@ -91,7 +92,7 @@ export class NoteService {
     return this.http.post(this.resultcard, params, otheroption)
   }
 
-  deleteReminder(id){
+  deleteReminder(id) {
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -103,23 +104,23 @@ export class NoteService {
 
   // note for pop card reminder
 
-  popUpdateReminder(id,result,datas){
+  popUpdateReminder(id, datas) {
     debugger;
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
     const params = new FormData();
-    params.append("id",id);
-    params.append("colorcode",datas.colorcode);
-    params.append("email",datas.email);
-    params.append("note",datas.note);
-    params.append("title",datas.title);
-    params.append("dateandtime", result);
+    params.append("id", id);
+    params.append("colorcode", datas.colorcode);
+    params.append("email", datas.email);
+    params.append("note", datas.note);
+    params.append("title", datas.title);
+    params.append("dateandtime", datas.date);
     const res = datas;
     return this.http.post(this.popedit, params, otheroption)
   }
 
-  deleteNote(id){
+  deleteNote(id) {
     debugger;
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -128,6 +129,22 @@ export class NoteService {
     params.append("idcard", id);
     return this.http.post(this.popdelete, params, otheroption)
 
+  }
+
+  saveData(allData) {
+    debugger;
+    let otheroption: any = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    const params = new FormData();
+    params.append("id", allData.id);
+    params.append("colorcode", allData.colorcode);
+    params.append("email", allData.email);
+    params.append("note", allData.note);
+    params.append("title", allData.title);
+    params.append("dateandtime", allData.date);
+    const res = allData;
+    return this.http.post(this.save, params, otheroption)
   }
   //main ends
 }
