@@ -139,5 +139,22 @@ class FetchNote
       
     }
 
+    public function delete(){
+        $idcard = $_POST['idcard'];
+        $conf = new NoteStoreConfig();
+        $conn = $conf->configs();
+        $stmt = $conn->prepare("DELETE from note where id = '$idcard' ");
+        $stmt->execute();
+
+        $stmt = $conn->prepare("SELECT * FROM note ");
+        $stmt->execute();
+
+        $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $jsondata = json_encode($row);
+        print($jsondata);
+       
+    }
+
 
 }

@@ -57,15 +57,12 @@ $route['regform'] = "Account/register";
 $route['login'] = "Account/logins";
 $route['forgot'] = "ForgetPassword/forgotPassword";
 $route['reset'] = "ForgetPassword/reset";
-
 $route['mailvali'] = "EmailValidation/emailValid";
 $route['getEmailId1'] = "ForgetPassword/getEmailId";
-
 $route['color'] = "GetColor/fetchColor";
-
 $route['note'] = "FetchNote/createNote";
-
 $route['fetch'] = "FetchNote/fetch";
 $route['resultcard'] = "FetchNote/editReminderCard";
 $route['deletecard'] = "FetchNote/deleteReminderCard";
 $route['popedit'] = "FetchNote/popCardEditReminder";
+$route['popdelete'] = "FetchNote/delete";
