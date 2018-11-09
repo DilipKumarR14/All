@@ -66,3 +66,6 @@ $route['resultcard'] = "FetchNote/editReminderCard";
 $route['deletecard'] = "FetchNote/deleteReminderCard";
 $route['popedit'] = "FetchNote/popCardEditReminder";
 $route['popdelete'] = "FetchNote/delete";
+$route['save'] = "FetchNote/save";
+$route['addLabel'] = "Label/addLabel";
+$route['fetchLabel'] = "Label/fetchLabel";

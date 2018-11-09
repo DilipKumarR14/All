@@ -156,5 +156,15 @@ class FetchNote
        
     }
 
+    public function save(){
+        $idcard = $_POST['id'];
+        $note = $_POST['note'];
+        $title = $_POST['title'];
+        $conf = new NoteStoreConfig();
+        $conn = $conf->configs();
+
+        $stmt = $conn->prepare("UPDATE note SET note = '$note',title = '$title' where id = '$idcard' ");
+        $stmt->execute();
+    }
 
 }
