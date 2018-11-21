@@ -69,3 +69,32 @@ $route['popdelete'] = "FetchNote/delete";
 $route['save'] = "FetchNote/save";
 $route['addLabel'] = "Label/addLabel";
 $route['fetchLabel'] = "Label/fetchLabel";
+$route['deleteLabel'] = "Label/delete";
+$route['editLabelurl'] = "Label/editLabel";
+$route['isArchive'] = "Archived/isArchive";
+$route['archivereceive']="Archived/receiveArchive";
+$route['archiverefresh']="Archived/storearchive";
+$route['unarchive']="Archived/unArchive";
+$route['deleterecover']="Trash/deleteRecover";
+$route['delete']="Trash/delete";
+$route['deleteForever']= "Trash/deleteForver";
+$route['remindernote']= "Reminder/reminderNotes";
+$route['addlabel'] = "Label/labelForNote";
+
+$route['addLabelCard']="Label/addLabelCard";
+
+$route['deleteLabelCard']="Label/deleteLabel";
+
+$route['getLabel']= "Label/getLabel";
+
+$route['image']= "ProfilePic/upload";
+
+$route['collabemail']="Collabortor/collabortors";
+$route['collabowner']="Collabortor/getOwner";
+$route['collaaddemail']="Collabortor/getCollabEmail";
+$route['collabemailed']="Collabortor/getCollabedEmail";
+$route['deletecollab']="Collabortor/deleteCollab";
+$route['displaycollab']="Collabortor/displayForNoteCard";
+$route['getmail']="Collabortor/getEmail";
+
+$route['getpics']="ProfilePic/getPic";
