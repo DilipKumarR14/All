@@ -4,6 +4,11 @@ header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Or
 ');
 
 include_once "ConfigColor.php";
+/**
+ * @desc for the change the color of each card
+ * @var id store the id
+ * @var colorcode to store the colorcode of the color
+ */
 class GetColor
 {
     public function fetchColor()

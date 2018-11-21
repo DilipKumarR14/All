@@ -31,6 +31,10 @@ class FetchNote
                 $note = $_POST['note'];
                 $date = $_POST['date'];
                 $color = $_POST['color'];
+                $arch = $_POST['archive'];
+                $label = $_POST['label'];
+                $collabrr = $_POST['collab'];
+                $owner = $_POST['owner'];
 
                 $conf = new NoteStoreConfig();
                 $conn = $conf->configs();
@@ -38,12 +42,27 @@ class FetchNote
                 /**
                  * insert the title and note into databse based on the emailid
                  */
-                $stm = $conn->prepare("INSERT INTO note(title,note,email,date,colorcode) VALUES('$title','$note','$email','$date','$color')");
+                $stm = $conn->prepare("INSERT INTO note(title,note,email,date,colorcode,isArchive,label) VALUES('$title','$note','$email','$date','$color','$arch','$label')");
                 $stm->execute();
+
+                $stm = $conn->prepare("SELECT MAX(id) from note");
+                $stm->execute();
+
+                $row = $stm->fetch(PDO::FETCH_ASSOC);
+
+                $id = $row['MAX(id)'];
+
+                $emailres = explode(",",$collabrr);
+
+                for ($i=0; $i <sizeof($emailres) ; $i++) { 
+                    $stm = $conn->prepare("INSERT INTO  collaborators (email ,  noteid ,  owner ) VALUES ('$emailres[$i]','$id','$owner')");
+                    $stm->execute();
+                }
+
                 /**
                  * fetch all the values from the  database based on the email
                  */
-                $stmt = $conn->prepare("select * from note where email = '$email' order by id desc ");
+                $stmt = $conn->prepare("select * from note where isArchive = 'false' and isDelete = 'false' and (email = '$email' or id in (select noteid from collaborators where email = '$email' ) ) order by id desc ");
                 $stmt->execute();
 
                 /**
@@ -52,7 +71,18 @@ class FetchNote
                 $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 $res = json_encode($row);
 
-                print($res);
+                $stmt = $conn->prepare("SELECT DISTINCT email,noteid from collaborators");
+                $stmt->execute();
+
+                $rowcolla = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $rescollab = json_encode($rowcolla);
+
+                $all = array(
+                    "res"=> $row,
+                    "rescolla"=>$rowcolla
+                );
+
+                print json_encode($all);
             } else {
                 /**
                  * email not found (content-not found)
@@ -82,7 +112,8 @@ class FetchNote
         /**
          * fetch all the values from the  database based on the email
          */
-        $stmt = $conn->prepare("select * from note where email = '$email' order by id desc ");
+         
+        $stmt = $conn->prepare("select * from note where isArchive = 'false' and isDelete = 'false' and (email = '$email' or id in (select noteid from collaborators where email = '$email' ) ) order by id desc ");
         $stmt->execute();
         /**
          * return the array of all the field like note,title,email etc
@@ -94,7 +125,11 @@ class FetchNote
          */
         print($res);
     }
-   
+   /** 
+    * @desc for the edit the reminder
+    * @var idcard for store the id of the card
+    * @var timecard for store the time set on card
+    */
     public function editReminderCard()
     {
 
@@ -110,7 +145,9 @@ class FetchNote
         $stmt->execute();
 
     }
-
+/**
+ * @desc for the delete  the remindeer on the card
+ */
     public function deleteReminderCard()
     {
 
@@ -123,7 +160,13 @@ class FetchNote
         $stmt->execute();
 
     }
-
+/**
+ * @desc for the popCard edit the reminder
+ * @var idcard for the id
+ * @var timecard for the timecard
+ * @var email for the email
+ * @var title for the title
+ */
 
     public function popCardEditReminder(){
         $idcard = $_POST['id'];
@@ -138,15 +181,22 @@ class FetchNote
         $stmt->execute();
       
     }
-
+/**
+ * @desc for the delete the card and store in trash
+ * @var idcard for the id
+ */
     public function delete(){
         $idcard = $_POST['idcard'];
         $conf = new NoteStoreConfig();
         $conn = $conf->configs();
-        $stmt = $conn->prepare("DELETE from note where id = '$idcard' ");
+
+        $stmt = $conn->prepare("UPDATE note set isDelete='true' where id = '$idcard' ");
         $stmt->execute();
 
-        $stmt = $conn->prepare("SELECT * FROM note ");
+        // $stmt = $conn->prepare("DELETE from note where id = '$idcard' ");
+        // $stmt->execute();
+
+        $stmt = $conn->prepare("SELECT * FROM note where isDelete = 'false' and isArchive = 'false'  ");
         $stmt->execute();
 
         $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -155,7 +205,12 @@ class FetchNote
         print($jsondata);
        
     }
-
+/**
+ * @desc for the title and note of the particular id
+ * @var idcard for the id
+ * @var title for the title
+ * @var note for the note
+ */
     public function save(){
         $idcard = $_POST['id'];
         $note = $_POST['note'];

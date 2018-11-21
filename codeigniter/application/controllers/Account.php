@@ -129,7 +129,9 @@ class Account
     }
 
 
-
+/**
+ * for the token to be stored generated
+ */
 
     public static  function  createJwtToken($email)
     {
@@ -143,6 +145,9 @@ class Account
         return $jwt;
     }
 
+    /**
+     * to verfity the token
+     */
     public function verify($jwt): bool
     {
         list($headerEncoded, $payloadEncoded, $signatureEncoded) = explode('.', $jwt);
@@ -155,7 +160,9 @@ class Account
 
         return hash_equals($rawSignature, $signature);
     }
-    
+    /**
+     * convert to base64 encode
+     */
     public static function base64UrlDecode($data): string
     {
         $urlUnsafeData = strtr($data, '-_', '+/');
