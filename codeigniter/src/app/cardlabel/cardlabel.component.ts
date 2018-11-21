@@ -1,41 +1,23 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { NoteService } from '../service/note.service';
 import { CookieService } from 'angular2-cookie';
 import { CommondataService } from '../service/commondata.service';
-import { Subscription } from 'rxjs';
-import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { MatDialog } from '@angular/material';
-import { UpdatecardComponent } from '../updatecard/updatecard.component';
 import { ArchiveService } from '../service/archive.service';
 import { LabelService } from '../service/label.service';
-import { CollabortorComponent } from '../collabortor/collabortor.component';
-import { CollaboratorService } from '../service/collaborator.service';
-import { Router } from '@angular/router';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-    
+import { UpdatecardComponent } from '../updatecard/updatecard.component';
 declare let require: any;
 let dateFormat = require("dateformat");
-
-// for passing the data from note to updatecard component
-export interface DialogData {
-    resulttitle: string;
-    resultnote: string;
-    resultcolorcode: string;
-    resultdate: string;
-    datas: any;
-}
-
 @Component({
-    selector: 'app-notes',
-    templateUrl: './notes.component.html',
-    styleUrls: ['./notes.component.css']
+  selector: 'app-cardlabel',
+  templateUrl: './cardlabel.component.html',
+  styleUrls: ['./cardlabel.component.css']
 })
+export class CardlabelComponent implements OnInit {
 
-
-export class NotesComponent implements OnInit {
-
-    public title = new FormControl();
+  public title = new FormControl();
     public note = new FormControl();
     public temp = false;
 
@@ -66,13 +48,7 @@ export class NotesComponent implements OnInit {
     public now: Date = new Date();
     gridview: boolean = false;
     reminderenable: boolean = false;
-
-    owner = this.cookie.get("email")
-    mails: any;
-    i = 0;
-    emailcard: string;
-
-
+    collabed: any;
 
     // when the button is clicked on time setting later today
     settime() {
@@ -89,21 +65,30 @@ export class NotesComponent implements OnInit {
     maincard: boolean = true;
     expcard: boolean = false;
     displaycard: boolean = true;
-
+    labeldata:any;
     constructor(private service: NoteService, private cookie: CookieService,
-        private common: CommondataService, public dialog: MatDialog, private archiveService: ArchiveService, private labelservice: LabelService, private collabservice: CollaboratorService, private router: Router) {
+        private common: CommondataService, public dialog: MatDialog,private archiveService:ArchiveService,private labelservice:LabelService) {
         this.service.storeRefresh(this.email).subscribe((status: any) => {
             this.test = status;
         });
         // call the function recursively every 5 seconds 
-        setInterval(() => {
+            setInterval(() => {
             this.dateformater();
         }, 30000);
-
+        
         //common data shared by the subject in commondataservice
         this.subscribedata = this.common.notifyObservables$.subscribe((res) => {
             this.view = res;
         })
+
+        this.subscribedata = this.common.cardLabelObservables$.subscribe((res) => {
+            
+            this.labelservice.getLabelForCard(res).subscribe((status:any)=>{
+                
+                this.test = status;
+            })
+        })
+
     }
     // function that display the note when the date and time is matched
     dateformater() {
@@ -140,53 +125,45 @@ export class NotesComponent implements OnInit {
         this.exp = true;
         let dateFormat = require("dateformat");
         let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
-        let currTime = dateFormat(this.model.time, "hh:MM tt");
-
-        this.dis = currentDate + " " + currTime;
+        let currTime = dateFormat(this.model.time,"hh:MM tt");
+        
+        this.dis = currentDate+ " "+ currTime;
         this.currentDateAndTime = currentDate + " " + this.model.time;
         this.currenttime = this.currentDateAndTime;
     }
     expanclose() {
-
+           
         this.exp = false;
         let dateFormat = require("dateformat");
         let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
-
-        this.dis = currentDate + " " + this.model.time;
+        
+        this.dis = currentDate+ " "+ this.model.time;
     }
     labels: any;
-
-
     ngOnInit() {
         //once the page is reloaded data is fetched 
 
         this.service.storeRefresh(this.email).subscribe((status: any) => {
-
             this.test = status;
         });
-
+        
         this.labelservice.addLabel(this.email).subscribe(
-            (status: any) => {
-
+            (status:any)=>{
+                
                 this.labels = status;
-
-            }, error => {
+                
+            },error=>{
                 console.log("error")
             }
         )
-        // to receive the collab and display the in fab btn
-        this.collabservice.getDisplayCollab(this.test).subscribe(
-            (status: any) => {
-                if (this.test.id == status.id) {
-                    
-                    this.mails = status.email
-                }
-            }
-        )
 
+        this.subscribedata = this.common.cardLabelObservables$.subscribe((res) => {
+            
+            this.view = res;
+        })
 
     }
-
+  
     // the main card display settings
     matcardVisbility() {
         this.maincard = false;
@@ -199,8 +176,8 @@ export class NotesComponent implements OnInit {
         this.maincard = true;
         let dateFormat = require("dateformat");
         let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
-
-        this.dis = currentDate + " " + this.model.time;
+        
+        this.dis = currentDate+ " "+ this.model.time;
     }
 
 
@@ -209,47 +186,40 @@ export class NotesComponent implements OnInit {
 
     }
 
-    archivecard: string = "false";
+    archivecard:string = "false";
     restd: any;
     dis = "";
-    label = "null";
 
     // when the close is clicked on the card for savinf to database
     save() {
-
-        if (this.model.time != undefined || this.model.date != undefined) {
+        
+        if(this.model.time != undefined || this.model.date != undefined){
             let dateFormat = require("dateformat");
             let dateformat = dateFormat(this.model.date, "dd/mm/yyyy hh:MM tt");
             this.dis = dateformat;
-        } else {
-            this.dis;
+        }else{
+            this.dis ;
         }
         this.maincard = true;
         this.expcard = false;
-
-         
-        this.service.store(this.model, this.email, this.dis, this.color, this.archivecard, this.addlabell, this.arremail).subscribe(
+        // let dateFormat = require("dateformat");
+        // let dateformat = dateFormat(this.model.date, "dd/mm/yyyy hh:MM tt");
+        // this.dis = dateformat;
+                                                                                                                                                                       
+        this.service.store(this.model, this.email, this.dis, this.color,this.archivecard,this.labeldata,this.collabed).subscribe(
             (status: any) => {
-                 
-                console.log(status)
+                
                 if (status.status == 404 || status.status == 204) {
-                     
                     alert("UnAuthorised User !!!");
-                }
+                }                   
                 else {
-                     
-                    console.log(status.rescolla);
-
-                    this.mails = status.rescolla;
-                    this.test = status.res;
+                    this.test = status;
                 }
             }, error => {
-                 
-                alert(error.message)
                 this.error = true;
                 this.errorMsg = error.message;// error.message inbuilt method
             });
- 
+
         this.model.title = null;
         this.model.note = null;
         this.color = null;
@@ -257,28 +227,12 @@ export class NotesComponent implements OnInit {
         this.model.date = "";
         this.dis = "";
         this.archivecard = "false";
-        this.addlabell = "";
-        this.labeldiv = true;
     }
-
-/**
- * @description is for drag and drop of the card
- * @param event 
- */
-    drop(event: CdkDragDrop<string[]>) {
-        moveItemInArray(this.test, event.previousIndex, event.currentIndex);
-        console.log(event.previousIndex);
-        console.log(event.currentIndex);
-    }
-
-
-
-
 
     //change the color
     setColor(idcard, colorcard) {
 
-
+        
         this.service.updateTheCard(idcard, colorcard).subscribe(
             (status: any) => {
                 status = this.test;
@@ -317,7 +271,7 @@ export class NotesComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-
+            
             // to display the card when pop card is not undefined
             if (result != undefined)
                 this.test = result;
@@ -366,7 +320,7 @@ export class NotesComponent implements OnInit {
     resultreminder;
     result: boolean;
     closeReminderResultCard(id) {
-        // close reminder after selected
+// close reminder after selected
         this.reminderenable = false;
         this.service.deleteReminder(id).subscribe();
         this.test.forEach(element => {
@@ -382,34 +336,32 @@ export class NotesComponent implements OnInit {
 
     // delete the note 
     deleteNote(id) {
-
+        
         this.service.deleteNote(id).subscribe(
             (status: any) => {
-
+                
                 this.test = status
             }
         );
     }
-
+    
     archiverescard: string;
 
-    archiveNote(id) {
-
+    archiveNote(id){
+        
         this.archiveService.archiveNote(id).subscribe(
-            (status: any) => {
-
+            (status:any)=>{
+                
                 this.test = status;
             }
         );
     }
 
-    public addlabell: string = null;
+    public addlabell:string=null;
     // lab = false;
-    labeldiv: boolean = false;
-    val(id, labelname) {
+    val(id,labelname){
         // this.lab=true;
-        this.labeldiv = true;
-
+        
         this.labelservice.addLabelCard(id, labelname).subscribe(
             (status: any) => {
                 status = this.test;
@@ -426,103 +378,22 @@ export class NotesComponent implements OnInit {
         });
     }
 
-    deletelabel(id) {
-
+    deletelabel(id){
+        
         this.labelservice.deleteLabelCard(id).subscribe(
             (status: any) => {
                 status = this.test;
             });
-        this.test.forEach(element => {
+            this.test.forEach(element => {
 
-            if (element.id == id) {
-                element.label = '';
-            }
-        });
-
-    }
-    // for passing the collab email 
-    openCollab(item): void {
-        const dialogRef = this.dialog.open(CollabortorComponent, {
-            width: '40%',
-            data: { datas: item }
-        });
-
-        dialogRef.afterClosed().subscribe(result => {
-             
-            if (this.test.id == result.id) {
-                // this.mails = result.email;
-                 
-                this.mails = result;
-
-
-                this.service.storeRefresh(this.email).subscribe((status: any) => {
-
-                    this.test = status;
-                });
-
-                console.log(result)
-            }
-        });
-    }
-    collab: boolean = false;
-    // for the top card for switch b/w collab and main card
-    collabdiv() {
-        this.collab = true;
-        this.expcard = false
-
-    }
-    // close the collab and display the main card
-    closeCollab() {
-        this.expcard = true;
-        this.collab = false;
-    }
-
-    arremail = [];
-    // for the title card
-    emailid: any;
-    getallemail = this.arremail;
-    // for the title card addig the deleting the collabs
-    saveCollabMainCard(email) {
-         
-
-        console.log(this.arremail)
-        this.collabservice.getAllEmailId(email).subscribe(
-            (status: any) => {
-                 
-                let a = this.cookie.get("email");
-                if (status.status == "true" && email != this.cookie.get("email")) {
-                    alert("NOt ADded")
-                } else {
-                    this.arremail[this.i++] = email;
-                    alert("Added")
-                    this.emailcard = "";
+                if (element.id == id) {
+                     element.label = '';
                 }
-
-            }
-        );
-    }
-    deleteCollabMain(email) {
-         
-        let temp: any = []
-        let j = 0;
-        for (let index = 0; index < this.arremail.length; index++) {
-
-            if (this.arremail[index] != email) {
-                temp[j++] = this.arremail[index];
-            }
-        }
-        this.arremail = [];
-
-        for (this.i = 0; this.i < temp.length; this.i++) {
-            this.arremail[this.i] = temp[this.i];
-        }
-    }
-
-    emailCheck() {
+            });
 
     }
 
+    
 
-    //main ends
 
 }

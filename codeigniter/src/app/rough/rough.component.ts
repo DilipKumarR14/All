@@ -11,5 +11,8 @@ export class RoughComponent implements OnInit {
 
   ngOnInit() {
   }
+  filesel(event){    
+    
+  }
 
 }

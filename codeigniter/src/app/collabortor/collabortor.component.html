@@ -1,0 +1,35 @@
+<div class="collabstyle" *ngIf="collab">
+  <label>Collaborators</label>
+  <mat-divider></mat-divider>
+  <p></p>
+  <a> <button mat-mini-fab color="primary"><img src="../../assets/img/login/owner.svg" alt="Collaborator" style="margin-right: 2px;border:0px;"></button>{{owner}}(Owner)</a>
+
+  <!-- for the email -->
+  <div *ngFor="let mail of collabmail">
+    <p></p>
+
+    <img src="../../assets/img/login/adduser.svg" alt="save" style="margin-right: 20px;">
+    {{mail.email}}
+    <button mat-button style="margin-left: 33px;" (click)="collabDelete(data.datas.id,mail.email)">
+      <img src="../../assets/img/login/delete.svg" alt="delete"></button>
+
+  </div>
+
+  <!-- adding when span -->
+  <div *ngFor="let allemail of emails">
+    <img src="../../assets/img/login/adduser.svg" alt="save" style="margin-right: 20px;">
+    {{allemail.email}}
+    <button mat-button style="margin-left: 52px;" (click)="collabDelete(data.datas.id,mail.email)">
+      <img src="../../assets/img/login/delete.svg" alt="delete">
+    </button>
+  </div>
+
+  <input type="text" autocomplete="true" class="inpt" [(ngModel)]="email" placeholder="Person or email to share with">
+<!--for add the collab for below cards-->
+  <button mat-button (click)="getAll(email,data.datas.id)"> <img src="../../assets/img/login/done.svg" alt="save"></button>
+
+  <div mat-dialog-actions class="collabButton">
+    <button mat-button type="button" (click)="collabClose()">Cancel</button>
+    <button mat-button type="button" (click)="saveCollab(email,data.datas.id)">Save</button>
+  </div>
+</div>

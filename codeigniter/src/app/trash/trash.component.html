@@ -1,3 +1,79 @@
-<p>
-  trash works!
-</p>
+  <!--for the grid  view-->
+
+  <div *ngIf="view" fxLayout='row wrap' fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutGap="10px" style='margin-top: 6%;margin-left: 16%;margin-right: 4%;'>
+    <mat-card *ngFor="let item of test" class="test" [ngStyle]="{'background-color': item.colorcode}">
+      <mat-card-title>
+        <input matInput type="text" placeholder="Title" class="divtext" [(ngModel)]="item.title" [ngStyle]="{'background-color': item.colorcode}"
+          (click)="openDialog(item)">
+
+        <button class="pin" mat-icon-button>
+          <img src="../../assets/img/login/pin.svg"></button>
+      </mat-card-title>
+
+      <input matInput type="text" placeholder="Take a Note" class="divtext" [(ngModel)]="item.note" [ngStyle]="{'background-color': item.colorcode}"
+        (click)="openDialog(item)">
+
+      <div class="menubutton">
+ 
+        <button mat-icon-button matTooltip="More" [matMenuTriggerFor]="more">
+          <mat-menu [overlapTrigger]="false " #more>
+            <button (click)="deleteForever(item.id)" mat-menu-item>Delete Forever </button>
+            <button mat-menu-item (click)="deleteRecover(item.id)">Recover </button>
+          </mat-menu>
+          <img src="../../assets/img/login/vertical.svg">
+        </button>
+      </div>
+      <!-- for the menu display under the card -->
+      <!--result cards -->
+      <div *ngIf="cardmenu && idstore == item.id">
+        <mat-card class="dropmenures">
+          <label style="padding: 5px;">Choose Date</label>
+          <mat-form-field style="margin:10px;">
+            <input matInput [matDatepicker]="picker" [(ngModel)]="model.date" placeholder="Choose a date" (click)="date = this.model.date"><br>
+
+            <mat-datepicker-toggle matSuffix [for]="picker">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <label style="padding: 5px;">Choose Time</label>
+          <input [ngxTimepicker]="picker1" type="text" [(ngModel)]="model.time" placeholder="Choose a time" style="margin-left:10px;"
+            (click)="time = this.model.time">
+          <ngx-material-timepicker #picker1></ngx-material-timepicker>
+          <input type="submit" value="SAVE" class="button" (click)="editReminder(item.id)">
+        </mat-card>
+      </div>
+    </mat-card>
+  </div>
+
+  <!--for the list view-->
+
+  <div *ngIf="!view" fxLayoutAlign="center center" fxLayout="column" style="margin-top: 6%;margin-left: -5%;margin-right: 4%;"
+    fxLayoutGap="20px">
+    <mat-card *ngFor="let item of test" class="testlist" [ngStyle]="{'background-color': item.colorcode}">
+      <mat-card-title>
+        <input matInput type="text" placeholder="Title" class="divtext" [(ngModel)]="item.title" [ngStyle]="{'background-color': item.colorcode}"
+          (click)="openDialog(item)">
+
+        <button class="pin" mat-icon-button>
+          <img src="../../assets/img/login/pin.svg"></button>
+      </mat-card-title>
+
+      <input matInput type="text" placeholder="Take a Note" class="divtext" [(ngModel)]="item.note" [ngStyle]="{'background-color': item.colorcode}"
+        (click)="openDialog(item)">
+
+      <div class="menubutton">
+
+        <button mat-icon-button matTooltip="More" [matMenuTriggerFor]="more">
+          <mat-menu [overlapTrigger]="false " #more>
+            <button (click)="deleteForever(item.id)" mat-menu-item>Delete Forever </button>
+            <button mat-menu-item (click)="deleteRecover(item.id)">Recover </button>
+          </mat-menu>
+          <img src="../../assets/img/login/vertical.svg">
+        </button>
+      </div>
+ 
+
+    </mat-card>
+  </div>

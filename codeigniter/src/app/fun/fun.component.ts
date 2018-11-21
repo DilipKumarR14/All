@@ -15,5 +15,5 @@ export class FunComponent {
     );
     
   constructor(private breakpointObserver: BreakpointObserver) {}
-  
+       
   }

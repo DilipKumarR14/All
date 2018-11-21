@@ -1,1 +1,422 @@
-<p>Reminder Components</p>
+  <!--main card-->
+<div style="width: 100%;height: 100%;">
+  <!-- display card -->
+  <div *ngIf="maincard" class="takeanotecard" (click)="matcardVisbility()">
+    <mat-card>
+      <input style="width: 70%;outline: none;font-weight: normal;font-size: medium;" placeholder="Take A Note !....">
+    </mat-card>
+  </div>
+  <!--Expand Card-->
+  <div *ngIf="expcard">
+    <mat-card class="titlecard" [ngStyle]="{'background-color': color}">
+      <mat-card-title>
+
+        <input matInput placeholder="Title" class="divtext" name="title" [(ngModel)]="model.title" [ngStyle]="{'background-color': color}">
+        <button class="pin" mat-icon-button><img src="../../assets/img/login/pin.svg"></button>
+
+      </mat-card-title>
+      <input matInput placeholder="Take a Note" class="divtext" required name="note" [(ngModel)]="model.note" [ngStyle]="{'background-color': color}">
+
+      <!--set reminder closereminder-->
+      <div *ngIf="res">
+
+        <button mat-button contenteditable="false" class="setreminder" (click)="expan()">
+          <mat-icon class="timestamp">
+            <img style="margin-bottom: -12px;" src="../../assets/img/login/time.svg">
+          </mat-icon>
+          <span *ngIf="dis!= '' "> {{dis}}</span>
+        </button>
+        <button mat-button (click)="closeReminder()" class="closereminder">
+          <mat-icon class="timestampclose">
+            <img style="margin-bottom: -12px;" src="../../assets/img/login/close.svg" alt="close">
+          </mat-icon>
+        </button>
+      </div>
+
+      <div *ngIf="labeldiv">
+        <button mat-button style="outline-style: none;border: none;"> {{addlabell}} </button>
+        <button mat-button style="outline-style: none;border: none;height: 0px;margin-left: -48px;"> <img src="../../assets/img/login/close.svg"
+            alt="deletelabel"></button>
+      </div>
+    
+      <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" style="opacity: 0.5;" matTooltip="Reminder">
+        <mat-menu #menu [overlapTrigger]="false">
+          <label style="margin:1%;">Reminder:</label>
+          <button mat-menu-item (click)="settime()">Select time</button>
+          <button mat-menu-item (click)="settimetomo()">Tomorrow 8.00PM</button>
+          <button mat-menu-item (click)="settimeweek()">Next Week 8.00PM</button>
+          <button mat-menu-item (click)="expan()">
+            <mat-icon>query_builder</mat-icon>Pick date & time
+          </button>
+        </mat-menu>
+        <img src="../../assets/img/login/rem.svg">
+      </button>
+      <button mat-icon-button style="opacity: 0.5;" matTooltip="Collaborator">
+        <img src="../../assets/img/login/collab.svg">
+      </button>
+      <button mat-icon-button aria-label="Color" [matMenuTriggerFor]="menu1" style="opacity: 0.5;" matTooltip="Change Color">
+        <mat-menu #menu1 [overlapTrigger]="false">
+          <button mat-mini-fab style="background-color:#fcf476;height: 30px;
+          width: 30px;" (click)="color='#fcf476'"></button>
+          <button mat-mini-fab style="background-color:#f8bc04;height: 30px;
+          width: 30px;" (click)="color='#f8bc04'"></button>
+          <button mat-mini-fab style="background-color:#f28b82;height: 30px;
+          width: 30px;" (click)="color='#f28b82'"></button>
+          <button mat-mini-fab style="background-color:#ffffff;height: 30px;
+          width: 30px;" (click)="color='#ffffff'"></button>
+          <br>
+          <button mat-mini-fab style="background-color:#aecbfa;height: 30px;
+          width: 30px;" (click)="color='#aecbfa'"></button>
+          <button mat-mini-fab style="background-color:#cbf0f8;height: 30px;
+          width: 30px;" (click)="color='#cbf0f8'"></button>
+          <button mat-mini-fab style="background-color:#a7ffea;height: 30px;
+          width: 30px;" (click)="color='#a7ffea'"></button>
+          <button mat-mini-fab style="background-color:#ccff90;height: 30px;
+          width: 30px;" (click)="color='#ccff90s'"></button>
+          <br>
+          <button mat-mini-fab style="background-color:#e8eaed;height: 30px;
+          width: 30px;" (click)="color='#expressione8eaed'"></button>
+          <button mat-mini-fab style="background-color:#e6c9a8;height: 30px;
+          width: 30px;" (click)="color='#e6c9a8'"></button>
+          <button mat-mini-fab style="background-color:#fccfe8;height: 30px;
+          width: 30px;" (click)="color='#fccfe8'"></button>
+          <button mat-mini-fab style="background-color:#d7aefb;height: 30px;
+          width: 30px;" (click)="color='#d7aefb'"></button>
+        </mat-menu>
+        <img src="../../assets/img/login/color.svg">
+      </button>
+      <button mat-icon-button (click)="imageUpload($event)" style="opacity: 0.5;" matTooltip="Add Image">
+        <img src="../../assets/img/login/image.svg">
+      </button>
+      <button mat-icon-button style="opacity: 0.5;" matTooltip="Archive" (click)="archivecard = 'true' ">
+        <img src="../../assets/img/login/archive.svg">
+      </button>
+      <button mat-icon-button style="opacity: 0.5;" matTooltip="More" [matMenuTriggerFor]="more">
+        <mat-menu [overlapTrigger]="false " #more>
+          <button (click)="deleteNote(item.id)" mat-menu-item>Delete </button>
+          <button mat-menu-item [matMenuTriggerFor]="addlabel">Add label
+
+            <mat-menu [overlapTrigger]="false " #addlabel="matMenu">
+              <div *ngFor="let label of labels">
+                <button mat-menu-item (click)="val(label.id,lab,addlabell = label.label)">{{label.label}}</button>
+              </div>
+            </mat-menu>
+
+          </button>
+        </mat-menu>
+        <img src="../../assets/img/login/vertical.svg">
+      </button>
+
+      <button mat-button style="margin-left:20%;" (click)="expcardVisibiilty" (click)="save()">Close</button>
+    </mat-card>
+  </div>
+
+  <!--drop menu date and time-->
+  <div *ngIf="exp" contenteditable="false">
+    <mat-card class="dropmenu">
+      <label style="padding: 5px;">Choose Date</label>
+      <mat-form-field style="margin:10px;">
+        <input matInput [matDatepicker]="picker" [(ngModel)]="model.date" placeholder="Choose a date" (click)="date = this.model.date"><br>
+
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <label style="padding: 5px;">Choose Time</label>
+      <input [ngxTimepicker]="picker1" type="text" [(ngModel)]="model.time" placeholder="Choose a time" style="margin-left:10px;"
+        (click)="time = this.model.time">
+      <ngx-material-timepicker #picker1></ngx-material-timepicker>
+      <input type="submit" value="SAVE" class="button" (click)="expanclose()">
+    </mat-card>
+  </div>
+
+  <!--for the grid  view-->
+
+  <div *ngIf="view" fxLayout='row wrap' fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutGap="10px" style='margin-top: 6%;margin-left: 16%;margin-right: 4%;'>
+    <mat-card *ngFor="let item of test" class="test" [ngStyle]="{'background-color': item.colorcode}">
+      <mat-card-title>
+        <input matInput type="text" placeholder="Title" class="divtext" [(ngModel)]="item.title" [ngStyle]="{'background-color': item.colorcode}"
+          (click)="openDialog(item)">
+
+        <button class="pin" mat-icon-button>
+          <img src="../../assets/img/login/pin.svg"></button>
+      </mat-card-title>
+
+      <input matInput type="text" placeholder="Take a Note" class="divtext" [(ngModel)]="item.note" [ngStyle]="{'background-color': item.colorcode}"
+        (click)="openDialog(item)">
+
+      <!--close the reminder in the result card-->
+      <div *ngIf="item.date != '' ">
+        <button mat-button contenteditable="false" style="border-radius:20px;outline-style: none;" (click)="viewcard(item.id)">
+          <mat-icon class="timestamp">
+            <img style="margin-bottom: -12px;" src="../../assets/img/login/time.svg">
+          </mat-icon> {{ item.date}}
+        </button>
+        <button mat-button class="closereminderres" (click)="closeReminderResultCard(item.id)">
+          <mat-icon class="timestampresclose">
+            <img style="margin-bottom: -12px;margin-left:-42px;" src="../../assets/img/login/close.svg" alt="close">
+          </mat-icon>
+        </button>
+      </div>
+      <!-- label card for each card -->
+      <div *ngIf=" item.label != 'null' &&   item.label != ''">
+          <button routerLink="labelForEachCard" mat-button style="outline-style: none;border: none;height: 0px;"> {{item.label}} </button>
+
+        <button mat-button (click)="deletelabel(item.id)" style="outline-style: none;border: none;height: 0px;margin-left: -48px;">
+          <img src="../../assets/img/login/close.svg" alt="deletelabel"></button>
+      </div>
+
+      <div class="menubutton">
+        <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" matTooltip="Reminder">
+          <mat-menu #menu [overlapTrigger]="false">
+            <label style="margin:1%;">Reminder:</label>
+            <button mat-menu-item (click)="viewcard(item.id)">Today 8.00pm</button>
+            <button mat-menu-item>Tomorrow</button>
+            <button mat-menu-item>Next Week</button>
+            <button mat-menu-item>Home</button>
+          </mat-menu>
+          <img src="../../assets/img/login/rem.svg">
+        </button>
+        <button mat-icon-button matTooltip="Collaborator">
+          <img src="../../assets/img/login/collab.svg">
+        </button>
+        <button mat-icon-button aria-label="Color" [matMenuTriggerFor]="menu1" matTooltip="Change Color">
+          <mat-menu #menu1 [overlapTrigger]="false">
+            <button mat-mini-fab style="background-color:#fcf476;height: 30px;
+          width: 30px;" (click)="setColor(item.id,'#fcf476')"></button>
+            <button mat-mini-fab style="background-color:#f8bc04;height: 30px;
+          width: 30px;" (click)="setColor(item.id,'#f8bc04')"></button>
+
+            <button mat-mini-fab style="background-color:#f28b82;height: 30px;
+          width: 30px;" (click)="setColor(item.id,'#f28b82')"></button>
+
+            <button mat-mini-fab style="background-color:#ffffff;height: 30px;
+              width: 30px;" (click)="setColor(item.id,'#ffffff')"></button>
+
+
+            <br>
+            <button mat-mini-fab style="background-color:#aecbfa;height: 30px;
+                  width: 30px;" (click)="setColor(item.id,'#aecbfa')"></button>
+
+            <button mat-mini-fab style="background-color:#cbf0f8;height: 30px;
+                    width: 30px;"
+              (click)="setColor(item.id,'#cbf0f8')"></button>
+
+            <button mat-mini-fab style="background-color:#a7ffea;height: 30px;
+                        width: 30px;"
+              (click)="setColor(item.id,'#a7ffea')"></button>
+
+            <button mat-mini-fab style="background-color:#ccff90;height: 30px;
+                      width: 30px;"
+              (click)="setColor(item.id,'#ccff90')"></button>
+
+
+            <br>
+            <!--card in view-->
+
+            <button mat-mini-fab style="background-color:#e8eaed;height: 30px;
+                      width: 30px;"
+              (click)="setColor(item.id,'#e8eaed')"></button>
+
+            <button mat-mini-fab style="background-color:#e8eaed;height: 30px;
+                    width: 30px;"
+              (click)="setColor(item.id,'#e8eaed')"></button>
+
+
+            <button mat-mini-fab style="background-color:#fccfe8;height: 30px;
+                  width: 30px;" (click)="setColor(item.id,'#fccfe8')"></button>
+
+            <button mat-mini-fab style="background-color:#d7aefb;height: 30px;
+                width: 30px;" (click)="setColor(item.id,'#d7aefb')"></button>
+          </mat-menu>
+          <img src="../../assets/img/login/color.svg">
+        </button>
+        <button mat-icon-button (click)="imageUpload($event)" matTooltip="Add Image">
+          <img src="../../assets/img/login/image.svg">
+        </button>
+        <button mat-icon-button matTooltip="Archive" (click)="archiveNote(item.id)">
+          <img src="../../assets/img/login/archive.svg">
+        </button>
+        <button mat-icon-button matTooltip="More" [matMenuTriggerFor]="more">
+          <mat-menu [overlapTrigger]="false " #more>
+            <button (click)="deleteNote(item.id)" mat-menu-item>Delete </button>
+            <button mat-menu-item [matMenuTriggerFor]="addlabel">Add label
+
+              <mat-menu [overlapTrigger]="false " #addlabel="matMenu">
+                <div *ngFor="let label of labels">
+                  <button mat-menu-item (click)="val(item.id,label.label)">{{label.label}}</button>
+                </div>
+              </mat-menu>
+
+            </button>
+          </mat-menu>
+          <img src="../../assets/img/login/vertical.svg">
+        </button>
+      </div>
+      <!-- for the menu display under the card -->
+      <!--result cards -->
+      <div *ngIf="cardmenu && idstore == item.id">
+        <mat-card class="dropmenures">
+          <label style="padding: 5px;">Choose Date</label>
+          <mat-form-field style="margin:10px;">
+            <input matInput [matDatepicker]="picker" [(ngModel)]="model.date" placeholder="Choose a date" (click)="date = this.model.date"><br>
+
+            <mat-datepicker-toggle matSuffix [for]="picker">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <label style="padding: 5px;">Choose Time</label>
+          <input [ngxTimepicker]="picker1" type="text" [(ngModel)]="model.time" placeholder="Choose a time" style="margin-left:10px;"
+            (click)="time = this.model.time">
+          <ngx-material-timepicker #picker1></ngx-material-timepicker>
+          <input type="submit" value="SAVE" class="button" (click)="editReminder(item.id)">
+        </mat-card>
+      </div>
+    </mat-card>
+  </div>
+
+  <!--for the list view-->
+
+  <div *ngIf="!view" fxLayoutAlign="center center" fxLayout="column" style="margin-top: 6%;margin-left: -5%;margin-right: 4%;"
+    fxLayoutGap="20px">
+    <mat-card *ngFor="let item of test" class="testlist" [ngStyle]="{'background-color': item.colorcode}">
+      <mat-card-title>
+        <input matInput type="text" placeholder="Title" class="divtext" [(ngModel)]="item.title" [ngStyle]="{'background-color': item.colorcode}"
+          (click)="openDialog(item)">
+
+        <button class="pin" mat-icon-button>
+          <img src="../../assets/img/login/pin.svg"></button>
+      </mat-card-title>
+
+      <input matInput type="text" placeholder="Take a Note" class="divtext" [(ngModel)]="item.note" [ngStyle]="{'background-color': item.colorcode}"
+        (click)="openDialog(item)">
+
+      <!--close the reminder in the result card-->
+      <div *ngIf="item.date != '' ">
+        <button mat-button contenteditable="false" style="border-radius:20px;outline-style: none;" (click)="viewcard(item.id)">
+          <mat-icon class="timestamp">
+            <img style="margin-bottom: -12px;" src="../../assets/img/login/time.svg">
+          </mat-icon> {{ item.date}}
+        </button>
+        <button mat-button (click)="closeReminderResultCard(item.id)" class="closereminderres">
+          <mat-icon class="timestampresclose">
+            <img style="margin-bottom: -12px;margin-left:-42px;" src="../../assets/img/login/close.svg" alt="close">
+          </mat-icon>
+        </button>
+      </div>
+
+      <div *ngIf=" item.label != 'null'  &&   item.label != ''">
+        <button mat-button style="outline-style: none;border: none;height: 0px;" routerLink="labelForEachCard"> {{item.label}} </button>
+        <button mat-button (click)="deletelabel(item.id)" style="outline-style: none;border: none;height: 0px;margin-left: -48px;">
+          <img src="../../assets/img/login/close.svg" alt="deletelabel"></button>
+      </div>
+
+      <div class="menubutton">
+        <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" matTooltip="Reminder">
+          <mat-menu #menu [overlapTrigger]="false">
+            <label style="margin:1%;">Reminder:</label>
+            <button mat-menu-item (click)="viewcard(item.id)">Today 8.00pm</button>
+            <button mat-menu-item>Tomorrow</button>
+            <button mat-menu-item>Next Week</button>
+            <button mat-menu-item>Home</button>
+          </mat-menu>
+          <img src="../../assets/img/login/rem.svg">
+        </button>
+        <button mat-icon-button matTooltip="Collaborator">
+          <img src="../../assets/img/login/collab.svg">
+        </button>
+        <button mat-icon-button aria-label="Color" [matMenuTriggerFor]="menu1" matTooltip="Change Color">
+          <mat-menu #menu1 [overlapTrigger]="false">
+            <button mat-mini-fab style="background-color:#fcf476;height: 30px;
+          width: 30px;" (click)="setColor(item.id,'#fcf476')"></button>
+            <button mat-mini-fab style="background-color:#f8bc04;height: 30px;
+          width: 30px;" (click)="setColor(item.id,'#f8bc04')"></button>
+
+            <button mat-mini-fab style="background-color:#f28b82;height: 30px;
+          width: 30px;" (click)="setColor(item.id,'#f28b82')"></button>
+
+            <button mat-mini-fab style="background-color:#ffffff;height: 30px;
+              width: 30px;" (click)="setColor(item.id,'#ffffff')"></button>
+            <br>
+            <button mat-mini-fab style="background-color:#aecbfa;height: 30px;
+                  width: 30px;" (click)="setColor(item.id,'#aecbfa')"></button>
+
+            <button mat-mini-fab style="background-color:#cbf0f8;height: 30px;
+                    width: 30px;"
+              (click)="setColor(item.id,'#cbf0f8')"></button>
+
+            <button mat-mini-fab style="background-color:#a7ffea;height: 30px;
+                        width: 30px;"
+              (click)="setColor(item.id,'#a7ffea')"></button>
+
+            <button mat-mini-fab style="background-color:#ccff90;height: 30px;
+                      width: 30px;"
+              (click)="setColor(item.id,'#ccff90')"></button>
+            <br>
+            <!--card in view-->
+            <button mat-mini-fab style="background-color:#e8eaed;height: 30px;
+                      width: 30px;"
+              (click)="setColor(item.id,'#e8eaed')"></button>
+            <button mat-mini-fab style="background-color:#e8eaed;height: 30px;
+                    width: 30px;"
+              (click)="setColor(item.id,'#e8eaed')"></button>
+            <button mat-mini-fab style="background-color:#fccfe8;height: 30px;
+                  width: 30px;" (click)="setColor(item.id,'#fccfe8')"></button>
+            <button mat-mini-fab style="background-color:#d7aefb;height: 30px;
+                width: 30px;" (click)="setColor(item.id,'#d7aefb')"></button>
+          </mat-menu>
+          <img src="../../assets/img/login/color.svg">
+        </button>
+        <button mat-icon-button (click)="imageUpload($event)" matTooltip="Add Image">
+          <img src="../../assets/img/login/image.svg">
+        </button>
+        <button mat-icon-button matTooltip="Archive" (click)="archiveNote(item.id)">
+          <img src="../../assets/img/login/archive.svg">
+        </button>
+        <button mat-icon-button matTooltip="More" [matMenuTriggerFor]="more">
+          <mat-menu [overlapTrigger]="false " #more>
+            <button (click)="deleteNote(item.id)" mat-menu-item>Delete </button>
+            <button mat-menu-item [matMenuTriggerFor]="addlabel">Add label
+
+              <mat-menu [overlapTrigger]="false " #addlabel="matMenu">
+                <div *ngFor="let label of labels">
+                  <button mat-menu-item (click)="val(item.id,label.label)">{{label.label}}</button>
+                </div>
+              </mat-menu>
+
+            </button>
+          </mat-menu>
+          <img src="../../assets/img/login/vertical.svg">
+        </button>
+      </div>
+      <!-- for the menu display under the card -->
+      <!--result cards -->
+      <div *ngIf="cardmenu && idstore == item.id">
+        <mat-card class="dropmenures">
+          <label style="padding: 5px;">Choose Date</label>
+          <mat-form-field style="margin:10px;">
+            <input matInput [matDatepicker]="picker" [(ngModel)]="model.date" placeholder="Choose a date"><br>
+
+            <mat-datepicker-toggle matSuffix [for]="picker">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <label style="padding: 5px;">Choose Time</label>
+          <input [ngxTimepicker]="picker1" type="text" [(ngModel)]="model.time" placeholder="Choose a time" style="margin-left:10px;">
+          <ngx-material-timepicker #picker1></ngx-material-timepicker>
+          <input type="submit" value="SAVE" class="button" (click)="editReminder(item.id)">
+        </mat-card>
+      </div>
+
+    </mat-card>
+  </div>
+
+
+  <!-- end -->
+</div>

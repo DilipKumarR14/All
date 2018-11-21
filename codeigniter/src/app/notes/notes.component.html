@@ -1,5 +1,6 @@
 <!--main card-->
 <div style="width: 100%;height: 100%;">
+  <!-- display card -->
   <div *ngIf="maincard" class="takeanotecard" (click)="matcardVisbility()">
     <mat-card>
       <input style="width: 70%;outline: none;font-weight: normal;font-size: medium;" placeholder="Take A Note !....">
@@ -22,16 +23,28 @@
         <button mat-button contenteditable="false" class="setreminder" (click)="expan()">
           <mat-icon class="timestamp">
             <img style="margin-bottom: -12px;" src="../../assets/img/login/time.svg">
-          </mat-icon> {{dis}}
+          </mat-icon>
+          <span *ngIf="dis!= '' "> {{dis}}</span>
         </button>
         <button mat-button (click)="closeReminder()" class="closereminder">
           <mat-icon class="timestampclose">
             <img style="margin-bottom: -12px;" src="../../assets/img/login/close.svg" alt="close">
           </mat-icon>
         </button>
-
       </div>
-
+<!--for label display-->
+      <div *ngIf="labeldiv">
+        <button mat-button style="outline-style: none;border: none;"> {{addlabell}} </button>
+        <button mat-button style="outline-style: none;border: none;height: 0px;margin-left: -48px;"> <img src="../../assets/img/login/close.svg"
+            alt="deletelabel"></button>
+      </div>
+<!-- for the collab dispaly-->
+      <div *ngIf="array">
+        <span *ngFor="let emailcollab of arremail">
+          <a> <button mat-mini-fab >{{emailcollab[0]}}{{emailcollab[1]}}</button></a>
+        </span>
+      </div>
+      
       <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" style="opacity: 0.5;" matTooltip="Reminder">
         <mat-menu #menu [overlapTrigger]="false">
           <label style="margin:1%;">Reminder:</label>
@@ -44,7 +57,7 @@
         </mat-menu>
         <img src="../../assets/img/login/rem.svg">
       </button>
-      <button mat-icon-button style="opacity: 0.5;" matTooltip="Collaborator">
+      <button mat-icon-button style="opacity: 0.5;" matTooltip="Collaborator" (click)="collabdiv()">
         <img src="../../assets/img/login/collab.svg">
       </button>
       <button mat-icon-button aria-label="Color" [matMenuTriggerFor]="menu1" style="opacity: 0.5;" matTooltip="Change Color">
@@ -68,7 +81,7 @@
           width: 30px;" (click)="color='#ccff90s'"></button>
           <br>
           <button mat-mini-fab style="background-color:#e8eaed;height: 30px;
-          width: 30px;" (click)="color='#e8eaed'"></button>
+          width: 30px;" (click)="color='#expressione8eaed'"></button>
           <button mat-mini-fab style="background-color:#e6c9a8;height: 30px;
           width: 30px;" (click)="color='#e6c9a8'"></button>
           <button mat-mini-fab style="background-color:#fccfe8;height: 30px;
@@ -81,14 +94,56 @@
       <button mat-icon-button (click)="imageUpload($event)" style="opacity: 0.5;" matTooltip="Add Image">
         <img src="../../assets/img/login/image.svg">
       </button>
-      <button mat-icon-button style="opacity: 0.5;" matTooltip="Archive">
+      <button mat-icon-button style="opacity: 0.5;" matTooltip="Archive" (click)="archivecard = 'true' ">
         <img src="../../assets/img/login/archive.svg">
       </button>
-      <button mat-icon-button style="opacity: 0.5;" matTooltip="More">
+      <button mat-icon-button style="opacity: 0.5;" matTooltip="More" [matMenuTriggerFor]="more">
+        <mat-menu [overlapTrigger]="false " #more>
+          <button (click)="deleteNote(item.id)" mat-menu-item>Delete </button>
+          <button mat-menu-item [matMenuTriggerFor]="addlabel">Add label
+
+            <mat-menu [overlapTrigger]="false " #addlabel="matMenu">
+              <div *ngFor="let label of labels">
+                <button mat-menu-item (click)="val(label.id,lab,addlabell = label.label)">{{label.label}}</button>
+              </div>
+            </mat-menu>
+
+          </button>
+        </mat-menu>
         <img src="../../assets/img/login/vertical.svg">
       </button>
 
-      <button mat-button style="margin-left:20%;" (click) = "expcardVisibiilty" (click)="save()">Close</button>
+      <button mat-button style="margin-left:20%;" (click)="expcardVisibiilty" (click)="save()">Close</button>
+    </mat-card>
+  </div>
+
+  <!--Collab div-->
+
+  <div *ngIf="collab">
+    <mat-card class="collabstyle">
+      <label>Collaborators</label>
+      <mat-divider></mat-divider>
+      <p></p>
+      <a> <button mat-mini-fab color="primary"><img src="../../assets/img/login/owner.svg" alt="Collaborator" style="margin-right: 2px;border:0px;"></button>{{owner
+        }}(Owner)</a>
+      <p></p>
+
+      <div *ngIf="array">
+        <div *ngFor="let emailcollab of arremail">
+          <a> <button mat-mini-fab>{{emailcollab[0]}}{{emailcollab[1]}}</button></a>
+          <button mat-button style="margin-left: 380px;" (click)="deleteCollabMain(emailcollab)"> <img src="../../assets/img/login/close.svg" alt="close"></button>
+        </div>
+      </div>
+
+      <input type="text" class="inpt" [(ngModel)]="emailcard" placeholder="Person or email to share with">
+
+
+      <button mat-button style="margin-left: -65px;outline-style: none" (click)="saveCollabMainCard(emailcard)"><img
+          src="../../assets/img/login/done.svg" alt="done"></button>
+      <div mat-dialog-actions class="collabButton">
+        <button mat-button type="button" (click)="closeCollab()">Cancel</button>
+        <button mat-button type="button" (click)="array=true">Save</button>
+      </div> 
     </mat-card>
   </div>
 
@@ -115,8 +170,8 @@
 
   <!--for the grid  view-->
 
-  <div *ngIf="view" fxLayout='row wrap' fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutGap="10px" style='margin-top: 6%;margin-left: 16%;margin-right: 4%;'>
-    <mat-card *ngFor="let item of test" class="test" [ngStyle]="{'background-color': item.colorcode}">
+  <div   *ngIf="view" cdkDropList fxLayout='row wrap' fxLayout.xs="column" fxLayoutAlign="start center"  (cdkDropListDropped)="drop($event)" fxLayoutGap="10px" style='margin-top: 6%;margin-left: 16%;margin-right: 4%;'>
+    <mat-card cdkDrag *ngFor="let item of test" class="test" [ngStyle]="{'background-color': item.colorcode}">
       <mat-card-title>
         <input matInput type="text" placeholder="Title" class="divtext" [(ngModel)]="item.title" [ngStyle]="{'background-color': item.colorcode}"
           (click)="openDialog(item)">
@@ -127,9 +182,9 @@
 
       <input matInput type="text" placeholder="Take a Note" class="divtext" [(ngModel)]="item.note" [ngStyle]="{'background-color': item.colorcode}"
         (click)="openDialog(item)">
-
+ 
       <!--close the reminder in the result card-->
-      <div *ngIf="item.date != '' ">
+      <div *ngIf="item.date != '' "> 
         <button mat-button contenteditable="false" style="border-radius:20px;outline-style: none;" (click)="viewcard(item.id)">
           <mat-icon class="timestamp">
             <img style="margin-bottom: -12px;" src="../../assets/img/login/time.svg">
@@ -139,8 +194,24 @@
           <mat-icon class="timestampresclose">
             <img style="margin-bottom: -12px;margin-left:-42px;" src="../../assets/img/login/close.svg" alt="close">
           </mat-icon>
-        </button>
+        </button>          
+      </div>                     
+      <!-- label card for each card -->
+      <div *ngIf=" item.label != 'null' &&   item.label != ''">
+        <button routerLink="labelForEachCard" mat-button style="outline-style: none;border: none;height: 0px;">
+          {{item.label}} </button>
+
+        <button mat-button (click)="deletelabel(item.id)" style="outline-style: none;border: none;height: 0px;margin-left: -48px;">
+          <img src="../../assets/img/login/close.svg" alt="deletelabel"></button>
       </div>
+
+      <!-- for the collabrator-->
+      <span *ngFor="let collab of mails">
+        <span *ngIf="collab.noteid == item.id">
+          <button mat-mini-fab> {{ collab.email[0] }}{{ collab.email[1] }} </button>
+        </span>
+      </span>
+
 
       <div class="menubutton">
         <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" matTooltip="Reminder">
@@ -153,7 +224,7 @@
           </mat-menu>
           <img src="../../assets/img/login/rem.svg">
         </button>
-        <button mat-icon-button matTooltip="Collaborator">
+        <button mat-icon-button matTooltip="Collaborator" (click)="openCollab(item)">
           <img src="../../assets/img/login/collab.svg">
         </button>
         <button mat-icon-button aria-label="Color" [matMenuTriggerFor]="menu1" matTooltip="Change Color">
@@ -210,13 +281,21 @@
         <button mat-icon-button (click)="imageUpload($event)" matTooltip="Add Image">
           <img src="../../assets/img/login/image.svg">
         </button>
-        <button mat-icon-button matTooltip="Archive">
+        <button mat-icon-button matTooltip="Archive" (click)="archiveNote(item.id)">
           <img src="../../assets/img/login/archive.svg">
         </button>
         <button mat-icon-button matTooltip="More" [matMenuTriggerFor]="more">
           <mat-menu [overlapTrigger]="false " #more>
             <button (click)="deleteNote(item.id)" mat-menu-item>Delete </button>
-            <button mat-menu-item>Add label </button>
+            <button mat-menu-item [matMenuTriggerFor]="addlabel">Add label
+              <!--For the Label -->
+              <mat-menu [overlapTrigger]="false " #addlabel="matMenu">
+                <div *ngFor="let label of labels">
+                  <button mat-menu-item (click)="val(item.id,label.label)">{{label.label}}</button>
+                </div>
+              </mat-menu>
+
+            </button>
           </mat-menu>
           <img src="../../assets/img/login/vertical.svg">
         </button>
@@ -247,9 +326,9 @@
 
   <!--for the list view-->
 
-  <div *ngIf="!view" fxLayoutAlign="center center" fxLayout="column" style="margin-top: 6%;margin-left: -5%;margin-right: 4%;"
+  <div cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!view" fxLayoutAlign="center center" fxLayout="column" style="margin-top: 6%;margin-left: -5%;margin-right: 4%;"
     fxLayoutGap="20px">
-    <mat-card *ngFor="let item of test" class="testlist" [ngStyle]="{'background-color': item.colorcode}">
+    <mat-card cdkDrag *ngFor="let item of test" class="testlist" [ngStyle]="{'background-color': item.colorcode}">
       <mat-card-title>
         <input matInput type="text" placeholder="Title" class="divtext" [(ngModel)]="item.title" [ngStyle]="{'background-color': item.colorcode}"
           (click)="openDialog(item)">
@@ -274,7 +353,20 @@
           </mat-icon>
         </button>
       </div>
+      <!-- for the label -->
+      <div *ngIf=" item.label != 'null'  &&   item.label != ''">
+        <button mat-button style="outline-style: none;border: none;height: 0px;" routerLink="labelForEachCard">
+          {{item.label}} </button>
+        <button mat-button (click)="deletelabel(item.id)" style="outline-style: none;border: none;height: 0px;margin-left: -48px;">
+          <img src="../../assets/img/login/close.svg" alt="deletelabel"></button>
+      </div>
 
+      <!-- for the collabrator-->
+      <span *ngFor="let collab of mails">
+        <span *ngIf="collab.noteid == item.id">
+          <button mat-mini-fab [ngStyle]="{'background-color': item.colorcode}"> {{ collab.email[0] }}{{ collab.email[1] }} </button>
+        </span>
+      </span>
 
       <div class="menubutton">
         <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" matTooltip="Reminder">
@@ -287,7 +379,7 @@
           </mat-menu>
           <img src="../../assets/img/login/rem.svg">
         </button>
-        <button mat-icon-button matTooltip="Collaborator">
+        <button mat-icon-button matTooltip="Collaborator" (click)="openCollab(item)">
           <img src="../../assets/img/login/collab.svg">
         </button>
         <button mat-icon-button aria-label="Color" [matMenuTriggerFor]="menu1" matTooltip="Change Color">
@@ -335,13 +427,21 @@
         <button mat-icon-button (click)="imageUpload($event)" matTooltip="Add Image">
           <img src="../../assets/img/login/image.svg">
         </button>
-        <button mat-icon-button matTooltip="Archive">
+        <button mat-icon-button matTooltip="Archive" (click)="archiveNote(item.id)">
           <img src="../../assets/img/login/archive.svg">
         </button>
         <button mat-icon-button matTooltip="More" [matMenuTriggerFor]="more">
           <mat-menu [overlapTrigger]="false " #more>
             <button (click)="deleteNote(item.id)" mat-menu-item>Delete </button>
-            <button mat-menu-item>Add label </button>
+            <button mat-menu-item [matMenuTriggerFor]="addlabel">Add label
+
+              <mat-menu [overlapTrigger]="false " #addlabel="matMenu">
+                <div *ngFor="let label of labels">
+                  <button mat-menu-item (click)="val(item.id,label.label)">{{label.label}}</button>
+                </div>
+              </mat-menu>
+
+            </button>
           </mat-menu>
           <img src="../../assets/img/login/vertical.svg">
         </button>

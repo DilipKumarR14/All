@@ -11,27 +11,61 @@
 
   <!-- value=""  role="combobox" -->
   <div>
-    <div>
-
+    <div>       
+    
       <span>
+        <!-- for the grid view and list view button -->
         <button aria-label="Toggle sidenav" mat-icon-button matTooltip="{{viewtip}}" (click)="toggle()">
           <mat-icon aria-label="Side nav toggle icon">
             <img src="{{imgloc}}">
           </mat-icon>
         </button>
-      </span>
-      <span>
-        <button aria-label="Toggle sidenav" mat-icon-button mat-button matTooltip="Account" [matMenuTriggerFor]="menu"
+      </span>  
+      <span>   
+        <button aria-label="Toggle sidenav" mat-icon-button mat-button                         matTooltip="Account" [matMenuTriggerFor]="menu"
           style="margin-left:50px;">
-          <mat-icon aria-label="Side nav toggle icon">account_circle</mat-icon>
+          <mat-icon aria-label="Side nav toggle icon">
+            <img [src]="url" style="height: 58px;
+            width: 57px;
+            margin-top: -20px;
+            margin-left: -20px; 
+            border-radius: 73px;" >    
+          </mat-icon>
           <mat-menu #menu [overlapTrigger]="false">
-            <img src="../../assets/img/login/pic.svg" width="20%" height="20%" alt="user">
-            <button mat-button style="margin-left:15%;"> Google Account </button>
+            
+            <!-- <button mat-fab (click)="file.click()"  mat-fab  ></button>
+
+            <a>
+            <button mat-button (click)="profile($event)" #file class="profilepic"> 
+              <img [src]="url" style=" height: 70px;
+              width: 72px;
+              border-radius: 54px;
+              margin-left: -11px;" >
+            </button>
+            </a>
+
+            <span *ngIf="pic">
+              <input type="file"  (change)="onSelectFile($event)">
+            </span> -->
+
+    <button mat-button (click)="file.click()" style="outline-style: none;height: 0px;" >
+      <img src="{{url}}" style="height: 70px;
+        width: 72px;
+        border-radius: 54px;
+       margin-left: -15px;
+        margin-bottom: 42px; " >
+    </button>
+
+    <input style="margin-left: -290px" type="file" (change)="onSelectFile($event.target.files)" accept="image/*" #file > 
+            
+
+      <button mat-button style="margin-left: -15%;height: 0px">{{getmail}}</button>
             <mat-divider></mat-divider>
+
             <button mat-button>Add Account</button>
             <button mat-button style="margin-left:15%;" (click)="logout()">Log Out</button>
           </mat-menu>
-        </button>
+        </button> 
       </span>
       <!-- <button mat-button [matMenuTriggerFor]="menu">Menu</button> -->
     </div>
@@ -60,17 +94,17 @@
           <button mat-icon-button>Edit</button></span>
       </label>
 
-      
+      <!--for the labels to be displayed -->
       <div *ngFor="let item of items">
-        <a mat-list-item>
-        <mat-icon>
-          <img src="assets/img/login/label.svg" />
-        </mat-icon>
-        {{item.label}}
-      </a>
+        <a mat-list-item routerLink="labelForEachCard" (click)="fetchSpecificLabel(item.label)">
+          <mat-icon>
+            <img src="assets/img/login/label.svg" />
+          </mat-icon>
+          {{item.label}}
+        </a>
       </div>
 
-      
+
       <a mat-list-item (click)="openDialog()">
         <mat-icon aria-label="Side nav toggle icon">
           <img src="../../assets/img/login/plus.svg" style="    margin-left: 11px;
@@ -78,7 +112,7 @@
         </mat-icon>
         <label class="lab">Create New Labels</label>
       </a>
-
+      
       <!-- <hr> -->
       <mat-divider>
       </mat-divider>

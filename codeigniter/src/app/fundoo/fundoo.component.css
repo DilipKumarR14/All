@@ -12,7 +12,7 @@
   color: #6a6a6a;
 }
 .sidenav {
-  width: 22%;
+  width: 21%;
   background-color: #e8e8e8;
   font-style: initial;
 }
@@ -20,6 +20,7 @@
 .toolbar{
   background-color:#f9ba03;
   width: 100%;
+  display: flex;
 }
 .sidenav-content{
   width: 100%;
@@ -67,3 +68,12 @@
   font-size: 14px;
   font-family: serif;
 }  
+
+.account{
+  outline-style: none;
+}
+.profilepic{
+  height: 30%;
+  width: 30%;
+  border-radius: 30px;
+}

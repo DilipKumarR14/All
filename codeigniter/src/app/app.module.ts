@@ -28,30 +28,36 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 import { NoteService } from './service/note.service';
 import { CookieService } from "angular2-cookie";
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-import { FlexLayoutModule } from "@angular/flex-layout";
+import { FlexLayoutModule } from "@angular/flex-layout";    
 import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './service/auth-interceptor.service';
 import { UpdatecardComponent } from './updatecard/updatecard.component';
-
-@NgModule({ 
+import { CardlabelComponent } from './cardlabel/cardlabel.component';
+import { ProfilepicComponent } from './profilepic/profilepic.component';
+import { ErrormessageComponent } from './errormessage/errormessage.component';
+import { CollabortorComponent } from './collabortor/collabortor.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+  
+@NgModule({  
   declarations: [
     AppComponent, LoginComponent,  
     RegisterComponent, LoginsComponent, ForgetComponent,
     ResetsComponent, EmailvalidateComponent, FundooComponent,
     FunComponent, NotesComponent, ReminderComponent, RoughComponent,
-    ArchiveComponent, TrashComponent, AddnoteComponent, DialogBoxComponent, UpdatecardComponent
+    ArchiveComponent, TrashComponent, AddnoteComponent, DialogBoxComponent, UpdatecardComponent, CardlabelComponent, ProfilepicComponent, ErrormessageComponent, CollabortorComponent
+    
   ], 
   imports: [
     BrowserModule, HttpClientModule, RouterModule,AppRoutingModule, FormsModule, MatCardModule,BrowserModule, BrowserAnimationsModule,   MatButtonModule, MatInputModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule,
     MatIconModule, MatToolbarModule, MatSidenavModule,MatListModule, MatProgressSpinnerModule, MatProgressBarModule,MatMenuModule, NgxSpinnerModule, MatExpansionModule,MatDialogModule, MatTooltipModule, MatGridListModule, MatDatepickerModule,MatNativeDateModule, NgxMaterialTimepickerModule.forRoot(),MatExpansionModule,
-    FlexLayoutModule,MatDividerModule
+    FlexLayoutModule,MatDividerModule,DragDropModule
   ],
-  entryComponents: [DialogBoxComponent,UpdatecardComponent],
+  entryComponents: [DialogBoxComponent,UpdatecardComponent,ProfilepicComponent],
   providers: [DatabaseService, CookieService, NoteService, AuthGuard,{
-    provide:HTTP_INTERCEPTORS,
+    provide:HTTP_INTERCEPTORS,  
     useClass:AuthInterceptor,
     multi:true
   }],
   bootstrap: [AppComponent]  
-})
+})   
 export class AppModule { }

@@ -13,6 +13,9 @@ import { ArchiveComponent } from './archive/archive.component';
 import { TrashComponent } from './trash/trash.component';
 import { AddnoteComponent } from './addnote/addnote.component';
 import { AuthGuard } from './auth.guard';
+import { CardlabelComponent } from './cardlabel/cardlabel.component';
+import { ErrormessageComponent } from './errormessage/errormessage.component';
+import { CollabortorComponent } from './collabortor/collabortor.component';
 
 @NgModule({
   imports:
@@ -25,17 +28,29 @@ import { AuthGuard } from './auth.guard';
           { path: 'forget', component: ForgetComponent },
           { path: 'resets', component: ResetsComponent },
           { path: 'valid', component: EmailvalidateComponent },
+          { path: 'note', component: NotesComponent, canActivate: [AuthGuard] },
           {
             path: 'fundoo', component: FundooComponent, canActivate: [AuthGuard],
             children: [
-              { path: 'note', component: NotesComponent, canActivate: [AuthGuard], },
+              { path: '', redirectTo: 'note', pathMatch: 'full' },
+              {
+                path: 'note', component: NotesComponent, canActivate: [AuthGuard],
+                children: [
+                  { path: 'labelForEachCard', component: CardlabelComponent, canActivate: [AuthGuard] },
+                ]
+              },
               { path: 'remainder', component: ReminderComponent, canActivate: [AuthGuard], },
               { path: 'archive', component: ArchiveComponent, canActivate: [AuthGuard], },
               { path: 'trash', component: TrashComponent, canActivate: [AuthGuard], },
+              { path: 'labelForEachCard', component: CardlabelComponent, canActivate: [AuthGuard] },
+              { path: 'collab', component: CollabortorComponent, canActivate: [AuthGuard] },
+
             ]
           },
           { path: 'rough', component: RoughComponent, canActivate: [AuthGuard], },
           { path: 'addnote', component: AddnoteComponent, canActivate: [AuthGuard], },
+          { path: 'errorpage', component: ErrormessageComponent, canActivate: [AuthGuard], },
+
 
         ])
     ],

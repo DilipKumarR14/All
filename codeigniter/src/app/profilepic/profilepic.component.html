@@ -1,0 +1,5 @@
+<div class="form-group" style="outline-style: none">
+    <label for="file">Upload The Photo</label>
+    <input type="file" id="file"(change)="handleFileInput($event.target.files)">
+    <button mat-button type="button" (change)="handleFileInput($event.target.files)" >Upload</button>
+</div>

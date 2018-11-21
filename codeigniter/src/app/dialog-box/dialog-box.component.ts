@@ -11,29 +11,27 @@ import { LabelService } from '../service/label.service';
 export class DialogBoxComponent implements OnInit {
   test: any;
 
+  imgSrc = "../../assets/img/login/label.svg";
+  altimg = "../../assets/img/login/delete.svg";
   constructor(public dialogRef: MatDialogRef<DialogBoxComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private service: LabelService) { }
 
   onNoClick() {
-    debugger;
+    
     this.dialogRef.close(this.items);
   }
   items: any;
+  // for saving the label into db
   labels() {
-    debugger;
     this.service.label(this.data).subscribe(
       (status: any) => {
-        debugger;
         this.items = status;
         this.dialogRef.close(status);
       }
     );
-    // this.dialogRef.close(this.items);
-
   }
-
+// for fetching the label 
   fetchnote(){
-    debugger;
     this.service.fetchlabel().subscribe(
       (status:any)=>{
         this.items = status;
@@ -43,6 +41,30 @@ export class DialogBoxComponent implements OnInit {
 
   ngOnInit()
   {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
     this.fetchnote();
   }
+
+  // for the delete the label 
+  deletelabel(id){
+    this.service.delete(id).subscribe(
+      (status:any)=>{
+        this.items = status;
+        this.dialogRef.close(status);
+      }
+    )
+  }
+
+  // for the edit the label
+
+  editLabel(id,data){
+    this.service.editLabel(id,data).subscribe(
+      (status:any)=>{
+        this.items = status;
+        this.dialogRef.close(status);
+      }
+    )
+  }
+
 }

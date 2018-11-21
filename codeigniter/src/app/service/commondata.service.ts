@@ -11,7 +11,9 @@ import { Subject } from 'rxjs';
 export class CommondataService {
 
 private sendData = new Subject<any>();
+private cardLabel = new Subject<any>();
 notifyObservables$ = this.sendData.asObservable();
+cardLabelObservables$ = this.cardLabel.asObservable();
   constructor() { }
   /**
    * @param data 
@@ -21,4 +23,10 @@ notifyObservables$ = this.sendData.asObservable();
     //manual send the broadcast data from subject
     this.sendData.next(data);
   }
+
+  public labelForEachCard(label:any){
+    this.cardLabel.next(label);
+  }
+
+
 }

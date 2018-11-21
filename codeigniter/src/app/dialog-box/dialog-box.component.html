@@ -1,19 +1,22 @@
 <div style="padding:0px;">
   <label> Edit labels</label>
   <div>
-    <button mat-button class="select"> <img src="../../assets/img/login/close.svg" alt="close"></button>
+    <button mat-button class="select"> <img src="../../assets/img/login/close.svg" alt="close" matTooltip = "Close"></button>
 
     <mat-form-field>
       <input matInput placeholder="Create new label" [(ngModel)]="data.label">
     </mat-form-field>
-    <button mat-button class="select"><img src="../../assets/img/login/done.svg" alt="done"></button>
+
+    <button mat-button class="select" (click)="labels()"><img src="../../assets/img/login/done.svg" alt="done" matTooltip = "Save"></button>
 
   </div>
 
   <div *ngFor="let item of items">
-    <button mat-button> <img src="../../assets/img/login/label.svg" alt="done"></button>
-    <input value="{{item.label}}" style="outline-style: none;border: none;">
-    <button mat-button><img src="../../assets/img/login/edit.svg" alt="done"></button>
+    <button mat-button (click)="deletelabel(item.id)"> <img [src]= "imgSrc" alt="done" (mouseover)="imgSrc = '../../assets/img/login/delete.svg ' " (mouseout) = "imgSrc = '../../assets/img/login/label.svg ' "  ></button>
+
+    <input style="outline-style: none;border: none;" [(ngModel)]="item.label">
+
+    <button mat-button (click)="editLabel(item.id,item.label)"><img src="../../assets/img/login/edit.svg" alt="done" matTooltip = "Edit" ></button>
   </div>
 
   <mat-divider></mat-divider>

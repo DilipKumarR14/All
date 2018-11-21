@@ -61,6 +61,7 @@ export class LoginsComponent {
         if (status.status == "200") {
           console.log("got respo", status);
           this.spinner.hide();
+          // set the jwt token
           localStorage.setItem("token",status.token);
           alert("LoggedIn Succesfully")
           this.spinner.hide();

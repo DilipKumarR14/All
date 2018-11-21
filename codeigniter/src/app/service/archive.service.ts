@@ -1,21 +1,46 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'angular2-cookie';
-import { Observable } from 'rxjs';
-import { DatabaseService } from './database.service';
+
 @Injectable({
   providedIn: 'root'
 })
-export class NoteService {
+export class ArchiveService {
+
+  constructor(private http: HttpClient, private cookie: CookieService) { }
+  private archivedUrl = "http://localhost/codeigniter/isArchive";
+  private unarchiveurl = "http://localhost/codeigniter/unarchive";
+  
+  archiveNote(id){
+    let otheroption: any = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    const params = new FormData();
+    params.append("id",id);
+    return this.http.post(this.archivedUrl,params,otheroption);
+
+  }
+  unarchive(id){
+    let otheroption: any = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    const params = new FormData();
+    params.append("id",id);
+    return this.http.post(this.unarchiveurl,params,otheroption);
+
+  }
+
 
   res = "";
   email = "";
-  constructor(private http: HttpClient, private cookie: CookieService, private dbs: DatabaseService) { }
   mode: any = {};
 
-  private storenote = "http://localhost/codeigniter/note";
-  private fetch = "http://localhost/codeigniter/fetch";
+  private archiveres = "http://localhost/codeigniter/archivereceive";
+
+  private fetch = "http://localhost/codeigniter/archiverefresh";
+
   private colorurl = "http://localhost/codeigniter/color";
   private resultcard = "http://localhost/codeigniter/resultcard";
   private deletereminder = "http://localhost/codeigniter/deletecard";
@@ -23,8 +48,7 @@ export class NoteService {
   private popdelete = "http://localhost/codeigniter/popdelete";
   private save = "http://localhost/codeigniter/save";
 
-  store(mode5, email, datetime, color,archive,label,collabarr) {
-     
+  store(mode5, email, datetime, color) {
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -34,12 +58,10 @@ export class NoteService {
     params.append("note", mode5.note);
     params.append("date", datetime);
     params.append("color", color)
-    params.append("archive",archive);
-    params.append("label",label);
-    params.append("collab",collabarr)
-    params.append("owner",this.cookie.get("email"));
+    
+    console.log(params);
 
-    return this.http.post(this.storenote, params, otheroption);
+    return this.http.post(this.archiveres, params, otheroption);
   }
 // for fetch the data from the database
   storeRefresh(email) {
@@ -147,6 +169,5 @@ export class NoteService {
     const res = allData;
     return this.http.post(this.save, params, otheroption)
   }
-  //main ends
-}
 
+}
