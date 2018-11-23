@@ -11,13 +11,13 @@ import { UpdatecardComponent } from '../updatecard/updatecard.component';
 declare let require: any;
 let dateFormat = require("dateformat");
 @Component({
-  selector: 'app-cardlabel',
-  templateUrl: './cardlabel.component.html',
-  styleUrls: ['./cardlabel.component.css']
+    selector: 'app-cardlabel',
+    templateUrl: './cardlabel.component.html',
+    styleUrls: ['./cardlabel.component.css']
 })
 export class CardlabelComponent implements OnInit {
 
-  public title = new FormControl();
+    public title = new FormControl();
     public note = new FormControl();
     public temp = false;
 
@@ -65,26 +65,26 @@ export class CardlabelComponent implements OnInit {
     maincard: boolean = true;
     expcard: boolean = false;
     displaycard: boolean = true;
-    labeldata:any;
+    labeldata: any;
     constructor(private service: NoteService, private cookie: CookieService,
-        private common: CommondataService, public dialog: MatDialog,private archiveService:ArchiveService,private labelservice:LabelService) {
+        private common: CommondataService, public dialog: MatDialog, private archiveService: ArchiveService, private labelservice: LabelService) {
         this.service.storeRefresh(this.email).subscribe((status: any) => {
             this.test = status;
         });
         // call the function recursively every 5 seconds 
-            setInterval(() => {
+        setInterval(() => {
             this.dateformater();
         }, 30000);
-        
+
         //common data shared by the subject in commondataservice
         this.subscribedata = this.common.notifyObservables$.subscribe((res) => {
             this.view = res;
         })
-
+        // once the page reloaded the label of the respective card is fetched
         this.subscribedata = this.common.cardLabelObservables$.subscribe((res) => {
-            
-            this.labelservice.getLabelForCard(res).subscribe((status:any)=>{
-                
+
+            this.labelservice.getLabelForCard(res).subscribe((status: any) => {
+
                 this.test = status;
             })
         })
@@ -119,25 +119,34 @@ export class CardlabelComponent implements OnInit {
     currenttime: any;
     timer_button: boolean;
     timer_panel: boolean;
-
+    /**
+     * @method exapn()
+     * @return void
+     * to set the reminder for the card
+     */
     expan() {
 
         this.exp = true;
         let dateFormat = require("dateformat");
         let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
-        let currTime = dateFormat(this.model.time,"hh:MM tt");
-        
-        this.dis = currentDate+ " "+ currTime;
+        let currTime = dateFormat(this.model.time, "hh:MM tt");
+
+        this.dis = currentDate + " " + currTime;
         this.currentDateAndTime = currentDate + " " + this.model.time;
         this.currenttime = this.currentDateAndTime;
     }
+    /**
+     * @method expanclose()
+     * @return void
+     *  close the reminder once it is set
+     */
     expanclose() {
-           
+
         this.exp = false;
         let dateFormat = require("dateformat");
         let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
-        
-        this.dis = currentDate+ " "+ this.model.time;
+
+        this.dis = currentDate + " " + this.model.time;
     }
     labels: any;
     ngOnInit() {
@@ -146,72 +155,76 @@ export class CardlabelComponent implements OnInit {
         this.service.storeRefresh(this.email).subscribe((status: any) => {
             this.test = status;
         });
-        
+        // once the page is reloaded the add label
         this.labelservice.addLabel(this.email).subscribe(
-            (status:any)=>{
-                
+            (status: any) => {
+
                 this.labels = status;
-                
-            },error=>{
+
+            }, error => {
                 console.log("error")
             }
         )
-
+        // from the commondata service for the getting the label of each card
         this.subscribedata = this.common.cardLabelObservables$.subscribe((res) => {
-            
+
             this.view = res;
         })
 
     }
-  
+
     // the main card display settings
     matcardVisbility() {
         this.maincard = false;
         this.expcard = true;
         this.res = false;
     }
-    //// the expand card display settings
+    // the expand card display settings
     expcardVisibiilty() {
         this.expcard = false;
         this.maincard = true;
         let dateFormat = require("dateformat");
         let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
-        
-        this.dis = currentDate+ " "+ this.model.time;
-    }
 
+        this.dis = currentDate + " " + this.model.time;
+    }
 
     closeReminder() {
         this.res = false;
 
     }
 
-    archivecard:string = "false";
+    archivecard: string = "false";
     restd: any;
     dis = "";
 
-    // when the close is clicked on the card for savinf to database
+    /**
+     * @method save()
+     * @return void
+     * when the close is clicked on the card for saving to database
+     */
+
     save() {
-        
-        if(this.model.time != undefined || this.model.date != undefined){
+
+        if (this.model.time != undefined || this.model.date != undefined) {
             let dateFormat = require("dateformat");
             let dateformat = dateFormat(this.model.date, "dd/mm/yyyy hh:MM tt");
             this.dis = dateformat;
-        }else{
-            this.dis ;
+        } else {
+            this.dis;
         }
         this.maincard = true;
         this.expcard = false;
         // let dateFormat = require("dateformat");
         // let dateformat = dateFormat(this.model.date, "dd/mm/yyyy hh:MM tt");
         // this.dis = dateformat;
-                                                                                                                                                                       
-        this.service.store(this.model, this.email, this.dis, this.color,this.archivecard,this.labeldata,this.collabed).subscribe(
+
+        this.service.store(this.model, this.email, this.dis, this.color, this.archivecard, this.labeldata, this.collabed).subscribe(
             (status: any) => {
-                
+
                 if (status.status == 404 || status.status == 204) {
                     alert("UnAuthorised User !!!");
-                }                   
+                }
                 else {
                     this.test = status;
                 }
@@ -230,9 +243,14 @@ export class CardlabelComponent implements OnInit {
     }
 
     //change the color
+    /**
+     * @method setColor()
+     * @param idcard for the id of the card
+     * @param colorcard for the color of the card
+     */
     setColor(idcard, colorcard) {
 
-        
+
         this.service.updateTheCard(idcard, colorcard).subscribe(
             (status: any) => {
                 status = this.test;
@@ -251,6 +269,11 @@ export class CardlabelComponent implements OnInit {
 
 
     //card for update the notes entred
+    /**
+     * @method updateNote()
+     * @param idcard for the id of the card
+     * @param model for passing the model
+     */
     updateNote(idcard, model) {
         this.service.updateNoteDb(idcard, model).subscribe(
             (status: any) => {
@@ -260,8 +283,11 @@ export class CardlabelComponent implements OnInit {
         )
     }
 
-    // display when the mat dialog is clicked on title or note
-
+    /**
+     * @method openDialog()
+     * @return void
+     *  display when the mat dialog is clicked on title or note
+     */
     openDialog(datas): void {
         // passing the data of particular id
         const dialogRef = this.dialog.open(UpdatecardComponent, {
@@ -271,7 +297,7 @@ export class CardlabelComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            
+
             // to display the card when pop card is not undefined
             if (result != undefined)
                 this.test = result;
@@ -282,8 +308,12 @@ export class CardlabelComponent implements OnInit {
     cardmenu: boolean = false;
     reminder: any;
     idstore: any;
-    // used for display and selecting the date and time under the particular card
-    // for list view
+
+    /**
+     * @method viewcard()
+     * @param id for the id of the card
+     * used for display and selecting the date and time under the particular card for list view
+     */
     viewcard(id) {
 
         this.test.forEach(element => {
@@ -296,8 +326,12 @@ export class CardlabelComponent implements OnInit {
         });
     }
 
-    // for close the card after tie and date is selecte
-    //for list view
+
+    /**
+     * @method editReminder()
+     * @param id for the id of the card
+     * close the card after time and date is selected for list view
+     */
     editReminder(id) {
         this.cardmenu = false;
         let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
@@ -319,8 +353,13 @@ export class CardlabelComponent implements OnInit {
 
     resultreminder;
     result: boolean;
+    /**
+     * @method closeReminderResultCard()
+     * @param id to store the id of the card
+     * to close the menu after reminder is set
+     */
     closeReminderResultCard(id) {
-// close reminder after selected
+        // close reminder after selected
         this.reminderenable = false;
         this.service.deleteReminder(id).subscribe();
         this.test.forEach(element => {
@@ -334,34 +373,47 @@ export class CardlabelComponent implements OnInit {
         });
     }
 
-    // delete the note 
+    /**
+    * @method deleteNote()
+    * @param id id of the card
+    *  delete the note of particular id
+    */
     deleteNote(id) {
-        
+
         this.service.deleteNote(id).subscribe(
             (status: any) => {
-                
+
                 this.test = status
             }
         );
     }
-    
-    archiverescard: string;
 
-    archiveNote(id){
-        
+    archiverescard: string;
+    /**
+     * @method unArchive()
+     * @param id id of the card 
+     * unarchive the card from archive component
+     */
+    archiveNote(id) {
+
         this.archiveService.archiveNote(id).subscribe(
-            (status:any)=>{
-                
+            (status: any) => {
+
                 this.test = status;
             }
         );
     }
 
-    public addlabell:string=null;
+    public addlabell: string = null;
     // lab = false;
-    val(id,labelname){
+      /**
+     * to add the label and assign to the card
+     * @param id for the id of the card
+     * @param labelname name of the label
+     */
+    val(id, labelname) {
         // this.lab=true;
-        
+
         this.labelservice.addLabelCard(id, labelname).subscribe(
             (status: any) => {
                 status = this.test;
@@ -377,23 +429,26 @@ export class CardlabelComponent implements OnInit {
             }
         });
     }
+    /**
+     * to delete the label from particular card
+     * @param id to store the id of the card
+     */
+    deletelabel(id) {
 
-    deletelabel(id){
-        
         this.labelservice.deleteLabelCard(id).subscribe(
             (status: any) => {
                 status = this.test;
             });
-            this.test.forEach(element => {
+        this.test.forEach(element => {
 
-                if (element.id == id) {
-                     element.label = '';
-                }
-            });
+            if (element.id == id) {
+                element.label = '';
+            }
+        });
 
     }
 
-    
+
 
 
 }

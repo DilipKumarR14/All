@@ -1,79 +1,91 @@
-
 .sidenav-container {
-  height: 100%;
- 
+    height: 100%;
 }
-.changesize{
-  color: #6a6a6a;
-  line-height: 40px;
-  font-size: small;
+
+.changesize {
+    color: #6a6a6a;
+    line-height: 40px;
+    font-size: small;
 }
-.tenn{
-  color: #6a6a6a;
+
+.tenn {
+    color: #6a6a6a;
 }
+
 .sidenav {
-  width: 21%;
-  background-color: #e8e8e8;
-  font-style: initial;
+    width: 21%;
+    background-color: #e8e8e8;
+    font-style: initial;
 }
 
-.toolbar{
-  background-color:#f9ba03;
-  width: 100%;
-  display: flex;
+.toolbar {
+    background-color: #f9ba03;
+    width: 100%;
+    display: flex;
 }
-.sidenav-content{
-  width: 100%;
-  position: fixed;
-  margin-left: 0%;
+
+.sidenav-content {
+    width: 100%;
+    position: fixed;
+    margin-left: 0%;
 }
+
 .mat-drawer-backdrop.mat-drawer-shown {
-  background-color: rgba(0,0,0,.0);
+    background-color: rgba(0, 0, 0, .0);
 }
-.mat-list, .mat-nav-list, .mat-selection-list {
-  padding-top: 0px;
-  display: block;
-  -webkit-tap-highlight-color: transparent;
-}
-.searchbar{
-  width: 60%;
-  margin: 3% 2% 3% 0%;
-  border-radius: 0px;
-  height: 66%;
-  padding: 1% 1% 1% 1%;
-  background-color: #f0b304;
-  border: 0px;
-  outline-style: none;
-}
-.title{
-  padding:2%;
-}
-.button{
-  border: 2px;
-  border-radius: 5px;
-  outline-style: none;
-}
-.mat-icon-button {
-  padding: 0;
-  min-width: 0;
-  width: 50px;
-  height: 40px;
-  line-height: 40px;
-  border-radius: 50%;
-  border: none;
-  outline: none;
-}
-.lab{
-  margin-left: 33px;
-  font-size: 14px;
-  font-family: serif;
-}  
 
-.account{
-  outline-style: none;
+.mat-list,
+.mat-nav-list,
+.mat-selection-list {
+    padding-top: 0px;
+    display: block;
+    -webkit-tap-highlight-color: transparent;
 }
-.profilepic{
-  height: 30%;
-  width: 30%;
-  border-radius: 30px;
+
+.searchbar {
+    width: 60%;
+    margin: 3% 2% 3% 0%;
+    border-radius: 0px;
+    height: 66%;
+    padding: 1% 1% 1% 1%;
+    background-color: #f0b304;
+    border: 0px;
+    outline-style: none;
+}
+
+.title {
+    padding: 2%;
+}
+
+.button {
+    border: 2px;
+    border-radius: 5px;
+    outline-style: none;
+}
+
+.mat-icon-button {
+    padding: 0;
+    min-width: 0;
+    width: 50px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+}
+
+.lab {
+    margin-left: 33px;
+    font-size: 14px;
+    font-family: serif;
+}
+
+.account {
+    outline-style: none;
+}
+
+.profilepic {
+    height: 30%;
+    width: 30%;
+    border-radius: 30px;
 }

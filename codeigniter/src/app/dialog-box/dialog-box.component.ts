@@ -17,11 +17,15 @@ export class DialogBoxComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private service: LabelService) { }
 
   onNoClick() {
-    
+
     this.dialogRef.close(this.items);
   }
   items: any;
-  // for saving the label into db
+  // 
+  /**
+   * @method labels()
+   * for saving the label into db
+   */
   labels() {
     this.service.label(this.data).subscribe(
       (status: any) => {
@@ -30,37 +34,49 @@ export class DialogBoxComponent implements OnInit {
       }
     );
   }
-// for fetching the label 
-  fetchnote(){
+  // 
+  /**
+   * @method fetchnote()
+   * for fetching the label 
+   */
+  fetchnote() {
     this.service.fetchlabel().subscribe(
-      (status:any)=>{
+      (status: any) => {
         this.items = status;
       }
     )
   }
 
-  ngOnInit()
-  {
+  ngOnInit() {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.fetchnote();
   }
 
   // for the delete the label 
-  deletelabel(id){
+  /**
+   * @method deletelabel()
+   * @param id id of the card
+   */
+  deletelabel(id) {
     this.service.delete(id).subscribe(
-      (status:any)=>{
+      (status: any) => {
         this.items = status;
         this.dialogRef.close(status);
       }
     )
   }
 
-  // for the edit the label
-
-  editLabel(id,data){
-    this.service.editLabel(id,data).subscribe(
-      (status:any)=>{
+  // 
+  /**
+   * @method editLabel()
+   * @param id id of the card
+   * @param data 
+   * for the edit the label
+   */
+  editLabel(id, data) {
+    this.service.editLabel(id, data).subscribe(
+      (status: any) => {
         this.items = status;
         this.dialogRef.close(status);
       }

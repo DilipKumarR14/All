@@ -1,17 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatButtonModule, MatIconModule, MatDialogModule, MatNativeDateModule,MatCardModule,MatToolbarModule,MatSidenavModule,MatListModule,MatProgressSpinnerModule,MatProgressBarModule,MatTooltipModule,MatGridListModule,MatFormFieldModule,MatMenuModule,MatExpansionModule,MatDatepickerModule, MatDividerModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatIconModule, MatDialogModule, MatNativeDateModule, MatCardModule, MatToolbarModule, MatSidenavModule, MatListModule, MatProgressSpinnerModule, MatProgressBarModule, MatTooltipModule, MatGridListModule, MatFormFieldModule, MatMenuModule, MatExpansionModule, MatDatepickerModule, MatDividerModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import 'hammerjs';
 import { AppRoutingModule } from './app-routing.module';
-import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginsComponent } from './logins/logins.component';
 import { DatabaseService } from './service/database.service';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule,HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ForgetComponent } from './forget/forget.component';
 import { ResetsComponent } from './resets/resets.component';
 import { EmailvalidateComponent } from './emailvalidate/emailvalidate.component';
@@ -28,7 +27,7 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 import { NoteService } from './service/note.service';
 import { CookieService } from "angular2-cookie";
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-import { FlexLayoutModule } from "@angular/flex-layout";    
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './service/auth-interceptor.service';
 import { UpdatecardComponent } from './updatecard/updatecard.component';
@@ -36,28 +35,29 @@ import { CardlabelComponent } from './cardlabel/cardlabel.component';
 import { ProfilepicComponent } from './profilepic/profilepic.component';
 import { ErrormessageComponent } from './errormessage/errormessage.component';
 import { CollabortorComponent } from './collabortor/collabortor.component';
-import {DragDropModule} from '@angular/cdk/drag-drop';
-  
-@NgModule({  
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
+@NgModule({
   declarations: [
-    AppComponent, LoginComponent,  
+    AppComponent,
     RegisterComponent, LoginsComponent, ForgetComponent,
     ResetsComponent, EmailvalidateComponent, FundooComponent,
     FunComponent, NotesComponent, ReminderComponent, RoughComponent,
-    ArchiveComponent, TrashComponent, AddnoteComponent, DialogBoxComponent, UpdatecardComponent, CardlabelComponent, ProfilepicComponent, ErrormessageComponent, CollabortorComponent
-    
-  ], 
-  imports: [
-    BrowserModule, HttpClientModule, RouterModule,AppRoutingModule, FormsModule, MatCardModule,BrowserModule, BrowserAnimationsModule,   MatButtonModule, MatInputModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule,
-    MatIconModule, MatToolbarModule, MatSidenavModule,MatListModule, MatProgressSpinnerModule, MatProgressBarModule,MatMenuModule, NgxSpinnerModule, MatExpansionModule,MatDialogModule, MatTooltipModule, MatGridListModule, MatDatepickerModule,MatNativeDateModule, NgxMaterialTimepickerModule.forRoot(),MatExpansionModule,
-    FlexLayoutModule,MatDividerModule,DragDropModule
+    ArchiveComponent, TrashComponent, AddnoteComponent, DialogBoxComponent,
+    UpdatecardComponent, CardlabelComponent, ProfilepicComponent, ErrormessageComponent,
+    CollabortorComponent
   ],
-  entryComponents: [DialogBoxComponent,UpdatecardComponent,ProfilepicComponent],
-  providers: [DatabaseService, CookieService, NoteService, AuthGuard,{
-    provide:HTTP_INTERCEPTORS,  
-    useClass:AuthInterceptor,
-    multi:true
+  imports: [
+    BrowserModule, HttpClientModule, RouterModule, AppRoutingModule, FormsModule, MatCardModule, BrowserModule, BrowserAnimationsModule, MatButtonModule, MatInputModule, MatCardModule, MatFormFieldModule, ReactiveFormsModule,
+    MatIconModule, MatToolbarModule, MatSidenavModule, MatListModule, MatProgressSpinnerModule, MatProgressBarModule, MatMenuModule, NgxSpinnerModule, MatExpansionModule, MatDialogModule, MatTooltipModule, MatGridListModule, MatDatepickerModule, MatNativeDateModule, NgxMaterialTimepickerModule.forRoot(), MatExpansionModule,
+    MatDividerModule, DragDropModule, FlexLayoutModule
+  ],
+  entryComponents: [DialogBoxComponent, UpdatecardComponent, ProfilepicComponent],
+  providers: [DatabaseService, CookieService, NoteService, AuthGuard, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
   }],
-  bootstrap: [AppComponent]  
-})   
+  bootstrap: [AppComponent]
+})
 export class AppModule { }

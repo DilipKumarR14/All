@@ -15,13 +15,20 @@ export class EmailvalidateComponent implements OnInit {
   model: any = {};// fetching the value from form
   responseMessage = "";
   constructor(private service: DatabaseService, private routes: Router) { }
- 
+  /**
+   * @method getEmailErrorMessage()
+   * check for the email valid or not in the card
+   */
   getEmailErrorMessage() {
     return this.email.hasError('required') ? 'Email is required' :
       '';
   }
+  /**
+   * @method save()
+   * for the email to validate successfully
+   */
   save() {
-    var fetch = this.model; 
+    var fetch = this.model;
     this.service.Valid(fetch).subscribe(
       // data returned will be stored in status variable
       (status: any) => {

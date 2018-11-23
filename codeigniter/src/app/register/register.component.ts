@@ -13,7 +13,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class RegisterComponent {
   // public greeting="";
-  constructor(private service: DatabaseService, private routes: Router,private spinner:NgxSpinnerService) {
+  constructor(private service: DatabaseService, private routes: Router, private spinner: NgxSpinnerService) {
 
   }
   public title = "Welcome";
@@ -31,7 +31,7 @@ export class RegisterComponent {
   aemail = new FormControl('', [Validators.required, Validators.email]);
 
   model: any = {};// fetching the value from form
-  
+
   public altr: boolean;
   responseMessage = "";
   // getErrorMessage() {
@@ -39,6 +39,9 @@ export class RegisterComponent {
   //       this.email.hasError('email') ? 'Not a valid email' :
   //           '';
   // }
+  /**
+   * for the Email validation 
+   */
   getErrorMessage() {
     if (this.altr == true) {
       return "Invalid Email";
@@ -52,7 +55,9 @@ export class RegisterComponent {
       return "Not A Valid Email";
     }
   }
-
+/**
+ * for the name validation 
+ */
   getNameErrorMessage() {
     if (this.altr == true) {
       return "Invalid Name Format";
@@ -66,7 +71,9 @@ export class RegisterComponent {
       return "Must be characters Fool";
     }
   }
-
+/**
+ * for the mobile number validation
+ */
   getMobileErrorMessage() {
     if (this.altr == true) {
       return "Invalid Mobile Number";
@@ -80,6 +87,9 @@ export class RegisterComponent {
       return "Must be 10 Digit and Number";
     }
   }
+  /**
+   * for the password validation
+   */
   getPasswordErrorMessage() {
     if (this.altr == true) {
       return "Invalid password";
@@ -112,16 +122,20 @@ export class RegisterComponent {
   //   '';
   // }
 
+  /**
+   * @method save()
+   * to save the information entered by the user
+   */
   save() {
-    
+
     this.spinner.show();
     var fetch = this.model;
     this.service.Register(fetch).subscribe(
       // data returned will be stored in status variable
       (status: any) => {
-        
+
         if (status.status == "1") {
-          
+
           console.log("got respo", status);
           alert("SuccessFully Saved")
           alert("Check Your Mail")
@@ -131,13 +145,13 @@ export class RegisterComponent {
           this.routes.navigate(['/logins'])
         }
         else if (status.status == "null") {
-          
+
           alert("Enter All Mandatory Field")
           this.spinner.hide();
 
         }
         else if (status.status == "2") {
-          
+
           alert("EMail Not sent/Check Your EmailId")
           this.spinner.hide();
 

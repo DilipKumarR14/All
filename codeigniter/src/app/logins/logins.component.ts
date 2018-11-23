@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { DomSanitizer } from "@angular/platform-browser";
 import { MatIconRegistry } from "@angular/material";
 import { NgxSpinnerService } from "ngx-spinner";
-import {CookieService} from 'angular2-cookie';
+import { CookieService } from 'angular2-cookie';
 
 // import { LocalStorageService } from "ngx-webstorage";
 @Component({
@@ -17,21 +17,23 @@ export class LoginsComponent {
   iserror: boolean;
   errorMessage: any;
   errorstack: any;
-  ValueError:any;
+  ValueError: any;
   constructor(private service: DatabaseService, private routes: Router,
     iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
-    private spinner:NgxSpinnerService,private cookie:CookieService,
-   ) { 
-
+    private spinner: NgxSpinnerService, private cookie: CookieService,
+  ) {
+    /**
+     * for the fb,gmail icon to be displayed
+     */
     iconRegistry.addSvgIcon(
-    "fb",
-    sanitizer.bypassSecurityTrustResourceUrl("assets/img/login/fb.svg")
+      "fb",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/img/login/fb.svg")
     );
     iconRegistry.addSvgIcon(
-    "g",
-    sanitizer.bypassSecurityTrustResourceUrl("assets/img/login/g.svg")
+      "g",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/img/login/g.svg")
     );
-    }
+  }
 
   public title = "Fundoo Notes";
   // values from [formControl] in form
@@ -52,27 +54,31 @@ export class LoginsComponent {
     return this.passwd.hasError('required') ? 'password is required' :
       '';
   }
+  /**
+   * @method saves()
+   * for the login of the card and store the information in the card
+   */
   saves() {
     this.spinner.show();
     var fetch = this.model;     // define the function and parameter (ts)
-    this.cookie.put("email",this.model.email);
+    this.cookie.put("email", this.model.email);
     this.service.Login(fetch).subscribe(
       (status: any) => {
         if (status.status == "200") {
           console.log("got respo", status);
           this.spinner.hide();
           // set the jwt token
-          localStorage.setItem("token",status.token);
+          localStorage.setItem("token", status.token);
           alert("LoggedIn Succesfully")
           this.spinner.hide();
           this.routes.navigate(['/fundoo'])
-        } 
+        }
         else if (status.status == "null") {
           this.spinner.hide();
           alert("Enter Valid Email/Password Field")
           this.spinner.hide();
 
-        }else if( status.status == "403"){
+        } else if (status.status == "403") {
           this.spinner.hide();
 
           alert("Email/Mobile is Incorrect")
@@ -80,7 +86,7 @@ export class LoginsComponent {
 
           // this.ValueError = "Email/Mobile is Incorrect";
         }
-        else if( status.status == "401"){
+        else if (status.status == "401") {
           this.spinner.hide();
 
           alert("Validated Your EmailID")
@@ -101,8 +107,8 @@ export class LoginsComponent {
         this.iserror = true;
         this.errorMessage = error.message;
         this.errorstack = error.stack;
-        }
-      );
+      }
+    );
   }
 
   // ngOnInit() {
@@ -110,5 +116,5 @@ export class LoginsComponent {
   //   // setTimeout(()=>{
   //   //   this.spinner.show();
   //   // },5000);
-	// }
+  // }
 }

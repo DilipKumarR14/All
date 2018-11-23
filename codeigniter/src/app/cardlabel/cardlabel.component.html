@@ -1,5 +1,5 @@
- <!-- display card -->
- <div *ngIf="maincard" class="takeanotecard" (click)="matcardVisbility()">
+<!-- display card -->
+<div *ngIf="maincard" class="takeanotecard" (click)="matcardVisbility()">
   <mat-card>
     <input style="width: 70%;outline: none;font-weight: normal;font-size: medium;" placeholder="Take A Note !....">
   </mat-card>
@@ -161,8 +161,8 @@
     <!-- label card for each card -->
     <div *ngIf="item.label != '' ">
       <button mat-button style="outline-style: none;border: none;"> {{item.label}} </button>
-      <button mat-button (click)="deletelabel(item.id)"  style="outline-style: none;border: none;height: 0px;margin-left: -48px;" > <img src="../../assets/img/login/close.svg"
-          alt="deletelabel"></button>
+      <button mat-button (click)="deletelabel(item.id)" style="outline-style: none;border: none;height: 0px;margin-left: -48px;">
+        <img src="../../assets/img/login/close.svg" alt="deletelabel"></button>
     </div>
 
     <div class="menubutton">
@@ -198,28 +198,24 @@
                 width: 30px;" (click)="setColor(item.id,'#aecbfa')"></button>
 
           <button mat-mini-fab style="background-color:#cbf0f8;height: 30px;
-                  width: 30px;"
-            (click)="setColor(item.id,'#cbf0f8')"></button>
+                  width: 30px;" (click)="setColor(item.id,'#cbf0f8')"></button>
 
           <button mat-mini-fab style="background-color:#a7ffea;height: 30px;
                       width: 30px;"
             (click)="setColor(item.id,'#a7ffea')"></button>
 
           <button mat-mini-fab style="background-color:#ccff90;height: 30px;
-                    width: 30px;"
-            (click)="setColor(item.id,'#ccff90')"></button>
+                    width: 30px;" (click)="setColor(item.id,'#ccff90')"></button>
 
 
           <br>
           <!--card in view-->
 
           <button mat-mini-fab style="background-color:#e8eaed;height: 30px;
-                    width: 30px;"
-            (click)="setColor(item.id,'#e8eaed')"></button>
+                    width: 30px;" (click)="setColor(item.id,'#e8eaed')"></button>
 
           <button mat-mini-fab style="background-color:#e8eaed;height: 30px;
-                  width: 30px;"
-            (click)="setColor(item.id,'#e8eaed')"></button>
+                  width: 30px;" (click)="setColor(item.id,'#e8eaed')"></button>
 
 
           <button mat-mini-fab style="background-color:#fccfe8;height: 30px;
@@ -308,8 +304,8 @@
 
     <div *ngIf="item.label != '' ">
       <button mat-button style="outline-style: none;border: none;"> {{item.label}} </button>
-      <button mat-button (click)="deletelabel(item.id)" style="outline-style: none;border: none;height: 0px;margin-left: -48px;"  > <img src="../../assets/img/login/close.svg"
-          alt="deletelabel"></button>
+      <button mat-button (click)="deletelabel(item.id)" style="outline-style: none;border: none;height: 0px;margin-left: -48px;">
+        <img src="../../assets/img/login/close.svg" alt="deletelabel"></button>
     </div>
 
     <div class="menubutton">
@@ -343,24 +339,20 @@
                 width: 30px;" (click)="setColor(item.id,'#aecbfa')"></button>
 
           <button mat-mini-fab style="background-color:#cbf0f8;height: 30px;
-                  width: 30px;"
-            (click)="setColor(item.id,'#cbf0f8')"></button>
+                  width: 30px;" (click)="setColor(item.id,'#cbf0f8')"></button>
 
           <button mat-mini-fab style="background-color:#a7ffea;height: 30px;
                       width: 30px;"
             (click)="setColor(item.id,'#a7ffea')"></button>
 
           <button mat-mini-fab style="background-color:#ccff90;height: 30px;
-                    width: 30px;"
-            (click)="setColor(item.id,'#ccff90')"></button>
+                    width: 30px;" (click)="setColor(item.id,'#ccff90')"></button>
           <br>
           <!--card in view-->
           <button mat-mini-fab style="background-color:#e8eaed;height: 30px;
-                    width: 30px;"
-            (click)="setColor(item.id,'#e8eaed')"></button>
+                    width: 30px;" (click)="setColor(item.id,'#e8eaed')"></button>
           <button mat-mini-fab style="background-color:#e8eaed;height: 30px;
-                  width: 30px;"
-            (click)="setColor(item.id,'#e8eaed')"></button>
+                  width: 30px;" (click)="setColor(item.id,'#e8eaed')"></button>
           <button mat-mini-fab style="background-color:#fccfe8;height: 30px;
                 width: 30px;" (click)="setColor(item.id,'#fccfe8')"></button>
           <button mat-mini-fab style="background-color:#d7aefb;height: 30px;

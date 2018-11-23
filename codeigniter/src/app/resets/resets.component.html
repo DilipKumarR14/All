@@ -7,10 +7,10 @@
             <!-- <mat-card-title>Password Reset<br></mat-card-title> -->
         </div>
         <div class="example-container">
-        
+
             <!-- <app-forget>{{childmsg}}</app-forget> -->
             <mat-form-field>
-             EmailId  <input matInput [disabled]=true>{{value}}
+                EmailId <input matInput [disabled]=true>{{value}}
             </mat-form-field>
             <!-- <mat-form-field>
             <input matInput  placeholder="Password" type="password" [formControl]="pass"
@@ -31,7 +31,8 @@
             </mat-form-field>
 
             <mat-form-field>
-                <input matInput placeholder="Confirm password" formControlName="confirmPassword" [errorStateMatcher]="matcher" [(ngModel)]="model.pass1">
+                <input matInput placeholder="Confirm password" formControlName="confirmPassword" [errorStateMatcher]="matcher"
+                    [(ngModel)]="model.pass1">
                 <mat-error *ngIf="myForm.hasError('notSame')">
                     Passwords do not match
                 </mat-error>
@@ -40,7 +41,7 @@
             <br>
         </div>
         <div class="button-row">
-            <button mat-flat-button  (click)="save()">Submit</button>&nbsp;&nbsp;&nbsp;
+            <button mat-flat-button (click)="save()">Submit</button>&nbsp;&nbsp;&nbsp;
         </div>
     </mat-card>
 </form>

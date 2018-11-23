@@ -1,3 +1,4 @@
+<!-- for the login of the card -->
 <div class="heading">Log In</div>
 <br><br>
 <ngx-spinner></ngx-spinner>
@@ -7,11 +8,7 @@
     </div>
     <div class="example-container">
         <mat-form-field>
-            <input matInput 
-            placeholder="Email" 
-            [formControl]="email" 
-            required autofocus 
-            name="email" [(ngModel)]="model.email">
+            <input matInput placeholder="Email" [formControl]="email" required autofocus name="email" [(ngModel)]="model.email">
             <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field>
@@ -22,7 +19,7 @@
         </mat-form-field>
 
         <div class="button-row">
-            <button mat-flat-button [disabled]="email.invalid || passwd.invalid"  (click)="saves()" >Login</button>&nbsp;&nbsp;&nbsp;
+            <button mat-flat-button [disabled]="email.invalid || passwd.invalid" (click)="saves()">Login</button>&nbsp;&nbsp;&nbsp;
             <a routerLink="/register"><button mat-flat-button>Create New Account</button></a>
         </div>
         <div class="log">

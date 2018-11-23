@@ -29,55 +29,27 @@ export class FundooComponent implements OnInit {
   constructor(public dialog: MatDialog, private commondata: CommondataService, private cookie: CookieService, private router: Router, private service: LabelService, private image: ImageuploadService) {
 
   }
-  // // for the profile pic
-  // onSelectFile(event) {
 
-  //   if (event.target.files && event.target.files[0]) {
-  //     var reader = new FileReader();
+  fileToUpload: File = null;
+  /**
+   * @method onSelectFile()
+   * @param files to store the image
+   * to save the profile image selected by the user
+   */
+  onSelectFile(files: FileList) {
 
-  //     reader.readAsDataURL(event.target.files[0]); // read file as data url
-  //      
-  //     reader.onload = (event) => {
-  //        // called once readAsDataURL is completed
-  //       this.url = event.target.result;
-  //       this.image.uploadImage(this.url, this.cookie.get("email")).subscribe(
-  //         (status: any) => {
-  //           if (status.status == "true") {
-  //             alert("Saved")
-  //           } else {
-  //             alert("NO!!!!!!!!")
-  //           }
-  //         }
-  //       ), (error) => {
-  //         alert(error.error.text)
-  //       }
-  //     }
-  //   }
-  // }
-
-
-
-
-  fileToUpload:File = null;
-
-  onSelectFile(files:FileList) {
-     
-    this.fileToUpload  = files.item(0);
-    this.image.uploadImage(this.fileToUpload,this.cookie.get("email"))
-    .subscribe(
-      (status:any) => {
-       this.url = status.path;
-    }, error => {
-        console.log(error);
-        alert(error.error.text)
-      });
+    this.fileToUpload = files.item(0);
+    this.image.uploadImage(this.fileToUpload, this.cookie.get("email"))
+      .subscribe(
+        (status: any) => {
+          this.url = status.path;
+        }, error => {
+          console.log(error);
+          alert(error.error.text)
+        });
   }
 
-
-
-
-
-// when the profilc pic is selected
+  // when the profilc pic is selected
   profile() {
     this.pic = true;
   }
@@ -87,7 +59,10 @@ export class FundooComponent implements OnInit {
   imgloc: string = "../../assets/img/login/listview.svg";
   view: boolean = false;
   viewtip: string = "Grid_View";
-
+  /**
+   * @method toggle()
+   * for the list and grid view switching
+   */
   toggle() {
     this.view = !this.view
     if (this.view) {
@@ -102,7 +77,10 @@ export class FundooComponent implements OnInit {
     this.commondata.commonData(this.view);
 
   }
-
+  /**
+   * @method openDialog()
+   * for the labeling the card
+   */
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogBoxComponent, {
@@ -117,7 +95,10 @@ export class FundooComponent implements OnInit {
   }
   public changeIcon;
   icon: any = true;
-
+  /**
+   * @method viewNote()
+   * for the switch between the list and grid view
+   */
   viewNote() {
     if (this.icon == true) {
       this.icon = "view_module";
@@ -126,14 +107,19 @@ export class FundooComponent implements OnInit {
       this.changeIcon = "view_module";
     }
   }
-
+  /**
+   * @method logout()
+   * for the logOut of the fundoo app
+   */
   logout() {
 
     this.cookie.remove("email");
     localStorage.removeItem("token");
     this.router.navigate(['/logins']);
   }
-
+  /**
+   * to fetch all the card
+   */
   fetchnote() {
     this.service.fetchlabel().subscribe(
       (status: any) => {
@@ -148,17 +134,21 @@ export class FundooComponent implements OnInit {
         this.items = status;
       }
     )
-     
+
     this.image.getPic(this.cookie.get("email")).subscribe(
       (status: any) => {
-         
+
         this.url = status.profilepic;
       }, (error) => {
         alert(error.error.text)
       }
     )
   }
-
+  /**
+   * 
+   * @param label to store the label of the card
+   * @param email to store the email of the card
+   */
   fetchSpecificLabel(label, email) {
 
     this.commondata.labelForEachCard(label);
@@ -166,7 +156,6 @@ export class FundooComponent implements OnInit {
   }
   profilepic(event) {
     console.log(event);
-
   }
 
   // openDialogPic():void{

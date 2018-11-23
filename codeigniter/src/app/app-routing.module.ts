@@ -51,7 +51,6 @@ import { CollabortorComponent } from './collabortor/collabortor.component';
           { path: 'addnote', component: AddnoteComponent, canActivate: [AuthGuard], },
           { path: 'errorpage', component: ErrormessageComponent, canActivate: [AuthGuard], },
 
-
         ])
     ],
   exports: [RouterModule],

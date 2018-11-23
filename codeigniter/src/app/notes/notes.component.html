@@ -32,19 +32,19 @@
           </mat-icon>
         </button>
       </div>
-<!--for label display-->
+      <!--for label display-->
       <div *ngIf="labeldiv">
         <button mat-button style="outline-style: none;border: none;"> {{addlabell}} </button>
         <button mat-button style="outline-style: none;border: none;height: 0px;margin-left: -48px;"> <img src="../../assets/img/login/close.svg"
             alt="deletelabel"></button>
       </div>
-<!-- for the collab dispaly-->
+      <!-- for the collab dispaly-->
       <div *ngIf="array">
         <span *ngFor="let emailcollab of arremail">
-          <a> <button mat-mini-fab >{{emailcollab[0]}}{{emailcollab[1]}}</button></a>
+          <a> <button mat-mini-fab>{{emailcollab[0]}}{{emailcollab[1]}}</button></a>
         </span>
       </div>
-      
+
       <button mat-icon-button aria-label="Remind me" [matMenuTriggerFor]="menu" style="opacity: 0.5;" matTooltip="Reminder">
         <mat-menu #menu [overlapTrigger]="false">
           <label style="margin:1%;">Reminder:</label>
@@ -78,7 +78,7 @@
           <button mat-mini-fab style="background-color:#a7ffea;height: 30px;
           width: 30px;" (click)="color='#a7ffea'"></button>
           <button mat-mini-fab style="background-color:#ccff90;height: 30px;
-          width: 30px;" (click)="color='#ccff90s'"></button>
+          width: 30px;" (click)="color='#ccff90'"></button>
           <br>
           <button mat-mini-fab style="background-color:#e8eaed;height: 30px;
           width: 30px;" (click)="color='#expressione8eaed'"></button>
@@ -112,7 +112,6 @@
         </mat-menu>
         <img src="../../assets/img/login/vertical.svg">
       </button>
-
       <button mat-button style="margin-left:20%;" (click)="expcardVisibiilty" (click)="save()">Close</button>
     </mat-card>
   </div>
@@ -131,7 +130,8 @@
       <div *ngIf="array">
         <div *ngFor="let emailcollab of arremail">
           <a> <button mat-mini-fab>{{emailcollab[0]}}{{emailcollab[1]}}</button></a>
-          <button mat-button style="margin-left: 380px;" (click)="deleteCollabMain(emailcollab)"> <img src="../../assets/img/login/close.svg" alt="close"></button>
+          <button mat-button style="margin-left: 380px;" (click)="deleteCollabMain(emailcollab)"> <img src="../../assets/img/login/close.svg"
+              alt="close"></button>
         </div>
       </div>
 
@@ -143,7 +143,7 @@
       <div mat-dialog-actions class="collabButton">
         <button mat-button type="button" (click)="closeCollab()">Cancel</button>
         <button mat-button type="button" (click)="array=true">Save</button>
-      </div> 
+      </div>
     </mat-card>
   </div>
 
@@ -170,7 +170,8 @@
 
   <!--for the grid  view-->
 
-  <div   *ngIf="view" cdkDropList fxLayout='row wrap' fxLayout.xs="column" fxLayoutAlign="start center"  (cdkDropListDropped)="drop($event)" fxLayoutGap="10px" style='margin-top: 6%;margin-left: 16%;margin-right: 4%;'>
+  <div *ngIf="view" cdkDropList fxLayout='row wrap' fxLayout.xs="column" fxLayoutAlign="start center"
+    (cdkDropListDropped)="drop($event)" fxLayoutGap="10px" style='margin-top: 6%;margin-left: 16%;margin-right: 4%;'>
     <mat-card cdkDrag *ngFor="let item of test" class="test" [ngStyle]="{'background-color': item.colorcode}">
       <mat-card-title>
         <input matInput type="text" placeholder="Title" class="divtext" [(ngModel)]="item.title" [ngStyle]="{'background-color': item.colorcode}"
@@ -182,9 +183,9 @@
 
       <input matInput type="text" placeholder="Take a Note" class="divtext" [(ngModel)]="item.note" [ngStyle]="{'background-color': item.colorcode}"
         (click)="openDialog(item)">
- 
+
       <!--close the reminder in the result card-->
-      <div *ngIf="item.date != '' "> 
+      <div *ngIf="item.date != '' ">
         <button mat-button contenteditable="false" style="border-radius:20px;outline-style: none;" (click)="viewcard(item.id)">
           <mat-icon class="timestamp">
             <img style="margin-bottom: -12px;" src="../../assets/img/login/time.svg">
@@ -194,8 +195,8 @@
           <mat-icon class="timestampresclose">
             <img style="margin-bottom: -12px;margin-left:-42px;" src="../../assets/img/login/close.svg" alt="close">
           </mat-icon>
-        </button>          
-      </div>                     
+        </button>
+      </div>
       <!-- label card for each card -->
       <div *ngIf=" item.label != 'null' &&   item.label != ''">
         <button routerLink="labelForEachCard" mat-button style="outline-style: none;border: none;height: 0px;">
@@ -326,8 +327,8 @@
 
   <!--for the list view-->
 
-  <div cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!view" fxLayoutAlign="center center" fxLayout="column" style="margin-top: 6%;margin-left: -5%;margin-right: 4%;"
-    fxLayoutGap="20px">
+  <div cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="!view" fxLayoutAlign="center center" fxLayout="column"
+    style="margin-top: 6%;margin-left: -5%;margin-right: 4%;" fxLayoutGap="20px">
     <mat-card cdkDrag *ngFor="let item of test" class="testlist" [ngStyle]="{'background-color': item.colorcode}">
       <mat-card-title>
         <input matInput type="text" placeholder="Title" class="divtext" [(ngModel)]="item.title" [ngStyle]="{'background-color': item.colorcode}"
@@ -364,7 +365,8 @@
       <!-- for the collabrator-->
       <span *ngFor="let collab of mails">
         <span *ngIf="collab.noteid == item.id">
-          <button mat-mini-fab [ngStyle]="{'background-color': item.colorcode}"> {{ collab.email[0] }}{{ collab.email[1] }} </button>
+          <button mat-mini-fab [ngStyle]="{'background-color': item.colorcode}"> {{ collab.email[0] }}{{
+            collab.email[1] }} </button>
         </span>
       </span>
 

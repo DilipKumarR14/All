@@ -21,11 +21,11 @@ export class CollabortorComponent implements OnInit {
         private collabservice: CollaboratorService) { }
 
 
-        
+
     ngOnInit() {
         //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-            //Add 'implements OnInit' to the class.
-            
+        //Add 'implements OnInit' to the class.
+
         this.collabservice.getOwner(this.data.datas.id).subscribe(
             (status: any) => {
                 if (status == "") {
@@ -39,7 +39,7 @@ export class CollabortorComponent implements OnInit {
         );
 
         this.getCollabEmail();
-          
+
     }
     model: any;
     owner: any;
@@ -47,7 +47,10 @@ export class CollabortorComponent implements OnInit {
     // res = this.dialogRef.afterClosed();
     ownerid: any;
     /**
-     * @description to show the collabs in the below cards
+     * @method saveCollab
+     * @param model 
+     * @param id 
+     *  to show the collabed email in the below cards
      */
     saveCollab(model, id) {
         //  
@@ -69,7 +72,7 @@ export class CollabortorComponent implements OnInit {
         // )
         this.collabservice.getDisplayCollab(this.test).subscribe(
             (status: any) => {
-                  this.dialogRef.close(status)
+                this.dialogRef.close(status)
             }
         )
 
@@ -84,65 +87,68 @@ export class CollabortorComponent implements OnInit {
      * @param id store the id of the card
      */
     getAll(email, id) {
-         
+
         this.collabservice.checkmail(email, id).subscribe(
             (status: any) => {
-                 
+
                 if (status.status == "true") {
                     this.emails = status.email;
                     // return the result back to note componet to display
                     this.dialogRef.close(this.emails)
-                    
-                }else if(status.status == "notaowner"){
+
+                } else if (status.status == "notaowner") {
                     alert("Your Are Not A Owner of Card")
-                }else if (status.status == "owner"){
+                } else if (status.status == "owner") {
                     alert("Owner Cant Be Added")
-                } else if(status.status == "invalidemail"){
+                } else if (status.status == "invalidemail") {
                     alert("Invalid EMAIL")
                 }
             }
         );
     }
     // to get all collabed email
+
     /**
-     * @description to get all the collab email and display in thhe note card
+     * @method getCollabedEmail()
+     * to get all the collab email and display in the note card
      */
     collabmail: any;
     getCollabEmail() {
         this.collabservice.getCollabedEmail(this.data.datas.id).subscribe(
             (status: any) => {
-                 
+
                 this.collabmail = status.email;
             }
         );
     }
-    // for delete particulae emailid from card collabed
+    // 
     /**
      * @description to delete the collab email in the card
      * @param id store the id of the card
      * @param email store thhe email id entred by the user
+     * for delete particular emailid from card collabed
      */
     collabDelete(id, email) {
-         
+
         // if(this.cookie.get("email") == email){
-             
+
         this.collabservice.deleteCollabEmail(id, email).subscribe(
             (status: any) => {
-                if(status.status == "true" && status.status!="nap"){
+                if (status.status == "true" && status.status != "nap") {
                     this.collabmail = status.email;
                     this.dialogRef.close(this.collabmail)
-                }else if (status.status == "nap"){
+                } else if (status.status == "nap") {
                     alert("Can't Be Deleted")
-                }else if(status.status == "deletemyself"){
+                } else if (status.status == "deletemyself") {
                     alert("Delete Yourself")
                     this.collabmail = status.email;
                     // to pass to the note component 
                     this.dialogRef.close(this.collabmail)
-                }else{
+                } else {
                     this.router.navigate(['/errorpage'])
                 }
                 this.dialogRef.close(this.collabmail);
-            },(error)=>{
+            }, (error) => {
                 alert(error.error.text)
             }
         );
@@ -150,7 +156,7 @@ export class CollabortorComponent implements OnInit {
         //      
         //     alert("NOt Allowed")
         // }
-     
+
     }
 
     // for cancel button

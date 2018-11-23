@@ -6,13 +6,13 @@
     </div>
     <div class="example-container">
         <mat-form-field>
-            <input matInput placeholder="Email" type="email" [formControl]="email"
-            required autofocus name="email" [(ngModel)]="model.email">
+            <input matInput placeholder="Email" type="email" [formControl]="email" required autofocus name="email"
+                [(ngModel)]="model.email">
             <mat-error *ngIf="email.invalid ">{{getEmailErrorMessage()}}</mat-error>
         </mat-form-field>
         <br>
     </div>
     <div class="button-row">
-        <button mat-flat-button (click)="save()" [disabled]="email.invalid" >Submit</button>&nbsp;&nbsp;&nbsp;
+        <button mat-flat-button (click)="save()" [disabled]="email.invalid">Submit</button>&nbsp;&nbsp;&nbsp;
     </div>
 </mat-card>

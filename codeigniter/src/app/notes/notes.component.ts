@@ -13,7 +13,7 @@ import { CollabortorComponent } from '../collabortor/collabortor.component';
 import { CollaboratorService } from '../service/collaborator.service';
 import { Router } from '@angular/router';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-    
+
 declare let require: any;
 let dateFormat = require("dateformat");
 
@@ -72,17 +72,22 @@ export class NotesComponent implements OnInit {
     i = 0;
     emailcard: string;
 
-
-
-    // when the button is clicked on time setting later today
+    /**
+     * when the button is clicked on time setting later today
+     */
     settime() {
         this.res = true;
     }
-    // when the button is clicked on time setting for tomorrow
+    /**
+     * when the button is clicked on time setting for tomorrow
+     */
     settimetomo() {
         this.time = "Tomorrow 8.00PM";
     }
-    // when the button is clicked on time setting for next week
+    /**
+     * when the button is clicked on time setting for next week
+     */
+
     settimeweek() {
         this.time = "Next Week 8.00PM"
     }
@@ -105,7 +110,10 @@ export class NotesComponent implements OnInit {
             this.view = res;
         })
     }
-    // function that display the note when the date and time is matched
+    // 
+    /**
+     * function that display the note when the date and time is matched
+     */
     dateformater() {
         this.test.forEach(element => {
             // dateformat need to be installed 
@@ -134,7 +142,10 @@ export class NotesComponent implements OnInit {
     currenttime: any;
     timer_button: boolean;
     timer_panel: boolean;
-
+    /**
+     * @method expan()
+     * for set the date and tme for the card
+     */
     expan() {
 
         this.exp = true;
@@ -146,6 +157,10 @@ export class NotesComponent implements OnInit {
         this.currentDateAndTime = currentDate + " " + this.model.time;
         this.currenttime = this.currentDateAndTime;
     }
+    /**
+     * @method expanclose()
+     * to close the menu after reminder is set
+     */
     expanclose() {
 
         this.exp = false;
@@ -178,7 +193,7 @@ export class NotesComponent implements OnInit {
         this.collabservice.getDisplayCollab(this.test).subscribe(
             (status: any) => {
                 if (this.test.id == status.id) {
-                    
+
                     this.mails = status.email
                 }
             }
@@ -187,13 +202,17 @@ export class NotesComponent implements OnInit {
 
     }
 
-    // the main card display settings
+    /**
+     * the main card display settings
+     */
     matcardVisbility() {
         this.maincard = false;
         this.expcard = true;
         this.res = false;
     }
-    //// the expand card display settings
+    /**
+     * the expand card display settings
+     */
     expcardVisibiilty() {
         this.expcard = false;
         this.maincard = true;
@@ -214,7 +233,11 @@ export class NotesComponent implements OnInit {
     dis = "";
     label = "null";
 
-    // when the close is clicked on the card for savinf to database
+
+    /**
+     * @method save()
+     * when the close is clicked on the card for savinf to database
+     */
     save() {
 
         if (this.model.time != undefined || this.model.date != undefined) {
@@ -227,29 +250,29 @@ export class NotesComponent implements OnInit {
         this.maincard = true;
         this.expcard = false;
 
-         
+
         this.service.store(this.model, this.email, this.dis, this.color, this.archivecard, this.addlabell, this.arremail).subscribe(
             (status: any) => {
-                 
+
                 console.log(status)
                 if (status.status == 404 || status.status == 204) {
-                     
+
                     alert("UnAuthorised User !!!");
                 }
                 else {
-                     
+
                     console.log(status.rescolla);
 
                     this.mails = status.rescolla;
                     this.test = status.res;
                 }
             }, error => {
-                 
+
                 alert(error.message)
                 this.error = true;
                 this.errorMsg = error.message;// error.message inbuilt method
             });
- 
+
         this.model.title = null;
         this.model.note = null;
         this.color = null;
@@ -261,21 +284,22 @@ export class NotesComponent implements OnInit {
         this.labeldiv = true;
     }
 
-/**
- * @description is for drag and drop of the card
- * @param event 
- */
+    /**
+     * @description is for drag and drop of the card
+     * @param event to store the event captured from mouse
+     */
     drop(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.test, event.previousIndex, event.currentIndex);
         console.log(event.previousIndex);
         console.log(event.currentIndex);
     }
 
-
-
-
-
-    //change the color
+    /**
+  * @method setColor()
+  * @param idcard for the id of the card
+  * @param colorcard for the color of the card
+  * change the color
+  */
     setColor(idcard, colorcard) {
 
 
@@ -295,8 +319,12 @@ export class NotesComponent implements OnInit {
         });
     }
 
-
-    //card for update the notes entred
+    /**
+     * @method updateNote()
+     * @param idcard for the id of the card
+     * @param model for passing the model
+     * card for update the notes entred
+     */
     updateNote(idcard, model) {
         this.service.updateNoteDb(idcard, model).subscribe(
             (status: any) => {
@@ -306,8 +334,11 @@ export class NotesComponent implements OnInit {
         )
     }
 
-    // display when the mat dialog is clicked on title or note
-
+    /**
+     * @method openDialog()
+     * @return void
+     * display when the mat dialog is clicked on title or note
+     */
     openDialog(datas): void {
         // passing the data of particular id
         const dialogRef = this.dialog.open(UpdatecardComponent, {
@@ -328,8 +359,11 @@ export class NotesComponent implements OnInit {
     cardmenu: boolean = false;
     reminder: any;
     idstore: any;
-    // used for display and selecting the date and time under the particular card
-    // for list view
+    /**
+     * @method viewcard()
+     * @param id for the id of the card
+     * used for display and selecting the date and time under the particular card for list view
+     */
     viewcard(id) {
 
         this.test.forEach(element => {
@@ -341,9 +375,11 @@ export class NotesComponent implements OnInit {
 
         });
     }
-
-    // for close the card after tie and date is selecte
-    //for list view
+    /**
+ * @method editReminder()
+ * @param id for the id of the card
+ * close the card after time and date is selected for list view
+ */
     editReminder(id) {
         this.cardmenu = false;
         let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
@@ -365,6 +401,11 @@ export class NotesComponent implements OnInit {
 
     resultreminder;
     result: boolean;
+    /**
+ * @method closeReminderResultCard()
+ * @param id to store the id of the card
+ * to close the menu after reminder is set
+ */
     closeReminderResultCard(id) {
         // close reminder after selected
         this.reminderenable = false;
@@ -380,7 +421,11 @@ export class NotesComponent implements OnInit {
         });
     }
 
-    // delete the note 
+    /**
+* @method deleteNote()
+* @param id id of the card
+*  delete the note of particular id
+*/
     deleteNote(id) {
 
         this.service.deleteNote(id).subscribe(
@@ -392,7 +437,11 @@ export class NotesComponent implements OnInit {
     }
 
     archiverescard: string;
-
+    /**
+       * @method unArchive()
+       * @param id id of the card 
+       * unarchive the card from archive component
+       */
     archiveNote(id) {
 
         this.archiveService.archiveNote(id).subscribe(
@@ -406,6 +455,11 @@ export class NotesComponent implements OnInit {
     public addlabell: string = null;
     // lab = false;
     labeldiv: boolean = false;
+    /**
+     * to add the label and assign to the card
+     * @param id for the id of the card
+     * @param labelname name of the label
+     */
     val(id, labelname) {
         // this.lab=true;
         this.labeldiv = true;
@@ -425,7 +479,10 @@ export class NotesComponent implements OnInit {
             }
         });
     }
-
+    /**
+     * to delete the label from particular card
+     * @param id to store the id of the card
+     */
     deletelabel(id) {
 
         this.labelservice.deleteLabelCard(id).subscribe(
@@ -440,7 +497,12 @@ export class NotesComponent implements OnInit {
         });
 
     }
-    // for passing the collab email 
+    // 
+    /**
+ * @method openDialog()
+ * @return void
+ *  for passing the collab email 
+ */
     openCollab(item): void {
         const dialogRef = this.dialog.open(CollabortorComponent, {
             width: '40%',
@@ -448,10 +510,10 @@ export class NotesComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-             
+
             if (this.test.id == result.id) {
                 // this.mails = result.email;
-                 
+
                 this.mails = result;
 
 
@@ -465,13 +527,18 @@ export class NotesComponent implements OnInit {
         });
     }
     collab: boolean = false;
-    // for the top card for switch b/w collab and main card
+    /**
+     * for the top card for switch b/w collab and main card
+     */
     collabdiv() {
         this.collab = true;
         this.expcard = false
 
     }
-    // close the collab and display the main card
+
+    /**
+     * close the collab and display the main card
+     */
     closeCollab() {
         this.expcard = true;
         this.collab = false;
@@ -481,14 +548,18 @@ export class NotesComponent implements OnInit {
     // for the title card
     emailid: any;
     getallemail = this.arremail;
-    // for the title card addig the deleting the collabs
+
+    /**
+     * for the title card adding the deleting the collabs
+     * @param email to store the email
+     */
     saveCollabMainCard(email) {
-         
+
 
         console.log(this.arremail)
         this.collabservice.getAllEmailId(email).subscribe(
             (status: any) => {
-                 
+
                 let a = this.cookie.get("email");
                 if (status.status == "true" && email != this.cookie.get("email")) {
                     alert("NOt ADded")
@@ -501,8 +572,12 @@ export class NotesComponent implements OnInit {
             }
         );
     }
+    /**
+     * to delete the collab email from the main card
+     * @param email for the the card
+     */
     deleteCollabMain(email) {
-         
+
         let temp: any = []
         let j = 0;
         for (let index = 0; index < this.arremail.length; index++) {

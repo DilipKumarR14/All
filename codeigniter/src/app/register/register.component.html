@@ -38,6 +38,7 @@
     </form>
 </div> -->
 
+<!-- for the register page -->
 <ngx-spinner></ngx-spinner>
 <div class="heading">Register Form</div>
 <br><br>
@@ -48,17 +49,16 @@
     <div class="example-container">
         <mat-form-field>
             <input matInput maxlength="10" placeholder="Name" [formControl]="user" required autofocus name="name"
-                [(ngModel)]="model.name" [(ngModel)]="model.aname" >
+                [(ngModel)]="model.name" [(ngModel)]="model.aname">
             <mat-error *ngIf="user.invalid">{{getNameErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Email" [formControl]="email" required name="email" 
-            [(ngModel)]="model.email" [(ngModel)]="model.aemail">
+            <input matInput placeholder="Email" [formControl]="email" required name="email" [(ngModel)]="model.email"
+                [(ngModel)]="model.aemail">
             <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input matInput maxlength="10"
-             placeholder="Mobile Number" [formControl]="mobile" name="mobile" required
+            <input matInput maxlength="10" placeholder="Mobile Number" [formControl]="mobile" name="mobile" required
                 [(ngModel)]="model.mobile" [(ngModel)]="model.amobile">
             <mat-error *ngIf="mobile.invalid">{{getMobileErrorMessage()}}</mat-error>
         </mat-form-field>
