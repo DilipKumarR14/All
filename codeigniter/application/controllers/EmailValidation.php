@@ -7,6 +7,7 @@ class EmailValidation
 {
     /**
      * @method used for validating the email after registeration of the form
+     * @return the email valid or not
      */
 
     public function emailValid()

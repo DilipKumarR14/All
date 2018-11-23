@@ -6,6 +6,7 @@ include_once "NoteStoreConfig.php";
 /**
  * @description this api is used for storing and fetching the note
  * @method method that fetch the note from database
+ * @return the jsondata data if success / failure response
  */
 class FetchNote
 {
@@ -52,9 +53,9 @@ class FetchNote
 
                 $id = $row['MAX(id)'];
 
-                $emailres = explode(",",$collabrr);
+                $emailres = explode(",", $collabrr);
 
-                for ($i=0; $i <sizeof($emailres) ; $i++) { 
+                for ($i = 0; $i < sizeof($emailres); $i++) {
                     $stm = $conn->prepare("INSERT INTO  collaborators (email ,  noteid ,  owner ) VALUES ('$emailres[$i]','$id','$owner')");
                     $stm->execute();
                 }
@@ -78,8 +79,8 @@ class FetchNote
                 $rescollab = json_encode($rowcolla);
 
                 $all = array(
-                    "res"=> $row,
-                    "rescolla"=>$rowcolla
+                    "res" => $row,
+                    "rescolla" => $rowcolla,
                 );
 
                 print json_encode($all);
@@ -98,7 +99,11 @@ class FetchNote
         }
 
     }
-
+/**
+ * @method fetch()
+ * to get all the card for the particular email
+ * @return all the cards
+ */
     public function fetch()
     {
         $res = apache_request_headers();
@@ -112,7 +117,7 @@ class FetchNote
         /**
          * fetch all the values from the  database based on the email
          */
-         
+
         $stmt = $conn->prepare("select * from note where isArchive = 'false' and isDelete = 'false' and (email = '$email' or id in (select noteid from collaborators where email = '$email' ) ) order by id desc ");
         $stmt->execute();
         /**
@@ -125,11 +130,12 @@ class FetchNote
          */
         print($res);
     }
-   /** 
-    * @desc for the edit the reminder
-    * @var idcard for store the id of the card
-    * @var timecard for store the time set on card
-    */
+    /**
+     * @desc for the edit the reminder
+     * @var idcard for store the id of the card
+     * @var timecard for store the time set on card
+     * @return void
+     */
     public function editReminderCard()
     {
 
@@ -147,6 +153,7 @@ class FetchNote
     }
 /**
  * @desc for the delete  the remindeer on the card
+ * @return void
  */
     public function deleteReminderCard()
     {
@@ -166,9 +173,11 @@ class FetchNote
  * @var timecard for the timecard
  * @var email for the email
  * @var title for the title
+ * @return void
  */
 
-    public function popCardEditReminder(){
+    public function popCardEditReminder()
+    {
         $idcard = $_POST['id'];
         $timecard = $_POST['dateandtime'];
         $email = $_POST['email'];
@@ -179,13 +188,15 @@ class FetchNote
 
         $stmt = $conn->prepare("UPDATE note SET date = '$timecard',note = '$note',title = '$title' where id = '$idcard' ");
         $stmt->execute();
-      
+
     }
 /**
  * @desc for the delete the card and store in trash
  * @var idcard for the id
+ *  @return jsondata having all the note
  */
-    public function delete(){
+    public function delete()
+    {
         $idcard = $_POST['idcard'];
         $conf = new NoteStoreConfig();
         $conn = $conf->configs();
@@ -200,18 +211,20 @@ class FetchNote
         $stmt->execute();
 
         $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $jsondata = json_encode($row);
         print($jsondata);
-       
+
     }
 /**
  * @desc for the title and note of the particular id
  * @var idcard for the id
  * @var title for the title
  * @var note for the note
+ * @return void
  */
-    public function save(){
+    public function save()
+    {
         $idcard = $_POST['id'];
         $note = $_POST['note'];
         $title = $_POST['title'];

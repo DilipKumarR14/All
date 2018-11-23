@@ -4,19 +4,18 @@ header('Access-Control-Allow-Origin: *');
 class ForgetPassword
 {
 /**
- * description - an API that receives the request for the forgot password from the user 
+ * description - an API that receives the request for the forgot password from the user
+ *  @var email holds the email from form
+ * @var conf Holds the  Object of the PDO Connection
+ * @return the success/failure
  */
     public function forgotPassword()
     {
         /**
-         * Allow the Acces to any one using this API By using * operator 
+         * Allow the Acces to any one using this API By using * operator
          * or for specific http://www.example.com
          */
         header('Access-Control-Allow-Origin: *');
-        /**
-         * @var email holds the email from form
-         * @var conf Holds the  Object of the PDO Connection
-         */
         $email = $_POST['email'];
         $conf = new Config();
         $conn = $conf->configs();
@@ -42,7 +41,7 @@ class ForgetPassword
             //update the resetkey column in the database for the particular email
             $stmt = $conn->prepare("UPDATE users SET resetkey = '$token' WHERE email = '$email'");
             $stmt->execute();
-        
+
             if (!class_exists('PHPMailer')) {
                 require 'phpmailer/class.phpmailer.php';
                 require 'phpmailer/class.smtp.php';
@@ -91,7 +90,8 @@ class ForgetPassword
     }
 /**
  * description - an API that receives the request for the reset password from the user
- * by the link send to the user emailid 
+ * by the link send to the user emailid
+ * @return the success/failure of password reset
  */
     public function reset()
     {
@@ -125,29 +125,33 @@ class ForgetPassword
         $pass1 = $_POST['pass1'];
         if ($tok != "") {
             if ($tok == $token) {
-                    if ($pass == $pass1) {
+                if ($pass == $pass1) {
 
-                        $stmt = $conn->prepare("UPDATE users SET password = '$pass' WHERE resetkey = '$token'");
-                        $stmt->execute();
+                    $stmt = $conn->prepare("UPDATE users SET password = '$pass' WHERE resetkey = '$token'");
+                    $stmt->execute();
 
-                        $stmt1 = $conn->prepare("UPDATE users SET resetkey = null WHERE resetkey = '$token'");
-                        $stmt1->execute();
+                    $stmt1 = $conn->prepare("UPDATE users SET resetkey = null WHERE resetkey = '$token'");
+                    $stmt1->execute();
 
-                        $res = '{"status":"200"}';// success
-                        print $res;
-                    }
-                 
+                    $res = '{"status":"200"}'; // success
+                    print $res;
+                }
+
             } else {
-                $res = '{"status":"498"}';// token is invalid
+                $res = '{"status":"498"}'; // token is invalid
                 print $res;
             }
         } else {
-            $res = '{"status":"401"}';// linked expire
+            $res = '{"status":"401"}'; // linked expire
             print $res;
         }
     }
 
-
+    /**
+     * @method getEmailId()
+     * fetch all the email
+     * @return josndata containing the email
+     */
     public function getEmailId()
     {
         require_once "Config.php";

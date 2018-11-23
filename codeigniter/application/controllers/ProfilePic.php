@@ -4,10 +4,14 @@ header("Access-Control-Allow-Headers: Authorization");
 include_once "NoteStoreConfig.php";
 /**
  * @desc card having the reminder will be displayed
- * @var email to store the email
  */
 class ProfilePic
 {
+    /**
+     * @method upload()
+     * @var email to store the email
+     * @return path of the profile pic
+     */
     public function upload()
     {
         $conf = new NoteStoreConfig();
@@ -40,6 +44,11 @@ class ProfilePic
         }
     }
 
+    /**
+     * @method getPic()
+     * get the profile pic of particular email
+     * @return path of profile pic
+     */
     public function getPic()
     {
         $conf = new NoteStoreConfig();
@@ -47,13 +56,8 @@ class ProfilePic
 
         $email = $_POST['email'];
 
-        if($email!=""){
+        if ($email != "") {
             $stmt = $conn->prepare("select profilepic from users where email = '$email' ");
-       
-
-
-
-
             if ($stmt->execute()) {
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 print json_encode($row);
@@ -66,9 +70,4 @@ class ProfilePic
             }
         }
     }
-
-
-
-
-
 }

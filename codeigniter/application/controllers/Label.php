@@ -6,9 +6,12 @@ include_once "NoteStoreConfig.php";
  * @description all the crud operation on the label and store it in database
  */
 class Label
-{/**
- *@descrition used for the add the label and store it in database
- */
+{
+    /**
+     *@description used for the add the label and store it in database
+     * @method addLabel()
+     * @return jsondata containing all the label
+     */
     public function addLabel()
     {
         $conf = new NoteStoreConfig();
@@ -18,7 +21,7 @@ class Label
         $label = $_POST['label'];
 
         /**
-         * insert the label into databse based on the emailid
+         * insert the label into database based on the emailid
          */
         if ($email != "") {
             $stm = $conn->prepare("INSERT INTO label(email,label) VALUES('$email','$label')");
@@ -32,10 +35,12 @@ class Label
 
     }
 //
-/**
- *@desc  to return all the label
- * @var email to store the email 
- */
+    /**
+     * @method fetchLabel()
+     *@desc  to return all the label
+     * @var email to store the email 
+     * @return jsondata containing all the label
+     */
     public function fetchLabel()
     {
         $conf = new NoteStoreConfig();
@@ -52,10 +57,12 @@ class Label
         }
 
     }
-/**
- * @desc for the delete the label
- * @var id to store the id
- */
+    /**
+     * @method delete()
+     * @desc for the delete the label
+     * @var id to store the id
+     * @return jsondata containing all the label
+     */
     public function delete()
     {
         $conf = new NoteStoreConfig();
@@ -75,7 +82,9 @@ class Label
         }
     }
     /**
+     * @method editLabel()
      * @desc edit the label and store it in database
+     * @return jsondata contain all the label
      */
     public function editLabel()
     {
@@ -101,15 +110,17 @@ class Label
 
         }
     }
-/**
- * @desc label for the note
- * @var email to store the email 
- */
+    /**
+     * @method labelForNote()
+     * @desc label for the note
+     * @var email to store the email 
+     * @return jsondata contain all the label
+     */
     public function labelForNote()
     {
         $conf = new NoteStoreConfig();
         $conn = $conf->configs();
-        $email  = $_POST['email'];
+        $email = $_POST['email'];
 
         $stm = $conn->prepare("SELECT * FROM label where email = '$email' order by id desc ");
         $stm->execute();
@@ -117,12 +128,15 @@ class Label
         $json = json_encode($row);
         print($json);
     }
-/** 
- * @desc for the label for each card
- * @var id store id
- * @var label store the labelname
- */
-    public function addLabelCard(){
+    /** 
+     * @method addLabelCard()
+     * @desc for the label for each card
+     * @var id store id
+     * @var label store the labelname
+     * @return void
+     */
+    public function addLabelCard()
+    {
         $conf = new NoteStoreConfig();
         $conn = $conf->configs();
 
@@ -136,11 +150,14 @@ class Label
             echo $e->getMessage();
         }
     }
-/**
- * to delete the label for the card
- * @var id store id
- */
-    public function deleteLabel(){
+    /**
+     * @method deleteLabel()
+     * to delete the label for the card
+     * @var id store id
+     * @return jsondata contain all the label
+     */
+    public function deleteLabel()
+    {
         $conf = new NoteStoreConfig();
         $conn = $conf->configs();
 
@@ -163,14 +180,16 @@ class Label
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
-    }    
-/**
- * to get all the label for each of the card
- * @var label to store the label
- */
-    public function getLabel(){
+    }
+    /**
+     * to get all the label for each of the card
+     * @var label to store the label
+     * @return jsondata contain all the label
+     */
+    public function getLabel()
+    {
         $label = $_POST['label'];
-        
+
         $conf = new NoteStoreConfig();
         $conn = $conf->configs();
         $stmt = $conn->prepare(" select * from note where label = '$label' ");

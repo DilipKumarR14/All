@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @description to configure the database
+ * @return PDO object
+ */
 class ConfigLabel
 {
     public function configs()

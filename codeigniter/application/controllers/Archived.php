@@ -8,12 +8,13 @@ include_once "NoteStoreConfig.php";
 class Archived
 {
     /**
-     * @description to check whether it is archived
+     *  @method isArchive()
+     *  to check whether it is archived
      * @var id which store the id of the archive card
+     * @return jsondata
      */
     public function isArchive()
     {
-
         $id = $_POST['id'];
 
         $conf = new NoteStoreConfig();
@@ -32,10 +33,13 @@ class Archived
         print($jsondata);
     }
     /**
+     * @method unArchive()
      * @description to check whether it is archived
      * @var id which store the id of the unarchive card
+     * @return jsondata
      */
-    public function unArchive(){
+    public function unArchive()
+    {
         $id = $_POST['id'];
 
         $conf = new NoteStoreConfig();
@@ -54,11 +58,13 @@ class Archived
         print($jsondata);
     }
 
+    /**
+     * @method receiveArchive()
+     * to store the archive the cards into the database
+     * @return jsondata
+     */
     public function receiveArchive()
     {
-        /**
-         * to store the archive the cards into the database
-         */
 
         $headers = apache_request_headers();
 
@@ -67,10 +73,8 @@ class Archived
         require "Account.php";
 
         $validate = new Account();
-        if ($validate->verify($jwttoken[1])) 
-        {
-            if ($_POST['email'] != null) 
-            {
+        if ($validate->verify($jwttoken[1])) {
+            if ($_POST['email'] != null) {
 
                 $email = $_POST['email'];
                 $title = $_POST['title'];
@@ -99,17 +103,14 @@ class Archived
                 $res = json_encode($row);
 
                 print($res);
-            } else 
-            {
+            } else {
                 /**
                  * email not found (content-not found)
                  */
                 $res = '{"status":"204"}';
                 print $res;
             }
-        } 
-        else 
-        {
+        } else {
             $res = json_encode(array(
                 "status" => "404",
             ));
@@ -118,9 +119,12 @@ class Archived
     }
 
     /**
-     * @description for the store the archive card 
+     * @method storearchive()
+     *  for the store the archive card
+     * @return jsondata
      */
-    public function storearchive(){
+    public function storearchive()
+    {
 
         $res = apache_request_headers();
 
@@ -147,4 +151,3 @@ class Archived
     }
 
 }
-?>

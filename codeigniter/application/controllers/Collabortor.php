@@ -8,21 +8,21 @@ include_once "NoteStoreConfig.php";
 class Collabortor
 {
     /**
+     * @method collabortors()
      * @description for adding the email to the card
      */
     public function collabortors()
     {
-        /** 
+        /**
          * @var email to store the email
          * @var id for thhe id of the card
          * @var owner fetch the owner of the card
-        */
+         */
         $email = $_POST['email'];
         $id = $_POST['id'];
         $owner = $_POST['owner'];
         $conf = new NoteStoreConfig();
         $conn = $conf->configs();
-
         $stmt = $conn->prepare("SELECT email from users ");
 
         $stmt->execute();
@@ -60,9 +60,11 @@ class Collabortor
         }
 
     }
-/**
- * to fetch the owner of the card
- */
+    /**
+     * @method getOwner()
+     * to fetch the owner of the card
+     * @return jsondata
+     */
     public function getOwner()
     {
         /**
@@ -84,10 +86,10 @@ class Collabortor
         print($jsondata);
     }
 
-    // for the getting all email for adding to collab
-/**
- * for the adding the all the collabed email to the card
- */
+    /**
+     * for the adding the all the collabed email to the card,for the getting all email for adding to collab
+     * @return jsondata
+     */
     public function getCollabEmail()
     {
 
@@ -97,7 +99,7 @@ class Collabortor
         $email = $_POST['email'];
         $id = $_POST['id'];
         $owner = $_POST['owner'];
-            // for the inavlid email
+        // for the inavlid email
         $stmt = $conn->prepare(" select distinct email from users");
 
         $stmt->execute();
@@ -109,32 +111,31 @@ class Collabortor
             if ($email == $qqw && $email != "") {
 
 // for the owner add/delete
- $stmt = $conn->prepare("select owner from collaborators where noteid = '$id' ");
+                $stmt = $conn->prepare("select owner from collaborators where noteid = '$id' ");
 
-     $r = $stmt->execute();
+                $r = $stmt->execute();
 
-     $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
- if ($row['owner'] == $owner && $owner != "" && $owner!=$email) {
+                if ($row['owner'] == $owner && $owner != "" && $owner != $email) {
 
-          if ($_POST['email'] != "" && $_POST['id'] != "" && $_POST['owner']) {
+                    if ($_POST['email'] != "" && $_POST['id'] != "" && $_POST['owner']) {
 
-    $stmt = $conn->prepare("INSERT INTO collaborators(email, noteid, owner) VALUES ('$email','$id','$owner')");
+                        $stmt = $conn->prepare("INSERT INTO collaborators(email, noteid, owner) VALUES ('$email','$id','$owner')");
 
-    $stmt->execute();
+                        $stmt->execute();
 
-    // $stmt = $conn->prepare("SELECT  email from collaborators ");
+                        // $stmt = $conn->prepare("SELECT  email from collaborators ");
 
-    //  $stmt->execute();
+                        //  $stmt->execute();
 
-    $stmt = $conn->prepare("SELECT DISTINCT email,noteid from collaborators");
+                        $stmt = $conn->prepare("SELECT DISTINCT email,noteid from collaborators");
 
-    $stmt->execute();
+                        $stmt->execute();
 
+                        $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-     $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if ($row != "" && $row != null) {
+                        if ($row != "" && $row != null) {
                             $res = json_encode(array(
                                 "status" => "true",
                                 "email" => $row,
@@ -150,7 +151,7 @@ class Collabortor
                     }
                 }
                 // if the email and owner or same
-                 else if ($row['owner'] == $email) {
+                else if ($row['owner'] == $email) {
                     $res = json_encode(array(
                         "status" => "owner",
                     ));
@@ -173,10 +174,9 @@ class Collabortor
         }
         print($res);
     }
-
-    // to display all the collabed mailid
     /**
-     * @desc to get all email and display in the card
+     * @method getCollabedEmail()
+     * to get all email and display in the card,to display all the collabed mailid
      * @var id that holds the id of the card
      */
     public function getCollabedEmail()
@@ -207,12 +207,13 @@ class Collabortor
 
     }
 // delete button for collabs
-/**
- * @desc to delete the collabed email to delete from the card
- * @var id to store the id of the card
- * @var email to store the email of the card
- * @var owner tp store the owner of the card
- */
+    /**
+     * @desc to delete the collabed email to delete from the card
+     * @var id to store the id of the card
+     * @var email to store the email of the card
+     * @var owner tp store the owner of the card
+     * @return jsondata containing the email to be returned
+     */
     public function deleteCollab()
     {
         $conf = new NoteStoreConfig();
@@ -241,8 +242,6 @@ class Collabortor
             $stmt = $conn->prepare("SELECT DISTINCT email,noteid from collaborators");
 
             $stmt->execute();
-            
-
 
             $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -296,10 +295,12 @@ class Collabortor
         }
 
     }
-// to display for the note card
-/** 
- * @desc for the display the note card
-*/
+
+    /**
+     * @method displayForNoteCard()
+     * @desc for the display the note card
+     * @return jsondata containing the email to be returned
+     */
     public function displayForNoteCard()
     {
         $conf = new NoteStoreConfig();
@@ -329,6 +330,7 @@ class Collabortor
  * @desc to get the email of the card
  * @var owner of the card
  * @var email of thhe card
+ * @var jsondata containing the email to be returne
  */
     public function getEmail()
     {

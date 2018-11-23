@@ -8,6 +8,7 @@ header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Or
 
 include_once "Config.php";
 include_once "Implement.php";
+include "/var/www/html/codeigniter/vendor/autoload.php";
 /**
  * @description Account API which is used for register and login
  */
@@ -20,6 +21,7 @@ class Account
          * @var email holds the email from form
          * @var mobile holds the mobile from form
          * @var password holds the password from form
+         * @return success/failure
          */
 
         $name = $_POST['name'];
@@ -38,7 +40,6 @@ class Account
 
         // Create connection
         if ($qm == true || $qe == true) {
-            // echo "Already EXist\n";
             $res = '{"status":"0"}';
             print $res;
         } else if ($name == "undefined" || $email == "undefined" || $mobile == "" || $password == "undefined") {
@@ -70,6 +71,7 @@ class Account
                     $mail1 = $row['email'];
                     $nm = $row['name'];
                 }
+                // for the hashing the email and generate the token
                 $token = md5($mail1);
                 $mail1 = "";
                 $n = "";
@@ -130,7 +132,9 @@ class Account
 
 
 /**
+ * @method createJwtToken
  * for the token to be stored generated
+ * @return the jwt token
  */
 
     public static  function  createJwtToken($email)
@@ -146,7 +150,9 @@ class Account
     }
 
     /**
-     * to verfity the token
+     * @method verify
+     * to verfiy the token
+     * @return verify the token
      */
     public function verify($jwt): bool
     {
@@ -161,7 +167,9 @@ class Account
         return hash_equals($rawSignature, $signature);
     }
     /**
+     * @method base64UrlDecode()
      * convert to base64 encode
+     * @return convert the data to base64url format
      */
     public static function base64UrlDecode($data): string
     {
@@ -172,20 +180,22 @@ class Account
         return base64_decode($paddedData);
     }
 
-
+        /**
+         * @method logins()
+         * @var email holds the email from form
+         * @var password holds the password from form
+         * @return success/failure login
+         */
 
     public function logins()
     {
-        /**
-         * @var email holds the email from form
-         * @var password holds the password from form
-         */
+   
 
         $objOfJwt = new ImplementedJwt();
         header('Content-Type:application/json');
 
         $email = $_POST['email'];
-        $password = $_POST['password'];
+        $password = $_POST['password'];        
 
         //tokens
 

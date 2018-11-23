@@ -1,7 +1,14 @@
 <?php
-
+/**
+ * @description for the database configuration
+ */
 class NoteStoreConfig
 {
+    /**
+     * @method configs()
+     * PDO Object is created
+     * @return the PDO Object
+     */
     public function configs()
     {
         $servername = "localhost";

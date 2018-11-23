@@ -1,4 +1,7 @@
 <?php
+/**
+ * @description for the mail sending for the regitser/forgetpassword
+ */
 define("PROJECT_HOME","http://localhost:4200/resets");
 define("PROJECT_VALIDATE","http://localhost:4200/valid");
 define("PORT", "587"); // port number
