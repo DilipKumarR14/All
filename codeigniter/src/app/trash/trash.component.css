@@ -1,121 +1,132 @@
-mat-card-title{
+mat-card-title {
     font-size: large;
     font-weight: bolder;
-  }
+}
 
-    input{
-        width: 95%;
-        border:0px;
-        outline: none;
-        font-weight: bold;
-        outline-style:none;
-        opacity: 0.5;
-    }
-
-  .mat-icon-button{
-      outline: none;
-      margin-left: 2%;
-      width: 33px;
-  }
-  
-  [contentEditable=true]:empty:not(:focus):before{
-    content:attr(data-text)
-  }
-  .divtext{
+input {
+    width: 95%;
+    border: 0px;
+    outline: none;
     font-weight: bold;
-    outline-style:none;
+    outline-style: none;
     opacity: 0.5;
-  }
-  .pin{
-    outline-style:none;
+}
+
+.mat-icon-button {
+    outline: none;
+    margin-left: 2%;
+    width: 33px;
+}
+
+[contentEditable=true]:empty:not(:focus):before {
+    content: attr(data-text)
+}
+
+.divtext {
+    font-weight: bold;
+    outline-style: none;
+    opacity: 0.5;
+}
+
+.pin {
+    outline-style: none;
     opacity: 0.5;
     margin: -20px;
-  }
-  
-  .menubutton{
+}
+
+.menubutton {
     /* margin: 1% -16% 2% -8%; */
     opacity: 0.5;
     margin: -2% -16% 2% -3%;
-  
-  }
+}
 
-  .dropmenu{
+.dropmenu {
     width: 273px;
     height: 250px;
     margin: -5% 1% 1% 28%;
     position: absolute;
-    z-index:100;
+    z-index: 100;
     padding: 1% 1% 1% 1%;
     border-radius: 0px;
-  }
-  .button{
+}
+
+.button {
     width: 68px;
-      margin-top: 10px;
-      margin-left: 170px;
-      font-size: 12px;
-      font-family: MONOSPACE; 
-  }
-  mat-card{
+    margin-top: 10px;
+    margin-left: 170px;
+    font-size: 12px;
+    font-family: MONOSPACE;
+}
+
+mat-card {
     border-radius: 8px;
-  
-  }
-  .timestamp{
+}
+
+.timestamp {
     line-height: 10px;
-    padding-bottom:27px;
+    padding-bottom: 27px;
     font-size: 10px;
-  }
-  .timedisplay{
+}
+
+.timedisplay {
     margin: -42% 2% 0% 86%;
-  }
-  .test{
-    margin-top:10px;
-    margin-left:15px;
-    padding:6px;
-  }
-  .content
-  {
-  
-  border: none;
-  border-color: transparent;
-  outline: none;
-  word-wrap: break-word;
-  width: 100%;
-  min-height: 20px;
-  }
-  
-  [contentEditable=true]:empty:not(:focus):before{
-    content:attr(data-text)
-    }
-    img{
-      width:20px;
-      height: 20px;
-    }
-    .testlist{
-      width: 561px;
-      margin-left: 100px;
-    }
-    .timestampclose{
-      margin-left: -8px;
-      margin-top: -1px;
-      margin-bottom: -1px;
-      line-height: 10px;
-    }
-    .closereminder{
-      border-radius: 20px;
-          outline-style: none;
-          margin: -1% 0% 0% -9%;
-          font-size: 12px;
-          height: 0px;
-    }
-    .setreminder{
-      border-radius:20px;
-      outline-style:none;
-      font-size: 10px;
-      /* for button invisible */
-      height: 0px;
-    }
-    /* for the menu for select the time and date */
-  .dropmenures{
+}
+
+.test {
+    margin-top: 10px;
+    margin-left: 15px;
+    padding: 6px;
+}
+
+.content {
+    border: none;
+    border-color: transparent;
+    outline: none;
+    word-wrap: break-word;
+    width: 100%;
+    min-height: 20px;
+}
+
+[contentEditable=true]:empty:not(:focus):before {
+    content: attr(data-text)
+}
+
+img {
+    width: 20px;
+    height: 20px;
+}
+
+.testlist {
+    width: 561px;
+    margin-left: 100px;
+}
+
+.timestampclose {
+    margin-left: -8px;
+    margin-top: -1px;
+    margin-bottom: -1px;
+    line-height: 10px;
+}
+
+.closereminder {
+    border-radius: 20px;
+    outline-style: none;
+    margin: -1% 0% 0% -9%;
+    font-size: 12px;
+    height: 0px;
+}
+
+.setreminder {
+    border-radius: 20px;
+    outline-style: none;
+    font-size: 10px;
+    /* for button invisible */
+    height: 0px;
+}
+
+/* for the menu for select the time and date */
+
+.dropmenures {
     width: 273px;
     height: 250px;
     position: absolute;
@@ -123,14 +134,15 @@ mat-card-title{
     border-radius: 0px;
     z-index: 100;
     margin: -9% 1% 1% 4%;
-  }
-  .timestampresclose{
+}
+
+.timestampresclose {
     line-height: 10px;
-  }
-  .closereminderres{
+}
+
+.closereminderres {
     margin-right: -68px;
     height: 0px;
     outline-style: none;
     margin-left: -29px;
-  
-  }
+}

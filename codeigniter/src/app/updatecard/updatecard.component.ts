@@ -103,7 +103,7 @@ export class UpdatecardComponent implements OnInit {
 
   // close the popup box afetr edititng
   onNoClick(): void {
-    
+
     this.dialogRef.close();
   }
   //change the color
@@ -135,7 +135,7 @@ export class UpdatecardComponent implements OnInit {
   // for close the card after time and date is selected
   //for list view
   editReminder(id) {
-    
+
     this.cardmenu = false;
     let currentDate = dateFormat(this.model.date, "dd/mm/yyyy");
     let result = currentDate + " " + this.model.time;
@@ -143,18 +143,18 @@ export class UpdatecardComponent implements OnInit {
     this.service.popUpdateReminder(id, this.data.datas).subscribe();
   }
   deleteNote(id) {
-    
+
     this.service.deleteNote(id).subscribe(
       (status: any) => {
-        
+
         this.dialogRef.close(status);
       }
     );
 
   }
 
-  save(datas){
-    
+  save(datas) {
+
     this.service.saveData(datas).subscribe();
     this.dialogRef.close();
   }

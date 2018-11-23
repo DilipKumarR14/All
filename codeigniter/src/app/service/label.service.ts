@@ -7,107 +7,139 @@ import { HttpClient } from '@angular/common/http';
 export class LabelService {
 
   constructor(private http: HttpClient, private cookie: CookieService) { }
-private url = "http://localhost/codeigniter/addLabel";
-private fetch = "http://localhost/codeigniter/fetchLabel";
-private deletelabel = "http://localhost/codeigniter/deleteLabel";
-private editLabelurl = "http://localhost/codeigniter/editLabelurl";
-private addlabel = "http://localhost/codeigniter/addlabel";
-mode:any;
-// to store the label into db 
-  label(mode){
-    
+  private url = "http://localhost/codeigniter/addLabel";
+  private fetch = "http://localhost/codeigniter/fetchLabel";
+  private deletelabel = "http://localhost/codeigniter/deleteLabel";
+  private editLabelurl = "http://localhost/codeigniter/editLabelurl";
+  private addlabel = "http://localhost/codeigniter/addlabel";
+  mode: any;
+
+  /**
+   * to store the label into db
+   * @param mode that contain the label information 
+   */
+  label(mode) {
+
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
     const params = new FormData();
-    params.append("label",mode.label);
-    const email  = this.cookie.get("email");
-    params.append("email",email)
-    return this.http.post(this.url,params,otheroption);
+    params.append("label", mode.label);
+    const email = this.cookie.get("email");
+    params.append("email", email)
+    return this.http.post(this.url, params, otheroption);
 
   }
-  // to fetch the label from the database
-  fetchlabel(){
-    
+
+  /**
+   * to fetch the label from the database
+   */
+  fetchlabel() {
+
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
     const params = new FormData();
-    const email  = this.cookie.get("email");
-    params.append("email",email)
-    return this.http.post(this.fetch,params,otheroption);
+    const email = this.cookie.get("email");
+    params.append("email", email)
+    return this.http.post(this.fetch, params, otheroption);
   }
 
-// for delete the label from the database
-  delete(id){
-    
+  /**
+   * for delete the label from the database
+   * @param id id of the label
+   */
+  delete(id) {
+
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
     const params = new FormData();
-    params.append("id",id);
-    return this.http.post(this.deletelabel,params,otheroption);
+    params.append("id", id);
+    return this.http.post(this.deletelabel, params, otheroption);
   }
 
+  /**
+   * to change the label
+   * @param id to store the id of the label
+   * @param data to store the label
+   */
+  editLabel(id, data) {
 
-  editLabel(id,data){
-    
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
     const params = new FormData();
-    params.append("id",id);
-    params.append("label",data);
-    return this.http.post(this.editLabelurl,params,otheroption);
+    params.append("id", id);
+    params.append("label", data);
+    return this.http.post(this.editLabelurl, params, otheroption);
   }
 
-  addLabel(email){
-    
+  /**
+   * to add the label of particular id
+   * @param email store the email
+   */
+  addLabel(email) {
+
     let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
     const params = new FormData();
-    params.append("email",email)
-    return this.http.post(this.addlabel,params,otheroption);
+    params.append("email", email)
+    return this.http.post(this.addlabel, params, otheroption);
   }
 
   private labelcard = "http://localhost/codeigniter/addLabelCard";
 
-  addLabelCard(id,labelname){
-    
-    let otheroption :any = {
+  /**
+   * to add the label to the card
+   * @param id to store the id of label
+   * @param labelname label name
+   */
+  addLabelCard(id, labelname) {
+
+    let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
 
     const params = new FormData();
-    params.append("id",id);
-    params.append("labelname",labelname);
-    return this.http.post(this.labelcard,params,otheroption);
+    params.append("id", id);
+    params.append("labelname", labelname);
+    return this.http.post(this.labelcard, params, otheroption);
   }
 
   private labeldelete = "http://localhost/codeigniter/deleteLabelCard";
 
-  deleteLabelCard(id){
-    
-    let otheroption :any = {
+  /**
+   * to delete the label of particular id
+   * @param id of the label
+   */
+  deleteLabelCard(id) {
+
+    let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
 
     const params = new FormData();
-    params.append("id",id);
-    return this.http.post(this.labeldelete,params,otheroption);
+    params.append("id", id);
+    return this.http.post(this.labeldelete, params, otheroption);
   }
 
   private eachlabel = "http://localhost/codeigniter/getLabel";
-  getLabelForCard(label){
-    
-    let otheroption :any = {
+
+  /**
+   * 
+   * @param label to store the label 
+   */
+  getLabelForCard(label) {
+
+    let otheroption: any = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
 
     const params = new FormData();
-    params.append("label",label);
-    return this.http.post(this.eachlabel,params,otheroption);
+    params.append("label", label);
+    return this.http.post(this.eachlabel, params, otheroption);
   }
 
 
